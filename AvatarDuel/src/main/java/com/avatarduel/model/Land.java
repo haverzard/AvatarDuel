@@ -1,5 +1,7 @@
 package com.avatarduel.model;
 
+import com.avatarduel.element.Element;
+
 public class Land {
   private String name;
   private String description;
