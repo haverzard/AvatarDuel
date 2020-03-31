@@ -1,16 +1,16 @@
 package com.avatarduel.deck;
 
-import com.avatarduel.card.Card;
+import com.avatarduel.card.GameCard;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
+import java.util.Collections;
+import java.util.List;
 
 public class Deck {
     private int capacity;
-    private Queue<Card> cards; // Depend on Card, a higher abstraction, instead of CharacterCard, etc.
+    protected List<GameCard> gameCards; // Depend on Card, a higher abstraction, instead of CharacterCard, etc.
 
-    public Deck() {
-        cards = new ArrayDeque<Card>();
+    public Deck(List<GameCard> x) { // Doesn't depend on a single collection class, could use ArrayList or etc.
+        gameCards = x;
         capacity = 100;
     }
 
@@ -26,12 +26,20 @@ public class Deck {
         capacity = _capacity;
     }
 
-    public void add(Card x) {
-        cards.add(x);
+    public int getSize() {
+        return gameCards.size();
     }
 
-    public Card pop() {
-        return cards.remove();
+    public void add(GameCard x) {
+        if(gameCards.size()+1 <= capacity) gameCards.add(x);
     }
 
+    public GameCard pop() {
+        if (!gameCards.isEmpty()) return gameCards.remove(0);
+        return null;
+    }
+
+    public void shuffle() {
+        Collections.shuffle(gameCards);
+    }
 }

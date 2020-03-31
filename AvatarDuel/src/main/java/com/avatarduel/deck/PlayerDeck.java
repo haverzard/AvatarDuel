@@ -1,10 +1,12 @@
 package com.avatarduel.deck;
 
-import com.avatarduel.card.Card;
+import com.avatarduel.card.GameCard;
+
+import java.util.List;
 
 public class PlayerDeck extends Deck {
-    public PlayerDeck() {
-        super();
+    public PlayerDeck(List<GameCard> x) {
+        super(x);
         setCapacity(60);
     }
 }

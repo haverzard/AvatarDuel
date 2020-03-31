@@ -1,12 +1,16 @@
 package com.avatarduel.components;
 
+import com.avatarduel.card.GameCard;
+import com.avatarduel.element.Element;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 public class Card {
     // Width : Height = 5 : 8
@@ -42,12 +46,16 @@ public class Card {
         return closedCard;
     }
 
-    public static BorderPane getOpenCard(double width, boolean isEmpty) {
-        double height = width/5*8;
+    public static HBox getCardTop(double width, double height) {
+        return getCardTop(width, height, "", null);
+    }
 
-        // Card Top
+
+    public static HBox getCardTop(double width, double height, String title, Element x) {
         BorderPane titleInside = new BorderPane();
         titleInside.setMinWidth(width*0.8);
+        titleInside.setLeft(new Text(title));
+        //if (x != null)  titleInside.setRight(new Text(title));
 
         HBox titleBar = new HBox();
         titleBar.setMinWidth(width*22/25);
@@ -61,20 +69,51 @@ public class Card {
         cardTop.setAlignment(Pos.CENTER);
         cardTop.getChildren().add(titleBar);
 
-        // Card Middle
-        HBox image = new HBox();
-        image.setMinWidth(width*0.8);
-        image.setBorder(Basic.getBorder(1));
+        return cardTop;
+    }
+
+    public static HBox getCardMiddle(double width, double height) {
+        return getCardMiddle(width, height, "");
+    }
+
+    public static HBox getCardMiddle(double width, double height, String imgUrl) {
+
+        HBox imageBox = new HBox();
+        imageBox.setMinWidth(width*0.8);
+        imageBox.setBorder(Basic.getBorder(1));
+        try {
+            if (!imgUrl.isEmpty()) {
+                ImageView image = new ImageView();
+                image.setFitWidth(width * 0.8);
+                image.setFitHeight(height / 2);
+                image.setImage(new Image(imgUrl));
+                imageBox.getChildren().add(image);
+            }
+            System.out.println(imgUrl);
+        } catch(Exception e) {
+            System.out.println(e);
+        }
 
         HBox cardMiddle = new HBox();
         cardMiddle.setMinHeight(height/2);
         cardMiddle.setAlignment(Pos.CENTER);
-        cardMiddle.getChildren().add(image);
+        cardMiddle.getChildren().add(imageBox);
 
-        // Card Bottom
+        return cardMiddle;
+    }
+
+    public static HBox getCardBottom(double width, double height) {
+        return getCardBottom(width, height, "");
+    }
+
+    public static HBox getCardBottom(double width, double height, String desc) {
         HBox description = new HBox();
+        description.setMaxWidth(width*21/25);
         description.setMinHeight(height*7/40);
         description.setBorder(Basic.getBorder(1,1,0,1));
+        Label label = new Label(desc);
+        description.getChildren().add(label);
+        label.setWrapText(true);
 
         HBox attr = new HBox();
         attr.setMinHeight(height*3/40);
@@ -82,6 +121,7 @@ public class Card {
 
         BorderPane bottomBar = new BorderPane();
         bottomBar.setMinWidth(width*21/25);
+        bottomBar.setMaxWidth(width*21/25);
         bottomBar.setMaxHeight(height/4);
         bottomBar.setTop(description);
         bottomBar.setBottom(attr);
@@ -91,24 +131,81 @@ public class Card {
         cardBottom.setAlignment(Pos.CENTER);
         cardBottom.getChildren().add(bottomBar);
 
+        return cardBottom;
+    }
+
+    public static BorderPane getOpenCard(double width) {
+        double height = width/5*8;
+
+
         // Card Layout
         BorderPane openCard = new BorderPane();
         openCard.setMinWidth(width);
         openCard.setMaxHeight(height);
         openCard.setBorder(Basic.getBorder(1));
-        openCard.setTop(cardTop);
-        openCard.setCenter(cardMiddle);
-        openCard.setBottom(cardBottom);
-
-        if (!isEmpty) {
-            Text title = new Text("hehe");
-            title.setTextAlignment(TextAlignment.CENTER);
-            Text element = new Text("hehe");
-            element.setTextAlignment(TextAlignment.CENTER);
-            titleInside.setLeft(title);
-            titleInside.setRight(element);
-        }
+        update(openCard, width, null);
 
         return openCard;
+    }
+
+    public static BorderPane getOpenCard(double width, Element x) {
+        BorderPane openCard = getOpenCard(width);
+        switch(x) {
+            case AIR:
+                openCard.setBackground(Basic.getBackground(Color.YELLOW));
+                break;
+            case WATER:
+                openCard.setBackground(Basic.getBackground(Color.AQUA));
+                break;
+            case FIRE:
+                openCard.setBackground(Basic.getBackground(Color.AZURE));
+                break;
+            case EARTH:
+                openCard.setBackground(Basic.getBackground(Color.LIME));
+                break;
+        }
+        return openCard;
+    }
+
+    public static void update(BorderPane card, double width, GameCard x) {
+        double height = width/5*8;
+        HBox cardTop;
+        HBox cardMiddle;
+        HBox cardBottom;
+        if (x != null) {
+            // Card Top
+            cardTop = getCardTop(width, height, x.getName(), x.getElement());
+            // Card Middle
+            cardMiddle = getCardMiddle(width, height, x.getImgUrl());
+            // Card Bottom
+            cardBottom = getCardBottom(width, height, x.getDesc());
+
+            switch(x.getElement()) {
+                case AIR:
+                    card.setBackground(Basic.getBackground(Color.YELLOW));
+                    break;
+                case WATER:
+                    card.setBackground(Basic.getBackground(Color.AQUA));
+                    break;
+                case FIRE:
+                    card.setBackground(Basic.getBackground(Color.AZURE));
+                    break;
+                case EARTH:
+                    card.setBackground(Basic.getBackground(Color.LIME));
+                    break;
+            }
+        } else {
+            // Card Top
+            cardTop = getCardTop(width, height);
+            // Card Middle
+            cardMiddle = getCardMiddle(width, height);
+            // Card Bottom
+            cardBottom = getCardBottom(width, height);
+            card.setBackground(Basic.getBackground(Color.WHITE));
+        }
+        // Card Layout
+        card.setTop(cardTop);
+        card.setCenter(cardMiddle);
+        card.setBottom(cardBottom);
     }
 }

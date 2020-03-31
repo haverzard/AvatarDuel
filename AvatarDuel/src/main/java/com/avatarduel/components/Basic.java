@@ -1,7 +1,5 @@
 package com.avatarduel.components;
 
-import com.avatarduel.AvatarDuel;
-import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
@@ -9,7 +7,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 public class Basic {
     public static HBox scr;

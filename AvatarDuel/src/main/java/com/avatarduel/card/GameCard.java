@@ -3,26 +3,26 @@ package com.avatarduel.card;
 import com.avatarduel.element.Element;
 
 // Prototype
-abstract public class Card {
+abstract public class GameCard {
     private String name;
     private String desc;
     private Element element;
     private String imgUrl;
 
-    public Card() {
+    public GameCard() {
         name = "";
         desc = "";
         element = Element.EARTH;
     }
 
-    public Card(String _name, String _desc, Element _element, String _imgUrl) {
+    public GameCard(String _name, String _desc, Element _element, String _imgUrl) {
         name = _name;
         desc = _desc;
         element = _element;
         imgUrl = _imgUrl;
     }
 
-    abstract public Card clone();
+    abstract public GameCard clone();
 
     // Getter & Setter
     public String getName() {
