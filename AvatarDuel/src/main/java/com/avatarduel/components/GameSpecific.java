@@ -20,7 +20,9 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameSpecific {
     // For phase
@@ -31,7 +33,7 @@ public class GameSpecific {
     public static int target = -1;
     public static List<HBox> fieldBoxes = new ArrayList<HBox>();
     public static List<Pane> cardsBottom = new ArrayList<Pane>();
-    public static List<Pane> cardsOnField = new ArrayList<Pane>(16);
+    public static Map<Integer,Pane> cardsOnField = new HashMap<Integer,Pane>();
     public static Health player1H = new Health();
     public static Health player2H = new Health(65);
     public static Text player1Name = new Text("Player 1 - IPSUM");
@@ -59,7 +61,7 @@ public class GameSpecific {
                 System.out.println(target);
                 if (target != -1) {
                     fieldBoxes.get(j).getChildren().add(cardsBottom.get(target));
-                    cardsOnField.set(j,cardsBottom.get(target));
+                    cardsOnField.put(j,cardsBottom.get(target));
                 }
             });
         }
