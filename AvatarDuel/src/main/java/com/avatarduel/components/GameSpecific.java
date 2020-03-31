@@ -2,18 +2,13 @@ package com.avatarduel.components;
 
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.element.Element;
-import com.avatarduel.model.Health;
 import com.avatarduel.player.Player;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -29,15 +24,15 @@ public class GameSpecific {
     private static int turn = 1;
     private static int draw = 1;
 
-    // For binding
+    // For updating
     public static int target = -1;
-    public static List<HBox> fieldBoxes = new ArrayList<HBox>();
-    public static List<Pane> cardsBottom = new ArrayList<Pane>();
-    public static Map<Integer,Pane> cardsOnField = new HashMap<Integer,Pane>();
-    public static Health player1H = new Health();
-    public static Health player2H = new Health(65);
-    public static Text player1Name = new Text("Player 1 - IPSUM");
-    public static Text player2Name = new Text("Player 2 - IPSUM");
+    public static List<HBox> fieldBoxes = new ArrayList<>();
+    public static List<Pane> cardsBottom = new ArrayList<>();
+    public static Map<Integer,Pane> cardsOnField = new HashMap<>();
+    public static Text playerBottomName = new Text("Player 1 - IPSUM");
+    public static Text playerTopName = new Text("Player 2 - IPSUM");
+    public static Text healthValueTop = new Text();
+    public static Text healthValueBottom = new Text();
     public static HBox bottomHand = new HBox();
     public static HBox topHand = new HBox();
     public static HBox deckButton = Card.getClosedCard(60);
@@ -46,12 +41,12 @@ public class GameSpecific {
     public static BorderPane cardInfo = Card.getOpenCard(250);
 
     // For animation
-    private static double per1 = 1;
-    private static double per2 = 1;
-    private static double slide1 = 0;
-    private static double slide2 = 0;
-    public static HBox healthFillBar1 = new HBox();
-    public static HBox healthFillBar2 = new HBox();
+    private static double perBottom = 1;
+    private static double perTop = 1;
+    private static double slideBottom = 0;
+    private static double slideTop = 0;
+    public static HBox healthBarBottom = new HBox();
+    public static HBox healthBarTop = new HBox();
 
     public static void initFieldBoxes() {
         // Bottom fields
@@ -75,46 +70,49 @@ public class GameSpecific {
         healthBar.setBorder(Basic.getBorder(1));
 
         HBox healthInfo = new HBox();
-        Text healthValue = new Text();
         healthInfo.getChildren().add(new Text("HP"));
         healthInfo.getChildren().add(Basic.getSpace(10));
-        healthInfo.getChildren().add(healthValue);
 
         BorderPane healthBox = new BorderPane();
         if (type.equals("top")) {
+            healthInfo.getChildren().add(healthValueTop);
             healthBox.setTop(healthBar);
-            healthBar.getChildren().add(healthFillBar2);
-            healthFillBar2.setBackground(Basic.getBackground(Color.DARKRED));
-            healthFillBar2.setMinWidth(player2H.getValue()*(1040.0/80));
-            healthValue.textProperty().bind(Bindings.convert(player2H.valueProperty()));
-            healthBox.setLeft(player2Name);
+            healthBar.getChildren().add(healthBarTop);
+            healthBarTop.setBackground(Basic.getBackground(Color.DARKRED));
+            healthBarTop.setMinWidth(Player.player2.getHealth()*(1040.0/80));
+            healthValueTop.setText(Integer.toString(Player.player2.getHealth()));
+            healthBox.setLeft(playerTopName);
             healthBox.setRight(healthInfo);
         } else {
+            healthInfo.getChildren().add(healthValueBottom);
             healthBox.setBottom(healthBar);
-            healthBar.getChildren().add(healthFillBar1);
-            healthFillBar1.setBackground(Basic.getBackground(Color.DARKRED));
-            healthFillBar1.setMinWidth(player1H.getValue()*(1040.0/80));
-            healthValue.textProperty().bind(Bindings.convert(player1H.valueProperty()));
-            healthBox.setRight(player1Name);
+            healthBar.getChildren().add(healthBarBottom);
+            healthBarBottom.setBackground(Basic.getBackground(Color.DARKRED));
+            healthBarBottom.setMinWidth(Player.player1.getHealth()*(1040.0/80));
+            healthValueBottom.setText(Integer.toString(Player.player1.getHealth()));
+            healthBox.setRight(playerBottomName);
             healthBox.setLeft(healthInfo);
         }
 
         return healthBox;
     }
 
-    public static void updateDeckCounter(HBox deckCounter, SimpleIntegerProperty x) {
-        Text deckCounts = new Text();
+    public static void updateDeckCounter(HBox deckCounter, int x) {
+        Text deckCounts = new Text(Integer.toString(x));
         deckCounter.getChildren().clear();
         deckCounter.getChildren().add(deckCounts);
         deckCounter.getChildren().add(new Text(" / 60"));
-        deckCounts.textProperty().bind(Bindings.convert(x));
+    }
+
+    public static void updateHealthValue(Text healthValue, int x) {
+        healthValue.setText(Integer.toString(x));
     }
 
     public static VBox genSideBox(String type) {
         VBox sideBox = new VBox();
         sideBox.setMinHeight(350);
         if (type.equals("top")) {
-            updateDeckCounter(deckCounterTop, Player.player2.deckCounts);
+            updateDeckCounter(deckCounterTop, Player.player2.countCardsInDeck());
             sideBox.setAlignment(Pos.BOTTOM_CENTER);
             sideBox.getChildren().add(deckCounterTop);
             sideBox.getChildren().add(Card.getClosedCard(60));
@@ -124,7 +122,7 @@ public class GameSpecific {
             sideBox.getChildren().add(Attribute.getElementBox("hehe"));
             sideBox.getChildren().add(Attribute.getElementBox("hehe"));
         } else {
-            updateDeckCounter(deckCounterBottom, Player.player1.deckCounts);
+            updateDeckCounter(deckCounterBottom, Player.player1.countCardsInDeck());
             sideBox.setAlignment(Pos.TOP_CENTER);
             sideBox.getChildren().add(Attribute.getElementBox("hehe"));
             sideBox.getChildren().add(Attribute.getElementBox("hehe"));
@@ -230,8 +228,6 @@ public class GameSpecific {
                 if (target != temp) {
                     target = temp;
                     DropShadow border = new DropShadow();
-                    border.setOffsetY(0f);
-                    border.setOffsetX(0f);
                     border.setColor(Color.BLUE);
                     border.setWidth(30);
                     border.setHeight(30);
@@ -256,40 +252,18 @@ public class GameSpecific {
             turn = turn%2 + 1;
             target = -1;
             AvatarDuel.screen.getChildren().add(Basic.getScreen("End Turn"));
-            String temp = player1Name.getText();
-            player1Name.setText(player2Name.getText());
-            player2Name.setText(temp);
+            String temp = playerBottomName.getText();
+            playerBottomName.setText(playerTopName.getText());
+            playerTopName.setText(temp);
             bottomHand.getChildren().clear();
             topHand.getChildren().clear();
             Card.update(cardInfo,250,null);
             if (turn == 1) {
-                for (int i=0; i<Player.player1.countCardsInHand(); i++) {
-                    addCardToHand(Player.player1,bottomHand,Player.player1.getHand(i).getElement(),i);
-                }
-                for (int i=0; i<Player.player2.countCardsInHand(); i++) {
-                    addCardToHand(Player.player2,topHand,Player.player2.getHand(i).getElement(),i);
-                }
-                updateDeckCounter(deckCounterBottom, Player.player1.deckCounts);
-                updateDeckCounter(deckCounterTop, Player.player2.deckCounts);
+                switchPlayer(Player.player2, Player.player1);
             } else {
-                for (int i=0; i<Player.player2.countCardsInHand(); i++) {
-                    addCardToHand(Player.player2,bottomHand,Player.player2.getHand(i).getElement(),i);
-                }
-                for (int i=0; i<Player.player1.countCardsInHand(); i++) {
-                    addCardToHand(Player.player1,topHand,Player.player1.getHand(i).getElement(),i);
-                }
-                updateDeckCounter(deckCounterBottom, Player.player2.deckCounts);
-                updateDeckCounter(deckCounterTop, Player.player1.deckCounts);
+                switchPlayer(Player.player1, Player.player2);
             }
 
-            animateHP1(player2H.getValue());
-            TranslateTransition animation = animateHP2(player1H.getValue());
-            animation.setOnFinished(e2 -> {
-                double temp2 = player1H.getValue();
-                player1H.setValue(player2H.getValue());
-                player2H.setValue(temp2);
-                Basic.scr.setOnMouseClicked(e3 -> AvatarDuel.screen.getChildren().remove(1));
-            });
         });
 
         HBox buttons = new HBox();
@@ -300,49 +274,70 @@ public class GameSpecific {
         buttons.getChildren().add(main2);
         buttons.getChildren().add(end);
 
+
+        return buttons;
+    }
+
+    public static void switchPlayer(Player p1, Player p2) {
+        animateHP(healthBarBottom, p1.getHealth(), p2.getHealth());
+
+        TranslateTransition animation = animateHP(healthBarTop, p2.getHealth(), p1.getHealth());
+        animation.setOnFinished(e2 -> {
+            updateHealthValue(healthValueTop, p1.getHealth());
+            updateHealthValue(healthValueBottom, p2.getHealth());
+            Basic.scr.setOnMouseClicked(e3 -> AvatarDuel.screen.getChildren().remove(1));
+        });
+
+        for (int i=0; i<p2.countCardsInHand(); i++) {
+            addCardToHand(p2,bottomHand,p2.getHand(i).getElement(),i);
+        }
+        for (int i=0; i<p1.countCardsInHand(); i++) {
+            addCardToHand(p1,topHand,p1.getHand(i).getElement(),i);
+        }
+        updateDeckCounter(deckCounterBottom, p2.countCardsInDeck());
+        updateDeckCounter(deckCounterTop, p1.countCardsInDeck());
+    }
+
+    public static void initDeckButton() {
         deckButton.setOnMouseClicked(e-> {
             if (draw > 0) {
                 if (turn == 1) {
                     Element x = Player.player1.takeCard();
                     if (x != null) {
+                        updateDeckCounter(deckCounterBottom, Player.player1.countCardsInDeck());
                         addCardToHand(Player.player1,bottomHand,x,Player.player1.countCardsInHand()-1);
                     }
                 } else {
                     Element x = Player.player2.takeCard();
                     if (x != null) {
+                        updateDeckCounter(deckCounterBottom, Player.player2.countCardsInDeck());
                         addCardToHand(Player.player2,bottomHand,x,Player.player2.countCardsInHand()-1);
                     }
                 }
             }
         });
-
-        return buttons;
     }
 
-    public static void animateHP1(double target) {
-        ScaleTransition a = new ScaleTransition(Duration.seconds(1), healthFillBar1);
-        TranslateTransition b = new TranslateTransition(Duration.seconds(1), healthFillBar1);
-        a.setFromX(per1);
-        b.setFromX(slide1);
-        per1 = target/player1H.getValue()*per1;
-        slide1 = (target-player1H.getValue())*1040/80/2+slide1;
-        a.setToX(per1);
-        b.setToX(slide1);
-        a.play();
-        b.play();
+    public static TranslateTransition animateHP(HBox healthBar, double init, double goal) {
+        ScaleTransition a = new ScaleTransition(Duration.seconds(1), healthBar);
+        TranslateTransition b = new TranslateTransition(Duration.seconds(1), healthBar);
 
-    }
-
-
-    public static TranslateTransition animateHP2(double target) {
-        ScaleTransition a = new ScaleTransition(Duration.seconds(1), healthFillBar2);
-        TranslateTransition b = new TranslateTransition(Duration.seconds(1), healthFillBar2);
-        a.setFromX(per2);
-        b.setFromX(slide2);
-        per2 = target/player2H.getValue()*per2;
-        slide2 = (target-player2H.getValue())*1040/80/2+slide2;
-        a.setToX(per2);
-        b.setToX(slide2);
+        // Because double is not mutable
+        if (healthBar == healthBarBottom) { // Reference equality
+            a.setFromX(perBottom);
+            b.setFromX(slideBottom);
+            perBottom = goal/init*perBottom;
+            slideBottom = (goal-init)*1040/80/2+slideBottom;
+            a.setToX(perBottom);
+            b.setToX(slideBottom);
+        } else {
+            a.setFromX(perTop);
+            b.setFromX(slideTop);
+            perTop = goal/init*perTop;
+            slideTop = (goal-init)*1040/80/2+slideTop;
+            a.setToX(perTop);
+            b.setToX(slideTop);
+        }
         a.play();
         b.play();
 

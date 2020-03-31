@@ -50,6 +50,17 @@ public class AvatarDuel extends Application {
   @Override
   public void start(Stage stage) {
     Player.getPlayers();
+    Player.player2.setHealth(65);
+    try {
+      // Load all cards
+      this.loadCards(CHARACTER_CSV_FILE_PATH, characterDeck, new CharacterGameCardFactory());
+      this.loadCards(SKILL_CSV_FILE_PATH, skillDeck, new AuraSkillGameCardFactory());
+      this.loadCards(LAND_CSV_FILE_PATH, landDeck, new LandGameCardFactory());
+      this.loadDeck(Player.player1);
+      this.loadDeck(Player.player2);
+    } catch (Exception e) {
+      System.out.println("Something went wrong");
+    }
 
     HBox store = new HBox();
     store.setMinHeight(440);
@@ -96,21 +107,12 @@ public class AvatarDuel extends Application {
 
     // Init some additional functionality
     GameSpecific.initFieldBoxes();
+    GameSpecific.initDeckButton();
 
     stage.setTitle("Avatar Duel");
     stage.setScene(scene);
     stage.show();
 
-    try {
-      // Load all cards
-      this.loadCards(CHARACTER_CSV_FILE_PATH, characterDeck, new CharacterGameCardFactory());
-      this.loadCards(SKILL_CSV_FILE_PATH, skillDeck, new AuraSkillGameCardFactory());
-      this.loadCards(LAND_CSV_FILE_PATH, landDeck, new LandGameCardFactory());
-      this.loadDeck(Player.player1);
-      this.loadDeck(Player.player2);
-    } catch (Exception e) {
-      System.out.println("Something went wrong");
-    }
   }
 
   public static void main(String[] args) {

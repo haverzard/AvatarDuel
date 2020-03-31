@@ -14,7 +14,7 @@ public class Player {
     private PlayerDeck myDeck;
     private int id;
     private ArrayList<GameCard> hand;
-    public SimpleIntegerProperty deckCounts; // For binding
+    public int health;
 
     // To limit the instance
     private Player() {
@@ -22,7 +22,7 @@ public class Player {
         id = counts;
         myDeck = new PlayerDeck(new ArrayList<GameCard>());
         hand = new ArrayList<GameCard>();
-        deckCounts = new SimpleIntegerProperty(0);
+        health = 80;
     }
 
     // To limit the instance for only 2
@@ -54,16 +54,23 @@ public class Player {
         myDeck.shuffle();
     }
 
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int _health) {
+        health = _health;
+    }
+
     public void addToDeck(GameCard x) {
         myDeck.add(x);
-        deckCounts.set(deckCounts.getValue()+1);
     }
 
     public Element takeCard() {
         GameCard temp = myDeck.pop();
         if (temp != null) {
             hand.add(temp);
-            deckCounts.set(myDeck.getSize());
             return temp.getElement();
         }
         return null;
