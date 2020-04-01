@@ -2,6 +2,7 @@ package com.avatarduel.components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -48,5 +49,14 @@ public class Basic {
         scr.getChildren().add(main);
 
         return scr;
+    }
+
+    public static DropShadow getShadow(Color x, double spread) {
+        DropShadow border = new DropShadow();
+        border.setColor(x);
+        border.setWidth(spread);
+        border.setHeight(spread);
+
+        return border;
     }
 }

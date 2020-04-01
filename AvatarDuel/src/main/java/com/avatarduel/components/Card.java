@@ -13,6 +13,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class Card {
+    private static Color WATER = Color.AQUA;
+    private static Color FIRE = Color.RED;
+    private static Color EARTH = Color.LIME;
+    private static Color AIR = Color.YELLOW;
+
     // Width : Height = 5 : 8
     public static HBox getClosedCard(double width) {
         double height = width/5*8;
@@ -32,12 +37,17 @@ public class Card {
         inside3.setHeight(height-width*0.1);
         inside3.setFill(Color.LIGHTGOLDENRODYELLOW);
 
+        Rectangle inner = new Rectangle();
+        inner.setWidth(width);
+        inner.setHeight(height);
+        inner.setFill(Color.ORANGE);
+
         HBox closedCard = new HBox();
         closedCard.setMinWidth(width);
         closedCard.setMinHeight(height);
         closedCard.setAlignment(Pos.CENTER);
-        closedCard.setBackground(Basic.getBackground(Color.ORANGE));
         StackPane stack = new StackPane();
+        stack.getChildren().add(inner);
         stack.getChildren().add(inside3);
         stack.getChildren().add(inside2);
         stack.getChildren().add(inside);
@@ -89,9 +99,9 @@ public class Card {
                 image.setImage(new Image(imgUrl));
                 imageBox.getChildren().add(image);
             }
-            System.out.println(imgUrl);
+            //System.out.println(imgUrl);
         } catch(Exception e) {
-            System.out.println(e);
+            //System.out.println(e);
         }
 
         HBox cardMiddle = new HBox();
@@ -152,16 +162,16 @@ public class Card {
         BorderPane openCard = getOpenCard(width);
         switch(x) {
             case AIR:
-                openCard.setBackground(Basic.getBackground(Color.YELLOW));
+                openCard.setBackground(Basic.getBackground(AIR));
                 break;
             case WATER:
-                openCard.setBackground(Basic.getBackground(Color.AQUA));
+                openCard.setBackground(Basic.getBackground(WATER));
                 break;
             case FIRE:
-                openCard.setBackground(Basic.getBackground(Color.AZURE));
+                openCard.setBackground(Basic.getBackground(FIRE));
                 break;
             case EARTH:
-                openCard.setBackground(Basic.getBackground(Color.LIME));
+                openCard.setBackground(Basic.getBackground(EARTH));
                 break;
         }
         return openCard;
@@ -182,16 +192,16 @@ public class Card {
 
             switch(x.getElement()) {
                 case AIR:
-                    card.setBackground(Basic.getBackground(Color.YELLOW));
+                    card.setBackground(Basic.getBackground(AIR));
                     break;
                 case WATER:
-                    card.setBackground(Basic.getBackground(Color.AQUA));
+                    card.setBackground(Basic.getBackground(WATER));
                     break;
                 case FIRE:
-                    card.setBackground(Basic.getBackground(Color.AZURE));
+                    card.setBackground(Basic.getBackground(FIRE));
                     break;
                 case EARTH:
-                    card.setBackground(Basic.getBackground(Color.LIME));
+                    card.setBackground(Basic.getBackground(EARTH));
                     break;
             }
         } else {

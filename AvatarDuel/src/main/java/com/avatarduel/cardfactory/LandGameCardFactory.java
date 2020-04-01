@@ -1,5 +1,7 @@
-package com.avatarduel.card;
+package com.avatarduel.cardfactory;
 
+import com.avatarduel.card.GameCard;
+import com.avatarduel.card.LandGameCard;
 import com.avatarduel.element.Element;
 
 public class LandGameCardFactory extends GameCardFactory {

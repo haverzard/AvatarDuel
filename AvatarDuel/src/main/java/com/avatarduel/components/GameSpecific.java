@@ -1,6 +1,6 @@
 package com.avatarduel.components;
 
-import com.avatarduel.AvatarDuel;
+import com.avatarduel.card.*;
 import com.avatarduel.element.Element;
 import com.avatarduel.player.Player;
 import javafx.animation.ScaleTransition;
@@ -8,11 +8,11 @@ import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,23 +21,28 @@ import java.util.Map;
 
 public class GameSpecific {
     // For phase
+    private static int phase = 0;
     private static int turn = 1;
     private static int draw = 1;
+    private static int land = 1;
 
     // For updating
+    public static StackPane screen = new StackPane();
     public static int target = -1;
+    public static int targetAttack = -1;
     public static List<HBox> fieldBoxes = new ArrayList<>();
     public static List<Pane> cardsBottom = new ArrayList<>();
-    public static Map<Integer,Pane> cardsOnField = new HashMap<>();
     public static Text playerBottomName = new Text("Player 1 - IPSUM");
     public static Text playerTopName = new Text("Player 2 - IPSUM");
     public static Text healthValueTop = new Text();
     public static Text healthValueBottom = new Text();
     public static HBox bottomHand = new HBox();
     public static HBox topHand = new HBox();
-    public static HBox deckButton = Card.getClosedCard(60);
+    public static Map<Element,HBox> powerCountersTop = new HashMap<>();
+    public static Map<Element,HBox> powerCountersBottom = new HashMap<>();
     public static HBox deckCounterBottom = new HBox();
     public static HBox deckCounterTop = new HBox();
+    public static HBox deckButton = Card.getClosedCard(60);
     public static BorderPane cardInfo = Card.getOpenCard(250);
 
     // For animation
@@ -49,22 +54,134 @@ public class GameSpecific {
     public static HBox healthBarTop = new HBox();
 
     public static void initFieldBoxes() {
+        Player p1, p2;
+        if (turn == 1) {
+            p1 = Player.player1;
+            p2 = Player.player2;
+        } else {
+            p1 = Player.player2;
+            p2 = Player.player1;
+        }
+        // Top fields
+        for (int i=0; i<16; i++) {
+            int j = (15-i)%16;
+            fieldBoxes.get(i).getChildren().clear();
+            Pane card = p2.cardsOnField.get(j);
+            if (card != null) {
+                fieldBoxes.get(i).getChildren().add(card);
+                initFieldCard(p2, card);
+            }
+        }
+
         // Bottom fields
+        // Bottom Top fields
         for (int i=16; i<32; i++) {
-            int j = i;
-            fieldBoxes.get(i).setOnMouseClicked(e-> {
-                System.out.println(target);
-                if (target != -1) {
-                    fieldBoxes.get(j).getChildren().add(cardsBottom.get(target));
-                    cardsOnField.put(j,cardsBottom.get(target));
+            int j = i-16;
+            fieldBoxes.get(i).getChildren().clear();
+            Pane card = p1.cardsOnField.get(j);
+            if (card != null) {
+                fieldBoxes.get(i).getChildren().add(card);
+                fieldBoxes.get(i).setOnMouseClicked(null);
+                initFieldCard(p1, card);
+            } else {
+                fieldBoxes.get(i).setOnMouseClicked(e -> {
+                    if ((phase == 1 || phase == 2) && target != -1 && (j < 8 && p1.getHand(target) instanceof CharacterGameCard || j > 8)
+                            && p1.useCard((HasCostAttribute) p1.getHand(target), p1.getHand(target).getElement())) { // Pre-condition that the card is character/skill
+                        if (p1.cardsOnField.get(j) == null && !p1.cardsOnField.containsValue(cardsBottom.get(target))) {
+                            int cardLoc = bottomHand.getChildren().indexOf(cardsBottom.get(target));
+                            bottomHand.getChildren().remove(cardLoc+1);
+                            fieldBoxes.get(j + 16).getChildren().add(cardsBottom.get(target));
+                            fieldBoxes.get(j + 16).setOnMouseClicked(null);
+                            initFieldCard(p1, cardsBottom.get(target));
+                            p1.cardsOnField.put(j, cardsBottom.get(target));
+                            p1.cardsOnFieldInfo.put(j, new Pair<>(p1.getHand(target), false));
+                            cardsBottom.get(target).setOnMouseEntered(e2 -> Card.update(cardInfo, 250, p1.cardsOnFieldInfo.get(j).getKey()));
+                            p1.setHand(target, null);
+                            updatePowerCounters(powerCountersBottom, p1);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    public static void initFieldCard(Player a, Pane card) {
+        Player b = (a == Player.player1) ? Player.player2 : Player.player1;
+        // Battle Phase Action
+        if (a.getId() == turn) {
+            card.setOnMouseClicked(e -> {
+                if (phase == 2) {
+                    for(Integer K : a.cardsOnField.keySet()) {
+                        Pane V = a.cardsOnField.get(K);
+                        if (V == card && !a.cardsOnFieldInfo.get(K).getValue()) {
+                            if (b.cardsOnField.isEmpty()) {
+                                CharacterGameCard c = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
+                                targetAttack = K;
+                                updateAttack(a,b,0,c.getAttack(),false);
+                            } else if (targetAttack == -1) {
+                                targetAttack = K;
+                                card.setEffect(Basic.getShadow(Color.BLUE, 30));
+                            } else {
+                                targetAttack = -1;
+                            }
+                            break;
+                        }
+                    }
+                } else if (phase == 1 || phase == 3) {
+                    for(Integer K : a.cardsOnField.keySet()) {
+                        Pane V = a.cardsOnField.get(K);
+                        if (V == card) {
+                            a.switchCardMode(K);
+                        }
+                    }
+                }
+            });
+        } else {
+            card.setOnMouseClicked(e -> {
+                if (phase == 2) {
+                    for (Integer K: a.cardsOnField.keySet()) {
+                        Pane V = a.cardsOnField.get(K);
+                        if (targetAttack != -1 && V == card) {
+                            CharacterGameCard attacker = (CharacterGameCard) b.cardsOnFieldInfo.get(targetAttack).getKey();
+                            CharacterGameCard enemy = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
+                            if (!a.cardsOnFieldInfo.get(K).getValue() && attacker.getAttack() >= enemy.getAttack()) {
+                                updateAttack(b,a,K,attacker.getAttack()-enemy.getAttack(),true);
+                            } else if (a.cardsOnFieldInfo.get(K).getValue() && attacker.getAttack() > enemy.getDefense()) {
+                                updateAttack(b,a,K,0,true);
+                            }
+                            break;
+                        }
+                    }
                 }
             });
         }
     }
 
+    public static void updateAttack(Player attacker, Player enemy, int idx, int damage, boolean isHitOnEnemy) {
+        if (damage > 0) {
+            int hp = enemy.getHealth();
+            int newhp = hp - damage;
+            if (newhp < 0) newhp = 0;
+            animateHP(healthBarTop, hp, newhp);
+            enemy.setHealth(newhp);
+            updateHealthValue(healthValueTop, newhp);
+            if (hp <= 0) {
+                screen.getChildren().add(Basic.getScreen("You Lose!"));
+            }
+        }
+        attacker.switchCardMode(targetAttack);
+        if (isHitOnEnemy) {
+            fieldBoxes.get((15 - idx) % 16).getChildren().clear();
+            enemy.cardsOnField.remove(idx);
+            enemy.cardsOnFieldInfo.remove(idx);
+        }
+        targetAttack = -1;
+    }
+
     public static BorderPane genHealthBox(String type) {
         // Health Layout
         HBox healthBar = new HBox();
+        healthBar.setMaxWidth(1040);
         healthBar.setMinHeight(30);
         healthBar.setBorder(Basic.getBorder(1));
         healthBar.setBorder(Basic.getBorder(1));
@@ -78,6 +195,7 @@ public class GameSpecific {
             healthInfo.getChildren().add(healthValueTop);
             healthBox.setTop(healthBar);
             healthBar.getChildren().add(healthBarTop);
+
             healthBarTop.setBackground(Basic.getBackground(Color.DARKRED));
             healthBarTop.setMinWidth(Player.player2.getHealth()*(1040.0/80));
             healthValueTop.setText(Integer.toString(Player.player2.getHealth()));
@@ -97,6 +215,15 @@ public class GameSpecific {
         return healthBox;
     }
 
+    public static void updateHand(Player p1, Player p2) {
+        for (int i=0; i<p2.countCardsInHand(); i++) {
+            addCardToHand(p2,bottomHand,p2.getHand(i).getElement(),i);
+        }
+        for (int i=0; i<p1.countCardsInHand(); i++) {
+            addCardToHand(p1,topHand,p1.getHand(i).getElement(),i);
+        }
+    }
+
     public static void updateDeckCounter(HBox deckCounter, int x) {
         Text deckCounts = new Text(Integer.toString(x));
         deckCounter.getChildren().clear();
@@ -108,26 +235,71 @@ public class GameSpecific {
         healthValue.setText(Integer.toString(x));
     }
 
+    public static void updatePowerCounters(Map<Element,HBox> powerCounters, Player p) {
+        powerCounters.forEach((e,b)->{
+            Pair<Integer,Integer> x = p.power.get(e);
+            Text t1 = new Text(Integer.toString(x.getKey()));
+            Text t2 = new Text("/");
+            Text t3 = new Text(Integer.toString(x.getValue()));
+
+            b.getChildren().clear();
+            b.getChildren().add(t1);
+            b.getChildren().add(t2);
+            b.getChildren().add(t3);
+        });
+    }
+
+    public static BorderPane genElementBox(String type, Element x) {
+        Text t1 = new Text("0");
+        Text t2 = new Text("/");
+        Text t3 = new Text("0");
+
+        HBox powerCounter = new HBox();
+        powerCounter.setMinHeight(30);
+        powerCounter.setAlignment(Pos.CENTER);
+        powerCounter.getChildren().add(t1);
+        powerCounter.getChildren().add(t2);
+        powerCounter.getChildren().add(t3);
+        if (type.equals("top")) {
+            powerCountersTop.put(x,powerCounter);
+        } else {
+            powerCountersBottom.put(x,powerCounter);
+        }
+
+        HBox element = new HBox();
+        element.setMinSize(30,30);
+        element.setBorder(Basic.getBorder(1));
+
+        BorderPane elementBox = new BorderPane();
+        elementBox.setLeft(powerCounter);
+        elementBox.setRight(element);
+
+        return elementBox;
+    }
+
     public static VBox genSideBox(String type) {
         VBox sideBox = new VBox();
+        sideBox.setMinWidth(75);
         sideBox.setMinHeight(350);
         if (type.equals("top")) {
+            deckCounterTop.setAlignment(Pos.CENTER);
             updateDeckCounter(deckCounterTop, Player.player2.countCardsInDeck());
             sideBox.setAlignment(Pos.BOTTOM_CENTER);
             sideBox.getChildren().add(deckCounterTop);
             sideBox.getChildren().add(Card.getClosedCard(60));
             sideBox.getChildren().add(Basic.getSpace(10));
-            sideBox.getChildren().add(Attribute.getElementBox("hehe"));
-            sideBox.getChildren().add(Attribute.getElementBox("hehe"));
-            sideBox.getChildren().add(Attribute.getElementBox("hehe"));
-            sideBox.getChildren().add(Attribute.getElementBox("hehe"));
+            sideBox.getChildren().add(genElementBox(type,Element.WATER));
+            sideBox.getChildren().add(genElementBox(type,Element.AIR));
+            sideBox.getChildren().add(genElementBox(type,Element.EARTH));
+            sideBox.getChildren().add(genElementBox(type,Element.FIRE));
         } else {
+            deckCounterBottom.setAlignment(Pos.CENTER);
             updateDeckCounter(deckCounterBottom, Player.player1.countCardsInDeck());
             sideBox.setAlignment(Pos.TOP_CENTER);
-            sideBox.getChildren().add(Attribute.getElementBox("hehe"));
-            sideBox.getChildren().add(Attribute.getElementBox("hehe"));
-            sideBox.getChildren().add(Attribute.getElementBox("hehe"));
-            sideBox.getChildren().add(Attribute.getElementBox("hehe"));
+            sideBox.getChildren().add(genElementBox(type,Element.FIRE));
+            sideBox.getChildren().add(genElementBox(type,Element.EARTH));
+            sideBox.getChildren().add(genElementBox(type,Element.AIR));
+            sideBox.getChildren().add(genElementBox(type,Element.WATER));
             sideBox.getChildren().add(Basic.getSpace(10));
             sideBox.getChildren().add(deckButton);
             sideBox.getChildren().add(deckCounterBottom);
@@ -137,7 +309,7 @@ public class GameSpecific {
 
     public static HBox genHand(String type) {
         if (type.equals("top")) {
-            topHand.setMinWidth(900);
+            topHand.setMinWidth(800);
             topHand.setAlignment(Pos.CENTER);
             return topHand;
         } else {
@@ -220,22 +392,35 @@ public class GameSpecific {
             card = Card.getOpenCard(62.5, x);
             cardsBottom.add(card);
             card.setOnMouseEntered(e2 -> Card.update(cardInfo, 250, a.getHand(idx)));
-            card.setOnMouseClicked(e2 -> {
-                int temp = cardsBottom.indexOf(card);
-                for (Pane pane : cardsBottom) {
-                    pane.setEffect(null);
-                }
-                if (target != temp) {
-                    target = temp;
-                    DropShadow border = new DropShadow();
-                    border.setColor(Color.BLUE);
-                    border.setWidth(30);
-                    border.setHeight(30);
-                    card.setEffect(border);
-                } else {
-                    target = -1;
-                }
-            });
+            if (a.getId() == turn) {
+                card.setOnMouseClicked(e2 -> {
+                    for (Pane pane : cardsBottom) {
+                        pane.setEffect(null);
+                    }
+                    a.cardsOnField.forEach((K, V) -> V.setEffect(null));
+                    // Main Phase Action
+                    if (phase == 1 || phase == 3) {
+                        int temp = cardsBottom.indexOf(card); // Could be not found
+                        // Use land card?
+                        if (temp >= 0 && a.getHand(temp) instanceof LandGameCard) {
+                            if (land > 0 && (phase == 1 || phase == 3)) {
+                                int i = bottomHand.getChildren().indexOf(card);
+                                a.useLand(temp);
+                                updatePowerCounters(powerCountersBottom, a);
+                                bottomHand.getChildren().remove(i + 1);
+                                bottomHand.getChildren().remove(i);
+                                land--;
+                                target = -1;
+                            }
+                        } else if (temp >= 0 && target != temp) {
+                            target = temp;
+                            card.setEffect(Basic.getShadow(Color.BLUE, 30));
+                        } else {
+                            target = -1;
+                        }
+                    }
+                });
+            }
         } else {
             card = Card.getClosedCard(62.5);
         }
@@ -244,63 +429,103 @@ public class GameSpecific {
     }
 
     public static HBox genButton() {
+        Button delete = new Button("Delete");
         Button main1 = new Button("Main 1");
         Button battle = new Button("Battle");
         Button main2 = new Button("Main 2");
         Button end = new Button("End");
+        delete.setDisable(true);
+        battle.setDisable(true);
+        main2.setDisable(true);
+        end.setDisable(true);
+        main1.setOnAction(e -> {
+            phase++;
+            main1.setDisable(true);
+            battle.setDisable(false);
+            deckButton.setEffect(null);
+            screen.getChildren().add(Basic.getScreen("Main Phase 1"));
+            Basic.scr.setOnMouseClicked(e3 -> screen.getChildren().remove(1));
+        });
+        battle.setOnAction(e -> {
+            phase++;
+            battle.setDisable(true);
+            main2.setDisable(false);
+            screen.getChildren().add(Basic.getScreen("Battle Phase"));
+            Basic.scr.setOnMouseClicked(e3 -> screen.getChildren().remove(1));
+        });
+        main2.setOnAction(e -> {
+            phase++;
+            main2.setDisable(true);
+            end.setDisable(false);
+            screen.getChildren().add(Basic.getScreen("Main Phase 2"));
+            Basic.scr.setOnMouseClicked(e3 -> screen.getChildren().remove(1));
+        });
         end.setOnAction(e -> {
             turn = turn%2 + 1;
             target = -1;
-            AvatarDuel.screen.getChildren().add(Basic.getScreen("End Turn"));
+            draw = 1;
+            phase = 0;
+            land = 1;
+            deckButton.setEffect(Basic.getShadow(Color.BLUE, 30));
+            Player.player1.refreshHand();
+            Player.player2.refreshHand();
+            cardsBottom.clear();
+            screen.getChildren().add(Basic.getScreen("End Turn"));
             String temp = playerBottomName.getText();
             playerBottomName.setText(playerTopName.getText());
             playerTopName.setText(temp);
             bottomHand.getChildren().clear();
             topHand.getChildren().clear();
             Card.update(cardInfo,250,null);
+            for (Pane pane : cardsBottom) {
+                pane.setEffect(null);
+            }
+            Player.player1.cardsOnField.forEach((K, V) -> V.setEffect(null));
+            Player.player2.cardsOnField.forEach((K, V) -> V.setEffect(null));
+            Player.player1.resetPower();
+            Player.player2.resetPower();
             if (turn == 1) {
                 switchPlayer(Player.player2, Player.player1);
             } else {
                 switchPlayer(Player.player1, Player.player2);
             }
-
+            end.setDisable(true);
+            main1.setDisable(false);
         });
 
         HBox buttons = new HBox();
         buttons.setMinWidth(900);
         buttons.setAlignment(Pos.CENTER);
+        buttons.getChildren().add(delete);
         buttons.getChildren().add(main1);
         buttons.getChildren().add(battle);
         buttons.getChildren().add(main2);
         buttons.getChildren().add(end);
 
-
         return buttons;
     }
 
     public static void switchPlayer(Player p1, Player p2) {
+        initFieldBoxes();
         animateHP(healthBarBottom, p1.getHealth(), p2.getHealth());
+        updatePowerCounters(powerCountersBottom, p2);
+        updatePowerCounters(powerCountersTop, p1);
 
         TranslateTransition animation = animateHP(healthBarTop, p2.getHealth(), p1.getHealth());
         animation.setOnFinished(e2 -> {
             updateHealthValue(healthValueTop, p1.getHealth());
             updateHealthValue(healthValueBottom, p2.getHealth());
-            Basic.scr.setOnMouseClicked(e3 -> AvatarDuel.screen.getChildren().remove(1));
+            Basic.scr.setOnMouseClicked(e3 -> screen.getChildren().remove(1));
         });
-
-        for (int i=0; i<p2.countCardsInHand(); i++) {
-            addCardToHand(p2,bottomHand,p2.getHand(i).getElement(),i);
-        }
-        for (int i=0; i<p1.countCardsInHand(); i++) {
-            addCardToHand(p1,topHand,p1.getHand(i).getElement(),i);
-        }
+        updateHand(p1,p2);
         updateDeckCounter(deckCounterBottom, p2.countCardsInDeck());
         updateDeckCounter(deckCounterTop, p1.countCardsInDeck());
     }
 
     public static void initDeckButton() {
+        deckButton.setEffect(Basic.getShadow(Color.BLUE, 30));
         deckButton.setOnMouseClicked(e-> {
-            if (draw > 0) {
+            if (draw > 0 && phase == 0) {
                 if (turn == 1) {
                     Element x = Player.player1.takeCard();
                     if (x != null) {
@@ -314,6 +539,8 @@ public class GameSpecific {
                         addCardToHand(Player.player2,bottomHand,x,Player.player2.countCardsInHand()-1);
                     }
                 }
+                deckButton.setEffect(null);
+                draw--;
             }
         });
     }
