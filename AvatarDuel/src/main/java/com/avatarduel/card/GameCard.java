@@ -29,7 +29,7 @@ abstract public class GameCard {
         return name;
     }
     public void setName(String _name) {
-        name = name;
+        name = _name;
     }
     public String getDesc() {
         return desc;
