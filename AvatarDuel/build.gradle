@@ -2,7 +2,11 @@ plugins {
     id 'java'
 }
 
-group 'org.example'
+apply plugin: 'application'
+
+mainClassName = 'com.avatarduel.AvatarDuel'
+
+group 'com.avatarduel'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
