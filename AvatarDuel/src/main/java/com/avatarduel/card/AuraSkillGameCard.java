@@ -32,4 +32,12 @@ public class AuraSkillGameCard extends SkillGameCard {
     public void setDefenseAura(int _defense) {
         defenseAura = _defense;
     }
+
+    public void addEffect(CharacterGameCard card){
+        card.addAuraSkill(this);
+    }
+
+    public void removeEffect(CharacterGameCard card){
+        card.removeAuraSkill(this);
+    }
 }
