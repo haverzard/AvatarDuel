@@ -35,9 +35,13 @@ public class CardController {
                 for(Integer K : a.cardsOnField.keySet()) {
                     Pane V = a.cardsOnField.get(K);
                     GameCard tempCard = (GameCard) a.cardsOnFieldInfo.get(K).getKey();
-                    if (V == card && !(tempCard instanceof SkillGameCard)) {
-                        a.switchCardMode(K);
+                    if (V == card) {
+                        if (!(tempCard instanceof SkillGameCard)) a.switchCardMode(K);
+                        else {
+                            bottomCardBehaviourCallSkill(card,a,b);
+                        }
                     }
+                    
                 }
             }
         });
@@ -51,17 +55,32 @@ public class CardController {
                 if (b.cardsOnField.isEmpty()) {
                     CharacterGameCard c = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
                     StateController.updateTargetAttack(K);
-                    System.out.println(K);
                     HealthModel.updateAttack(a,b,0,c.getAttack(),false);
                 } else if (K != StateModel.getTargetAttack()) {
                     StateController.updateTargetAttack(K);
                     card.setEffect(Basic.getShadow(Color.RED, 30));
-                } else if (K != StateModel.getTargetSkill() && K != StateModel.getTargetAttack()) {
-                    StateController.updateTargetSkill(K);
-                    card.setEffect(Basic.getShadow(Color.BLUE, 30));
                 } else if (K == StateModel.getTargetAttack()){
                     StateController.updateState("Release attack card");
-                }  else if (K == StateModel.getTargetSkill()){
+                }
+                break;
+            }
+        }
+    }
+
+    private static void bottomCardBehaviourCallSkill(Pane card, Player a, Player b) {
+        for(Integer K : a.cardsOnField.keySet()) {
+            Pane V = a.cardsOnField.get(K);
+            
+            if (V == card && !a.cardsOnFieldInfo.get(K).getValue()) {
+                // if (b.cardsOnField.isEmpty()) {
+                    // CharacterGameCard c = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
+                    // StateController.updateTargetAttack(K);
+                    // HealthModel.updateAttack(a,b,0,c.getAttack(),false);
+                // } 
+                if (K != StateModel.getTargetSkill()) {
+                    StateController.updateTargetSkill(K);
+                    card.setEffect(Basic.getShadow(Color.RED, 30));
+                } else if (K == StateModel.getTargetAttack()){
                     StateController.updateState("Release skill card");
                 }
                 break;
