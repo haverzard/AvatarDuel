@@ -46,7 +46,7 @@ public class CardController {
         for(Integer K : a.cardsOnField.keySet()) {
             Pane V = a.cardsOnField.get(K);
             if (V == card && !a.cardsOnFieldInfo.get(K).getValue()) {
-                if (b.cardsOnField.isEmpty()) {
+                if (b.cardsOnField.isEmpty() && K == StateModel.getTargetSkill()) {
                     CharacterGameCard c = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
                     StateController.updateTargetAttack(K);
                     HealthModel.updateAttack(a,b,0,c.getAttack(),false);
