@@ -92,4 +92,8 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     public void detachedPowerUpinField(){
         this.isPowerUpinField = false;
     }
+
+    public AuraSkillGameCard getAuraSkillGameCard(int i) {
+        return listofAura.get(i);
+    }
 }
