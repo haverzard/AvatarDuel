@@ -34,7 +34,8 @@ public class CardController {
             } else if (StateController.checkState("Main phase")) {
                 for(Integer K : a.cardsOnField.keySet()) {
                     Pane V = a.cardsOnField.get(K);
-                    if (V == card) {
+                    GameCard tempCard = (GameCard) a.cardsOnFieldInfo.get(K).getKey();
+                    if (V == card && !(tempCard instanceof SkillGameCard)) {
                         a.switchCardMode(K);
                     }
                 }
@@ -45,15 +46,16 @@ public class CardController {
     private static void bottomCardBehaviourCall(Pane card, Player a, Player b) {
         for(Integer K : a.cardsOnField.keySet()) {
             Pane V = a.cardsOnField.get(K);
+            
             if (V == card && !a.cardsOnFieldInfo.get(K).getValue()) {
                 if (b.cardsOnField.isEmpty() && K == StateModel.getTargetSkill()) {
                     CharacterGameCard c = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
                     StateController.updateTargetAttack(K);
                     HealthModel.updateAttack(a,b,0,c.getAttack(),false);
-                } else if (K != StateModel.getTargetAttack()) {
+                } else if (K != StateModel.getTargetAttack() && !(a.cardsOnFieldInfo.get(K).getKey() instanceof SkillGameCard)) {
                     StateController.updateTargetAttack(K);
-                    card.setEffect(Basic.getShadow(Color.BLUE, 30));
-                } else if (K != StateModel.getTargetSkill()) {
+                    card.setEffect(Basic.getShadow(Color.RED, 30));
+                } else if (K != StateModel.getTargetSkill() && K != StateModel.getTargetAttack() && (a.cardsOnFieldInfo.get(K).getKey() instanceof SkillGameCard)) {
                     StateController.updateTargetSkill(K);
                     card.setEffect(Basic.getShadow(Color.BLUE, 30));
                 } else if (K == StateModel.getTargetAttack()){
