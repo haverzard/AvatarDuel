@@ -92,7 +92,7 @@ public class ButtonController {
                     a = Player.player2;
                 }
                 Pane skillCard = a.cardsOnField.get(targetSkill);
-                FieldController.removeSkill(targetSkill, skillCard);
+                FieldController.removeSkill(targetSkill, skillCard, a);
                 a.cardsOnField.remove(targetSkill);
                 a.cardsOnFieldInfo.remove(targetSkill);
                 ButtonController.setDisableDelete(true);
