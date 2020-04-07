@@ -39,33 +39,57 @@ public class FieldView {
             Pane card = p2.cardsOnField.get(j);
             if (card != null) {
                 fieldBoxes.get(i).getChildren().add(card);
-                initFieldCard(p2, card);
+                initFieldCardTop(p2, card);
             }
         }
     }
 
     private static void initBottomField(Player p1) {
-        for (int i=16; i<32; i++) {
+        // Character row
+        for (int i=16; i<24; i++) {
             int j = i-16;
             fieldBoxes.get(i).getChildren().clear();
             Pane card = p1.cardsOnField.get(j);
             if (card != null) {
                 fieldBoxes.get(i).getChildren().add(card);
                 fieldBoxes.get(i).setOnMouseClicked(null);
-                initFieldCard(p1, card);
+                initFieldCardTop(p1, card);
+            } else {
+                FieldController.setFieldBoxOnClickEvent(i, p1);
+            }
+        }
+        // Skill row
+        for (int i=24; i<32; i++) {
+            int j = i-16;
+            fieldBoxes.get(i).getChildren().clear();
+            Pane card = p1.cardsOnField.get(j);
+            if (card != null) {
+                fieldBoxes.get(i).getChildren().add(card);
+                fieldBoxes.get(i).setOnMouseClicked(null);
+                //initFieldCardTop(p1, card);
             } else {
                 FieldController.setFieldBoxOnClickEvent(i, p1);
             }
         }
     }
 
-    public static void initFieldCard(Player a, Pane card) {
+    public static void initFieldCardTop(Player a, Pane card) {
         Player b = (a == Player.player1) ? Player.player2 : Player.player1;
         // Battle Phase Action
         if (a.getId() == StateModel.getTurn()) {
             CardController.setBottomCardBehaviour(card, a, b);
         } else {
             CardController.setTopCardBehaviour(card, a, b);
+        }
+    }
+
+    public static void initFieldCardBottom(Player a, Pane card) {
+        Player b = (a == Player.player1) ? Player.player2 : Player.player1;
+        // Battle Phase Action
+        if (a.getId() == StateModel.getTurn()) {
+            CardController.setBottomCardBehaviour2(card, a, b);
+        } else {
+            CardController.setTopCardBehaviour2(card, a, b);
         }
     }
 

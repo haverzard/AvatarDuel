@@ -13,7 +13,7 @@ public class StateController {
 
     public static void nextPhase() {
         StateModel.setPhase(StateModel.getPhase()+1);
-    }
+}
 
     public static void updateLand(int change) {
         StateModel.setLand(StateModel.getLand()+change);
@@ -34,7 +34,7 @@ public class StateController {
         }
         return false;
     }
-    
+
     public static boolean updateTargetSkill(int newTarget) {
         if  (StateModel.getTargetSkill() != newTarget) {
             StateModel.setTargetSkill(newTarget);
@@ -49,10 +49,10 @@ public class StateController {
                 return StateModel.getLand() > 0 && (StateModel.getPhase() == 1 || StateModel.getPhase() == 3);
             case "Card selected":
                 return StateModel.getTarget() != -1;
-            case "Attack card selected":
-                return StateModel.getTargetAttack() != -1;
             case "Skill card selected":
                 return StateModel.getTargetSkill() != -1;
+            case "Attack card selected":
+                return StateModel.getTargetAttack() != -1;
             case "Main phase":
                 return StateModel.getPhase() == 1 || StateModel.getPhase() == 3;
             case "Battle phase":
@@ -74,11 +74,14 @@ public class StateController {
             case "Draw card":
                 StateModel.setDraw(0);
                 break;
-            case "Release attack card":
-                StateModel.setTargetAttack(-1);
+            case "Release card":
+                StateModel.setTarget(-1);
                 break;
             case "Release skill card":
                 StateModel.setTargetSkill(-1);
+                break;
+            case "Release attack card":
+                StateModel.setTargetAttack(-1);
                 break;
         }
     }

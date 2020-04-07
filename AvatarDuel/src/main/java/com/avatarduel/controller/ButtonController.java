@@ -1,6 +1,8 @@
 package com.avatarduel.controller;
 
 import com.avatarduel.components.Basic;
+import com.avatarduel.model.FieldModel;
+import com.avatarduel.model.StateModel;
 import com.avatarduel.view.*;
 import com.avatarduel.element.Element;
 import com.avatarduel.player.Player;
@@ -8,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 public class ButtonController {
     private static void endTurn(Pane deckButton, Button end, Button main1) {
@@ -36,6 +39,7 @@ public class ButtonController {
         CardView.clearInfo();
         Player.player1.cardsOnField.forEach((K, V) -> V.setEffect(null));
         Player.player2.cardsOnField.forEach((K, V) -> V.setEffect(null));
+        ButtonController.setDisableDelete(true);
     }
 
     private static void enterNextPhase(Button now, Button next, String message) {
@@ -74,5 +78,30 @@ public class ButtonController {
                 StateController.updateState("Draw card");
             }
         });
+    }
+
+    public static void setDeleteEvent(Button delete) {
+        delete.setOnAction(e-> {
+            if (StateController.checkState("Skill card selected")) {
+                int targetSkill = StateModel.getTargetSkill();
+                FieldView.clearBox(targetSkill+16);
+                Player a;
+                if (StateController.checkState("Player 1 turn")) {
+                    a = Player.player1;
+                } else {
+                    a = Player.player2;
+                }
+                Pane skillCard = a.cardsOnField.get(targetSkill);
+                FieldController.removeSkill(targetSkill, skillCard);
+                a.cardsOnField.remove(targetSkill);
+                a.cardsOnFieldInfo.remove(targetSkill);
+                ButtonController.setDisableDelete(true);
+                StateController.updateState("Release skill card");
+            }
+        });
+    }
+
+    public static void setDisableDelete(boolean x) {
+        ButtonView.getDelete().setDisable(x);
     }
 }

@@ -86,6 +86,7 @@ public class AvatarDuel extends Application {
       HandView.init();
       PowerView.init();
       DeckView.init();
+      CardView.init();
 
       HandView.updateHand(Player.player2,Player.player1);
 

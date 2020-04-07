@@ -1,32 +1,37 @@
 package com.avatarduel.controller;
 
-import com.avatarduel.card.AuraSkillGameCard;
-import com.avatarduel.card.CharacterGameCard;
-import com.avatarduel.card.DestroySkillGameCard;
-import com.avatarduel.card.GameCard;
-import com.avatarduel.card.LandGameCard;
-import com.avatarduel.card.SkillGameCard;
+import com.avatarduel.card.*;
 import com.avatarduel.components.Basic;
 import com.avatarduel.components.Card;
+import com.avatarduel.model.FieldModel;
 import com.avatarduel.model.HealthModel;
 import com.avatarduel.model.StateModel;
 import com.avatarduel.player.Player;
 import com.avatarduel.view.CardView;
+import com.avatarduel.view.FieldView;
 import com.avatarduel.view.HandView;
 import com.avatarduel.view.PowerView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 public class CardController {
     public static void showInfoOnHover(Pane card, Player p, int handIndex) {
-        card.setOnMouseEntered(e2 -> Card.update(CardView.getCardInfo(), 250, p.getHand(handIndex)));
+        card.setOnMouseEntered(e2 -> {
+            Card.update(CardView.getCardInfo(), 250, p.getHand(handIndex));
+            CardView.updateCardDesc(p.getHand(handIndex));
+        });
     }
 
     public static void showInfoOnHover(Pane card, GameCard x) {
-        card.setOnMouseEntered(e2 -> Card.update(CardView.getCardInfo(), 250, x));
+        card.setOnMouseEntered(e2 -> {
+            Card.update(CardView.getCardInfo(), 250, x);
+            CardView.updateCardDesc(x);
+        });
     }
 
     public static void setBottomCardBehaviour(Pane card, Player a, Player b) {
+        // Pre-condition card is a character card
         card.setOnMouseClicked(e -> {
             a.cardsOnField.forEach((K, V) -> V.setEffect(null));
             if (StateController.checkState("Battle phase")) {
@@ -34,14 +39,57 @@ public class CardController {
             } else if (StateController.checkState("Main phase")) {
                 for(Integer K : a.cardsOnField.keySet()) {
                     Pane V = a.cardsOnField.get(K);
-                    GameCard tempCard = (GameCard) a.cardsOnFieldInfo.get(K).getKey();
                     if (V == card) {
-                        if (!(tempCard instanceof SkillGameCard)) a.switchCardMode(K);
-                        else {
-                            bottomCardBehaviourCallSkill(card,a,b);
+                        // Try to add skill to character
+                        if (StateController.checkState("Card selected")
+                                && a.getHand(StateModel.getTarget()) instanceof SkillGameCard) {
+                            // Pre-condition target is skill card (check by condition above)
+                            int target = StateModel.getTarget();
+                            int i = 8;
+                            while (i<16 && a.cardsOnFieldInfo.get(i) != null) i++;
+                            if (i < 16) {
+                                GameCard skillCard = a.getHand(StateModel.getTarget());
+                                if (a.useCard((HasCostAttribute) skillCard, skillCard.getElement())) {
+                                    Pane skill = CardView.cardsBottom.get(target);
+                                    FieldView.getBox(i + 16).getChildren().add(skill);
+                                    FieldView.getBox(i + 16).setOnMouseClicked(null);
+                                    FieldView.initFieldCardBottom(a, skill);
+                                    a.cardsOnField.put(i, skill);
+                                    a.cardsOnFieldInfo.put(i, new Pair<>(skillCard, false));
+                                    FieldController.addSkillLocToChar(card, i);
+                                    FieldController.addSkillInfo(skill, K, a.getId());
+                                    CardController.showInfoOnHover(CardView.cardsBottom.get(target), a.cardsOnFieldInfo.get(i).getKey());
+                                    a.setHand(target, null);
+                                    ((CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey()).addAuraSkill((AuraSkillGameCard) skillCard);
+                                    HandView.removeFromHand();
+                                    PowerView.updatePowerCounters("bottom", a);
+                                    StateController.updateState("Release card");
+                                }
+                            }
+                        } else {
+                            a.switchCardMode(K);
                         }
                     }
-                    
+                }
+            }
+        });
+    }
+    public static void setBottomCardBehaviour2(Pane card, Player a, Player b) {
+        card.setOnMouseClicked(e -> {
+            a.cardsOnField.forEach((K, V) -> V.setEffect(null));
+            if (StateController.checkState("Main phase")) {
+                for(Integer K : a.cardsOnField.keySet()) {
+                    Pane V = a.cardsOnField.get(K);
+                    if (V == card) {
+                        if (StateController.updateTargetSkill(K)) {
+                            card.setEffect(Basic.getShadow(Color.RED, 30));
+                            ButtonController.setDisableDelete(false);
+                        } else {
+                            StateController.updateState("Release skill card");
+                            ButtonController.setDisableDelete(true);
+                        }
+                        break;
+                    }
                 }
             }
         });
@@ -50,38 +98,15 @@ public class CardController {
     private static void bottomCardBehaviourCall(Pane card, Player a, Player b) {
         for(Integer K : a.cardsOnField.keySet()) {
             Pane V = a.cardsOnField.get(K);
-            
             if (V == card && !a.cardsOnFieldInfo.get(K).getValue()) {
                 if (b.cardsOnField.isEmpty()) {
                     CharacterGameCard c = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
                     StateController.updateTargetAttack(K);
                     HealthModel.updateAttack(a,b,0,c.getAttack(),false);
-                } else if (K != StateModel.getTargetAttack()) {
-                    StateController.updateTargetAttack(K);
-                    card.setEffect(Basic.getShadow(Color.RED, 30));
-                } else if (K == StateModel.getTargetAttack()){
+                } else if (StateController.updateTargetAttack(K)) {
+                    card.setEffect(Basic.getShadow(Color.BLUE, 30));
+                } else {
                     StateController.updateState("Release attack card");
-                }
-                break;
-            }
-        }
-    }
-
-    private static void bottomCardBehaviourCallSkill(Pane card, Player a, Player b) {
-        for(Integer K : a.cardsOnField.keySet()) {
-            Pane V = a.cardsOnField.get(K);
-            
-            if (V == card && !a.cardsOnFieldInfo.get(K).getValue()) {
-                // if (b.cardsOnField.isEmpty()) {
-                    // CharacterGameCard c = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
-                    // StateController.updateTargetAttack(K);
-                    // HealthModel.updateAttack(a,b,0,c.getAttack(),false);
-                // } 
-                if (K != StateModel.getTargetSkill()) {
-                    StateController.updateTargetSkill(K);
-                    card.setEffect(Basic.getShadow(Color.RED, 30));
-                } else if (K == StateModel.getTargetAttack()){
-                    StateController.updateState("Release skill card");
                 }
                 break;
             }
@@ -96,6 +121,17 @@ public class CardController {
         });
     }
 
+    public static void setTopCardBehaviour2(Pane card, Player a, Player b) {
+        /*
+        card.setOnMouseClicked(e -> {
+            if (StateController.checkState("Battle phase")) {
+                topCardBehaviourCall(card,a,b);
+            }
+        });
+
+         */
+    }
+
     private static void topCardBehaviourCall(Pane card, Player a, Player b) {
         for (Integer K: a.cardsOnField.keySet()) {
             Pane V = a.cardsOnField.get(K);
@@ -105,16 +141,6 @@ public class CardController {
                 if (!a.cardsOnFieldInfo.get(K).getValue() && attacker.getAttack() >= enemy.getAttack()) {
                     HealthModel.updateAttack(b,a,K,attacker.getAttack()-enemy.getAttack(),true);
                 } else if (a.cardsOnFieldInfo.get(K).getValue() && attacker.getAttack() > enemy.getDefense()) {
-                    HealthModel.updateAttack(b,a,K,0,true);
-                }
-                break;
-            } else if (StateController.checkState("Skill card selected") && V == card) {
-                SkillGameCard skill = (SkillGameCard) b.cardsOnFieldInfo.get(StateModel.getTargetSkill()).getKey();
-                CharacterGameCard target;
-                if (a.cardsOnFieldInfo.get(K) != null) target = (CharacterGameCard) (a.cardsOnFieldInfo.get(K).getKey());
-                else target = (CharacterGameCard) (b.cardsOnFieldInfo.get(K).getKey());
-                if (skill instanceof AuraSkillGameCard) target.addAuraSkill((AuraSkillGameCard)skill);
-                else if (skill instanceof DestroySkillGameCard) {
                     HealthModel.updateAttack(b,a,K,0,true);
                 }
                 break;

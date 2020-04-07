@@ -1,6 +1,8 @@
 package com.avatarduel.components;
 
+import com.avatarduel.card.CharacterGameCard;
 import com.avatarduel.card.GameCard;
+import com.avatarduel.card.SkillGameCard;
 import com.avatarduel.element.Element;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -10,11 +12,12 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Card {
     private static Color WATER = Color.AQUA;
-    private static Color FIRE = Color.RED;
+    private static Color FIRE = Color.INDIANRED;
     private static Color EARTH = Color.LIME;
     private static Color AIR = Color.YELLOW;
 
@@ -113,28 +116,52 @@ public class Card {
     }
 
     public static HBox getCardBottom(double width, double height) {
-        return getCardBottom(width, height, "");
+        return getCardBottom(width, height, "", null);
     }
 
-    public static HBox getCardBottom(double width, double height, String desc) {
+    public static HBox getCardBottom(double width, double height, String desc, GameCard card) {
         HBox description = new HBox();
         description.setMaxWidth(width*21/25);
         description.setMinHeight(height*7/40);
-        description.setBorder(Basic.getBorder(1,1,0,1));
         Label label = new Label(desc);
         description.getChildren().add(label);
         label.setWrapText(true);
-
-        HBox attr = new HBox();
-        attr.setMinHeight(height*3/40);
-        attr.setBorder(Basic.getBorder(1));
+        label.setFont(new Font(10));
 
         BorderPane bottomBar = new BorderPane();
         bottomBar.setMinWidth(width*21/25);
         bottomBar.setMaxWidth(width*21/25);
         bottomBar.setMaxHeight(height/4);
         bottomBar.setTop(description);
-        bottomBar.setBottom(attr);
+        bottomBar.setBorder(Basic.getBorder(1));
+
+        if (card instanceof CharacterGameCard || card instanceof SkillGameCard) {
+            HBox attr = new HBox();
+            attr.setMinHeight(height * 3 / 40);
+            attr.setBorder(Basic.getBorder(1,0, 0,0));
+            bottomBar.setBottom(attr);
+            BorderPane attrBox = new BorderPane();
+            attrBox.setMinWidth(width*21/25);
+            attr.getChildren().add(attrBox);
+            if (card instanceof CharacterGameCard) {
+                CharacterGameCard temp = (CharacterGameCard) card;
+                HBox store = new HBox();
+                store.setAlignment(Pos.CENTER_RIGHT);
+                Label attack = new Label("ATT/"+temp.getAttack());
+                Label defense = new Label("DEF/"+temp.getDefense());
+                Label cost = new Label("POW/"+temp.getCost());
+                attack.setMinWidth(50);
+                defense.setMinWidth(50);
+                defense.setBorder(Basic.getBorder(0,0,0,1));
+                cost.setMinWidth(50);
+                cost.setBorder(Basic.getBorder(0,0,0,1));
+                store.getChildren().add(attack);
+                store.getChildren().add(defense);
+                store.getChildren().add(cost);
+                attrBox.setLeft(Basic.getSpace(10));
+                attrBox.setRight(store);
+            }
+        }
 
         HBox cardBottom = new HBox();
         cardBottom.setMinHeight(height*135/400);
@@ -158,22 +185,24 @@ public class Card {
         return openCard;
     }
 
-    public static BorderPane getOpenCard(double width, Element x) {
-        BorderPane openCard = getOpenCard(width);
+    public static Color getCardColor(Element x) {
         switch(x) {
             case AIR:
-                openCard.setBackground(Basic.getBackground(AIR));
-                break;
+                return AIR;
             case WATER:
-                openCard.setBackground(Basic.getBackground(WATER));
-                break;
+                return WATER;
             case FIRE:
-                openCard.setBackground(Basic.getBackground(FIRE));
-                break;
+                return FIRE;
             case EARTH:
-                openCard.setBackground(Basic.getBackground(EARTH));
-                break;
+                return EARTH;
+            default:
+                return Color.WHITE;
         }
+    }
+
+    public static BorderPane getOpenCard(double width, Element x) {
+        BorderPane openCard = getOpenCard(width);
+        openCard.setBackground(Basic.getBackground(getCardColor(x)));
         return openCard;
     }
 
@@ -188,22 +217,9 @@ public class Card {
             // Card Middle
             cardMiddle = getCardMiddle(width, height, x.getImgUrl());
             // Card Bottom
-            cardBottom = getCardBottom(width, height, x.getDesc());
+            cardBottom = getCardBottom(width, height, x.getDesc(), x);
 
-            switch(x.getElement()) {
-                case AIR:
-                    card.setBackground(Basic.getBackground(AIR));
-                    break;
-                case WATER:
-                    card.setBackground(Basic.getBackground(WATER));
-                    break;
-                case FIRE:
-                    card.setBackground(Basic.getBackground(FIRE));
-                    break;
-                case EARTH:
-                    card.setBackground(Basic.getBackground(EARTH));
-                    break;
-            }
+            card.setBackground(Basic.getBackground(getCardColor(x.getElement())));
         } else {
             // Card Top
             cardTop = getCardTop(width, height);

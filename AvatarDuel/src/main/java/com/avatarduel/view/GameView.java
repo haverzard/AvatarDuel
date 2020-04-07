@@ -173,15 +173,10 @@ public class GameView {
         store.setAlignment(Pos.CENTER);
         store.getChildren().add(CardView.getCardInfo());
 
-        BorderPane cardLayout2 = new BorderPane();
-        cardLayout2.setMinWidth(250);
-        cardLayout2.setMaxHeight(400);
-        cardLayout2.setBorder(Basic.getBorder(1));
-
         HBox store2 = new HBox();
         store2.setMinHeight(440);
         store2.setAlignment(Pos.CENTER);
-        store2.getChildren().add(cardLayout2);
+        store2.getChildren().add(CardView.getCardDesc());
 
         // Left Layout
         BorderPane sidebar = new BorderPane();

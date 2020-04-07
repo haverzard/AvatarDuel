@@ -21,6 +21,7 @@ public class ButtonView {
         initDeckButton();
         initPhaseButton();
         ButtonController.setPhaseButtonsEvent(main1, main2, battle, end, deckButton);
+        ButtonController.setDeleteEvent(delete);
     }
 
     private static void initPhaseButton() {
@@ -51,4 +52,6 @@ public class ButtonView {
     public static Pane getDeckButton() {
         return deckButton;
     }
+
+    public static Button getDelete() { return delete; }
 }
