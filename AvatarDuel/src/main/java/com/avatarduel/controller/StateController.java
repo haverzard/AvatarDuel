@@ -34,6 +34,14 @@ public class StateController {
         }
         return false;
     }
+    
+    public static boolean updateTargetSkill(int newTarget) {
+        if  (StateModel.getTargetSkill() != newTarget) {
+            StateModel.setTargetSkill(newTarget);
+            return true;
+        }
+        return false;
+    }
 
     public static boolean checkState(String state) {
         switch (state) {
@@ -43,6 +51,8 @@ public class StateController {
                 return StateModel.getTarget() != -1;
             case "Attack card selected":
                 return StateModel.getTargetAttack() != -1;
+            case "Skill card selected":
+                return StateModel.getTargetSkill() != -1;
             case "Main phase":
                 return StateModel.getPhase() == 1 || StateModel.getPhase() == 3;
             case "Battle phase":
@@ -66,6 +76,9 @@ public class StateController {
                 break;
             case "Release attack card":
                 StateModel.setTargetAttack(-1);
+                break;
+            case "Release skill card":
+                StateModel.setTargetSkill(-1);
                 break;
         }
     }

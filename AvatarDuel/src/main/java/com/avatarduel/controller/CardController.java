@@ -1,8 +1,11 @@
 package com.avatarduel.controller;
 
+import com.avatarduel.card.AuraSkillGameCard;
 import com.avatarduel.card.CharacterGameCard;
+import com.avatarduel.card.DestroySkillGameCard;
 import com.avatarduel.card.GameCard;
 import com.avatarduel.card.LandGameCard;
+import com.avatarduel.card.SkillGameCard;
 import com.avatarduel.components.Basic;
 import com.avatarduel.components.Card;
 import com.avatarduel.model.HealthModel;
@@ -50,8 +53,13 @@ public class CardController {
                 } else if (K != StateModel.getTargetAttack()) {
                     StateController.updateTargetAttack(K);
                     card.setEffect(Basic.getShadow(Color.BLUE, 30));
-                } else {
+                } else if (K != StateModel.getTargetSkill()) {
+                    StateController.updateTargetSkill(K);
+                    card.setEffect(Basic.getShadow(Color.BLUE, 30));
+                } else if (K == StateModel.getTargetAttack()){
                     StateController.updateState("Release attack card");
+                }  else if (K == StateModel.getTargetSkill()){
+                    StateController.updateState("Release skill card");
                 }
                 break;
             }
@@ -75,6 +83,14 @@ public class CardController {
                 if (!a.cardsOnFieldInfo.get(K).getValue() && attacker.getAttack() >= enemy.getAttack()) {
                     HealthModel.updateAttack(b,a,K,attacker.getAttack()-enemy.getAttack(),true);
                 } else if (a.cardsOnFieldInfo.get(K).getValue() && attacker.getAttack() > enemy.getDefense()) {
+                    HealthModel.updateAttack(b,a,K,0,true);
+                }
+                break;
+            } else if (StateController.checkState("Skill card selected") && V == card) {
+                SkillGameCard skill = (SkillGameCard) b.cardsOnFieldInfo.get(StateModel.getTargetSkill()).getKey();
+                CharacterGameCard target = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
+                if (skill instanceof AuraSkillGameCard) target.addAuraSkill((AuraSkillGameCard)skill);
+                else if (skill instanceof DestroySkillGameCard) {
                     HealthModel.updateAttack(b,a,K,0,true);
                 }
                 break;
