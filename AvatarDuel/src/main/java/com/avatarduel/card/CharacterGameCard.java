@@ -10,7 +10,7 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     private int defense;
     private int bonusAttack;
     private int bonusDefense;
-    private boolean isPowerUpinField;
+    private PowerUpGameCard powerUpCard;
     private List<AuraSkillGameCard> listofAura;
     public CharacterGameCard() {
         super();
@@ -19,7 +19,7 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
         defense = 0;
         bonusAttack = 0;
         bonusDefense = 0;
-        isPowerUpinField = false;
+        powerUpCard = null;
         this.listofAura = new ArrayList<AuraSkillGameCard>();
     }
 
@@ -30,7 +30,7 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
         defense = _defense;
         bonusAttack = 0;
         bonusDefense = 0;
-        isPowerUpinField = false;
+        powerUpCard = null;
         this.listofAura = new ArrayList<AuraSkillGameCard>();
     }
 
@@ -85,12 +85,12 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
         this.listofAura.clear();
     }
 
-    public void setPowerUpinField(){
-        this.isPowerUpinField = true;
+    public void setPowerUpinField(PowerUpGameCard card){
+        powerUpCard = card;
     }
 
     public void detachedPowerUpinField(){
-        this.isPowerUpinField = false;
+        powerUpCard = null;
     }
 
     public AuraSkillGameCard getAuraSkillGameCard(int i) {
