@@ -88,7 +88,9 @@ public class CardController {
                 break;
             } else if (StateController.checkState("Skill card selected") && V == card) {
                 SkillGameCard skill = (SkillGameCard) b.cardsOnFieldInfo.get(StateModel.getTargetSkill()).getKey();
-                CharacterGameCard target = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
+                CharacterGameCard target;
+                if (a.cardsOnFieldInfo.get(K) != null) target = (CharacterGameCard) (a.cardsOnFieldInfo.get(K).getKey());
+                else target = (CharacterGameCard) (b.cardsOnFieldInfo.get(K).getKey());
                 if (skill instanceof AuraSkillGameCard) target.addAuraSkill((AuraSkillGameCard)skill);
                 else if (skill instanceof DestroySkillGameCard) {
                     HealthModel.updateAttack(b,a,K,0,true);
