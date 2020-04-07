@@ -48,14 +48,15 @@ public class CardController {
             Pane V = a.cardsOnField.get(K);
             
             if (V == card && !a.cardsOnFieldInfo.get(K).getValue()) {
-                if (b.cardsOnField.isEmpty() && K == StateModel.getTargetSkill()) {
+                if (b.cardsOnField.isEmpty()) {
                     CharacterGameCard c = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
                     StateController.updateTargetAttack(K);
+                    System.out.println(K);
                     HealthModel.updateAttack(a,b,0,c.getAttack(),false);
-                } else if (K != StateModel.getTargetAttack() && !(a.cardsOnFieldInfo.get(K).getKey() instanceof SkillGameCard)) {
+                } else if (K != StateModel.getTargetAttack()) {
                     StateController.updateTargetAttack(K);
                     card.setEffect(Basic.getShadow(Color.RED, 30));
-                } else if (K != StateModel.getTargetSkill() && K != StateModel.getTargetAttack() && (a.cardsOnFieldInfo.get(K).getKey() instanceof SkillGameCard)) {
+                } else if (K != StateModel.getTargetSkill() && K != StateModel.getTargetAttack()) {
                     StateController.updateTargetSkill(K);
                     card.setEffect(Basic.getShadow(Color.BLUE, 30));
                 } else if (K == StateModel.getTargetAttack()){
