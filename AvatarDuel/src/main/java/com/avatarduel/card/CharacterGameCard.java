@@ -10,7 +10,7 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     private int defense;
     private int bonusAttack;
     private int bonusDefense;
-    private PowerUpGameCard powerUpCard;
+    private PowerUpSkillGameCard powerUpCard;
     private List<AuraSkillGameCard> listofAura;
     public CharacterGameCard() {
         super();
@@ -85,7 +85,7 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
         this.listofAura.clear();
     }
 
-    public void setPowerUpinField(PowerUpGameCard card){
+    public void setPowerUpinField(PowerUpSkillGameCard card){
         powerUpCard = card;
     }
 
