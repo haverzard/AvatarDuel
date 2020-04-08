@@ -54,6 +54,7 @@ public class GameView {
 
         HBox powerCounter = new HBox();
         powerCounter.setMinHeight(30);
+        powerCounter.setMinWidth(80);
         powerCounter.setAlignment(Pos.CENTER);
         powerCounter.getChildren().add(t1);
         powerCounter.getChildren().add(t2);
@@ -66,7 +67,7 @@ public class GameView {
 
         HBox element = new HBox();
         element.setMinSize(30,30);
-        element.setBorder(Basic.getBorder(1));
+        element.setBackground(x.getBackground());
 
         BorderPane elementBox = new BorderPane();
         elementBox.setLeft(powerCounter);

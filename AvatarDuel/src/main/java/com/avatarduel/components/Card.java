@@ -14,10 +14,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Card {
-    private static Color WATER = Color.AQUA;
-    private static Color FIRE = Color.INDIANRED;
-    private static Color EARTH = Color.LIME;
-    private static Color AIR = Color.YELLOW;
 
     // Width : Height = 5 : 8
     public static HBox getClosedCard(double width) {
@@ -66,14 +62,20 @@ public class Card {
         BorderPane titleInside = new BorderPane();
         titleInside.setMinWidth(width*0.8);
         titleInside.setLeft(new Text(title));
-        //if (x != null)  titleInside.setRight(new Text(title));
+        if (x != null)  {
+            HBox element = new HBox();
+            element.setMinSize(30,30);
+            element.setBackground(x.getBackground());
+            titleInside.setRight(element);
+        }
 
         HBox titleBar = new HBox();
         titleBar.setMinWidth(width*22/25);
         titleBar.setMaxHeight(height*35/400);
         titleBar.setAlignment(Pos.CENTER);
         titleBar.setBorder(Basic.getBorder(1));
-        titleBar.getChildren().add(titleInside);
+        if (!title.isEmpty())
+            titleBar.getChildren().add(titleInside);
 
         HBox cardTop = new HBox();
         cardTop.setMinHeight(height*65/400);
@@ -130,7 +132,8 @@ public class Card {
         bottomBar.setMinWidth(width*21/25);
         bottomBar.setMaxWidth(width*21/25);
         bottomBar.setMaxHeight(height/4);
-        bottomBar.setTop(description);
+        if (!desc.isEmpty())
+            bottomBar.setTop(description);
         bottomBar.setBorder(Basic.getBorder(1));
 
         if (card instanceof HasCostAttribute) {
@@ -195,7 +198,6 @@ public class Card {
     public static BorderPane getOpenCard(double width) {
         double height = width/5*8;
 
-
         // Card Layout
         BorderPane openCard = new BorderPane();
         openCard.setMinWidth(width);
@@ -206,27 +208,16 @@ public class Card {
         return openCard;
     }
 
-    public static Color getCardColor(Element x) {
-        switch(x) {
-            case AIR:
-                return AIR;
-            case WATER:
-                return WATER;
-            case FIRE:
-                return FIRE;
-            case EARTH:
-                return EARTH;
-            default:
-                return Color.WHITE;
-        }
-    }
-
     public static BorderPane getOpenCard(double width, Element x) {
         BorderPane openCard = getOpenCard(width);
-        openCard.setBackground(Basic.getBackground(getCardColor(x)));
+        openCard.setBackground(Basic.getBackground(x.getCardTemplateURL(), width, width/5*8));
         return openCard;
     }
 
+    public static void update(BorderPane card, double width, double height, Element x) {
+        update(card, width, null);
+        card.setBackground(Basic.getBackground(x.getCardTemplateURL(), width, height));
+    }
     public static void update(BorderPane card, double width, GameCard x) {
         double height = width/5*8;
         HBox cardTop;
@@ -240,7 +231,7 @@ public class Card {
             // Card Bottom
             cardBottom = getCardBottom(width, height, x.getDesc(), x);
 
-            card.setBackground(Basic.getBackground(getCardColor(x.getElement())));
+            card.setBackground(Basic.getBackground(x.getElement().getCardTemplateURL(), width, height));
         } else {
             // Card Top
             cardTop = getCardTop(width, height);

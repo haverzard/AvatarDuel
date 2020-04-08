@@ -1,8 +1,9 @@
 package com.avatarduel.card;
-import java.util.List;
-import java.util.ArrayList;
+
 import com.avatarduel.element.Element;
-import com.avatarduel.card.PowerUpSkillGameCard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // Concrete Prototype
 public class CharacterGameCard extends GameCard implements HasCostAttribute, HasBattleAttribute {
@@ -30,7 +31,7 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     }
 
     public GameCard clone() {
-        return new CharacterGameCard(getName(), getDesc(), getElement(), getImgUrl(), cost, attack, defense, new ArrayList<AuraSkillGameCard>());
+        return new CharacterGameCard(getName(), getDesc(), getElement(), getImgUrl(), cost, attack, defense, new ArrayList<>());
     }
 
     // Getter & Setter

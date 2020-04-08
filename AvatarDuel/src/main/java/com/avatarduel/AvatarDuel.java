@@ -29,7 +29,7 @@ public class AvatarDuel extends Application {
   private static final String SKILL_CSV_FILE_PATH = "card/data/skill_aura.csv";
   private static final String LAND_CSV_FILE_PATH = "card/data/land.csv";
   private static final String DESTROY_CSV_FILE_PATH = "card/data/skill_destroy.csv";
-  private static final String POWER_UP_CSV_FILE_PATH = "card/data/skill_power_up.csv";
+  private static final String POWER_UP_CSV_FILE_PATH = "card/data/skill_powerup.csv";
   private static StorageDeck characterDeck = new StorageDeck(new ArrayList<>(), 100);
   private static StorageDeck skillDeck = new StorageDeck(new ArrayList<>(), 100);
   private static StorageDeck landDeck = new StorageDeck(new ArrayList<>(),100);

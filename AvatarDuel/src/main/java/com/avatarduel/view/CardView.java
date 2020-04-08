@@ -1,17 +1,15 @@
 package com.avatarduel.view;
 
-import com.avatarduel.card.CharacterGameCard;
-import com.avatarduel.card.GameCard;
-import com.avatarduel.card.PowerUpSkillGameCard;
+import com.avatarduel.card.*;
 import com.avatarduel.components.Basic;
 import com.avatarduel.components.Card;
+import com.avatarduel.element.Element;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +22,16 @@ public class CardView {
 
     public static void init() {
         cardsBottom = new ArrayList<>();
-        cardInfo = Card.getOpenCard(cardWidth);
+        cardInfo = Card.getOpenCard(cardWidth, Element.AIR);
         cardDesc = new BorderPane();
         cardDesc.setMinWidth(cardWidth);
         cardDesc.setMaxHeight(cardWidth/5*8);
         cardDesc.setBorder(Basic.getBorder(1));
-        cardDesc.setBackground(Basic.getBackground(Color.WHITE));
+        cardDesc.setBackground(Basic.getBackground(Element.AIR.getCardTemplateURL(),cardWidth,cardWidth/5*8));
     }
 
     public static void clearInfo() {
-        Card.update(cardInfo,cardWidth,null);
+        Card.update(cardInfo,cardWidth,cardWidth/5*8, Element.AIR);
     }
 
     public static void resetCardsBottom() {
@@ -45,9 +43,9 @@ public class CardView {
 
     public static void updateCardDesc(GameCard x) {
         cardDesc.getChildren().clear();
-        cardDesc.setBackground(Basic.getBackground(Color.WHITE));
+        cardDesc.setBackground(Basic.getBackground(Element.AIR.getCardTemplateURL()));
         if (x != null) {
-            cardDesc.setBackground(Basic.getBackground(Card.getCardColor(x.getElement())));
+            cardDesc.setBackground(Basic.getBackground(x.getElement().getCardTemplateURL()));
             HBox store = new HBox();
             store.setAlignment(Pos.CENTER);
             BorderPane layout = new BorderPane();
@@ -82,6 +80,22 @@ public class CardView {
                 } else {
                     skill.getChildren().add(new Label("None"));
                 }
+                layout.setCenter(skill);
+            }
+
+            // Skill type
+            if (x instanceof SkillGameCard) {
+                String type;
+                if (x instanceof PowerUpSkillGameCard) {
+                    type = "power up";
+                } else if (x instanceof AuraSkillGameCard) {
+                    type = "aura";
+                } else {
+                    type = "destroy";
+                }
+                VBox skill = new VBox();
+                skill.getChildren().add(Basic.getSpace(50));
+                skill.getChildren().add(new Label("Skill type - " + type));
                 layout.setCenter(skill);
             }
 

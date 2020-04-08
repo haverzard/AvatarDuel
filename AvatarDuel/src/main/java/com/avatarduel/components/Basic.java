@@ -29,6 +29,11 @@ public class Basic {
                 BackgroundSize.DEFAULT));
     }
 
+    public static Background getBackground(String url, double x, double y) {
+        return new Background(new BackgroundImage(new Image(url), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                new BackgroundSize(x,y,false,false,false,false)));
+    }
+
     public static Border getBorder(double all) {
         return new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(all)));
     }

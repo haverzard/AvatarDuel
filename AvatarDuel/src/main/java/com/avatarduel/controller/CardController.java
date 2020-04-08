@@ -99,10 +99,14 @@ public class CardController {
                         && a.getHand(StateModel.getTarget()) instanceof SkillGameCard) {
                     // Pre-condition target is skill card (check by condition above)
                     GameCard skillCard = a.getHand(StateModel.getTarget());
-                    if (skillCard instanceof DestroySkillGameCard) {
+                    int target = StateModel.getTarget();
+                    if (skillCard instanceof DestroySkillGameCard && a.useCard((HasCostAttribute) skillCard, skillCard.getElement())) {
                         deleteCard(a,K);
+                        a.setHand(target, null);
+                        HandView.removeFromHand();
+                        PowerView.updatePowerCounters("bottom", a);
+                        StateController.updateState("Release card");
                     } else {
-                        int target = StateModel.getTarget();
                         int i = 8;
                         while (i < 16 && a.cardsOnFieldInfo.get(i) != null) i++;
                         if (i < 16) {
@@ -167,7 +171,6 @@ public class CardController {
         for(Integer K : a.cardsOnField.keySet()) {
             Pane V = a.cardsOnField.get(K);
             if (V == card) {
-                System.out.println("hello");
                 // Try to add skill to character
                 if (StateController.checkState("Card selected")
                         && invoker.getHand(StateModel.getTarget()) instanceof SkillGameCard) {
@@ -251,15 +254,15 @@ public class CardController {
         List<Integer> x = FieldModel.getCharacterSkillList().remove(card);
         if (x != null) {
             x.forEach(K -> {
+                a.cardsOnFieldInfo.remove(K);
+                Pane temp = a.cardsOnField.remove(K);
                 if (a.getId() == StateModel.getTurn())
                     K += 16;
                 else
                     K = (15 - K) % 16;
                 FieldView.clearBox(K);
-                FieldModel.getSkillInfo().remove(a.cardsOnField.remove(K));
-                a.cardsOnFieldInfo.remove(K);
+                FieldModel.getSkillInfo().remove(temp);
             });
-            System.out.println(x);
         }
     }
 }
