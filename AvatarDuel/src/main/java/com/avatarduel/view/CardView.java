@@ -2,7 +2,8 @@ package com.avatarduel.view;
 
 import com.avatarduel.card.*;
 import com.avatarduel.components.Basic;
-import com.avatarduel.components.Card;
+import com.avatarduel.components.OpenedCard;
+import com.avatarduel.components.Space;
 import com.avatarduel.element.Element;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -17,12 +18,12 @@ import java.util.List;
 public class CardView {
     private static double cardWidth = 250;
     public static List<Pane> cardsBottom;
-    private static BorderPane cardInfo;
+    private static OpenedCard cardInfo;
     private static BorderPane cardDesc;
 
     public static void init() {
         cardsBottom = new ArrayList<>();
-        cardInfo = Card.getOpenCard(cardWidth, Element.AIR);
+        cardInfo = new OpenedCard(cardWidth, Element.AIR);
         cardDesc = new BorderPane();
         cardDesc.setMinWidth(cardWidth);
         cardDesc.setMaxHeight(cardWidth/5*8);
@@ -31,7 +32,7 @@ public class CardView {
     }
 
     public static void clearInfo() {
-        Card.update(cardInfo,cardWidth,cardWidth/5*8, Element.AIR);
+        cardInfo.update(cardWidth,cardWidth/5*8, Element.AIR);
     }
 
     public static void resetCardsBottom() {
@@ -64,7 +65,7 @@ public class CardView {
             // Skill field
             if (x instanceof CharacterGameCard) {
                 VBox skill = new VBox();
-                skill.getChildren().add(Basic.getSpace(50));
+                skill.getChildren().add(new Space(50));
                 skill.getChildren().add(new Label("Current skill attached"));
                 // Iterate skill here plz
                 CharacterGameCard card = (CharacterGameCard) x;
@@ -94,7 +95,7 @@ public class CardView {
                     type = "destroy";
                 }
                 VBox skill = new VBox();
-                skill.getChildren().add(Basic.getSpace(50));
+                skill.getChildren().add(new Space(50));
                 skill.getChildren().add(new Label("Skill type - " + type));
                 layout.setCenter(skill);
             }
@@ -104,7 +105,7 @@ public class CardView {
         }
     }
 
-    public static BorderPane getCardInfo() {
+    public static OpenedCard getCardInfo() {
         return cardInfo;
     }
 

@@ -2,7 +2,6 @@ package com.avatarduel.controller;
 
 import com.avatarduel.card.*;
 import com.avatarduel.components.Basic;
-import com.avatarduel.components.Card;
 import com.avatarduel.model.FieldModel;
 import com.avatarduel.model.HealthModel;
 import com.avatarduel.model.StateModel;
@@ -20,14 +19,14 @@ import java.util.List;
 public class CardController {
     public static void showInfoOnHover(Pane card, Player p, int handIndex) {
         card.setOnMouseEntered(e2 -> {
-            Card.update(CardView.getCardInfo(), 250, p.getHand(handIndex));
+            CardView.getCardInfo().update(250, p.getHand(handIndex));
             CardView.updateCardDesc(p.getHand(handIndex));
         });
     }
 
     public static void showInfoOnHover(Pane card, GameCard x) {
         card.setOnMouseEntered(e2 -> {
-            Card.update(CardView.getCardInfo(), 250, x);
+            CardView.getCardInfo().update(250, x);
             CardView.updateCardDesc(x);
         });
     }

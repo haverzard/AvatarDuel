@@ -1,8 +1,9 @@
 package com.avatarduel.view;
 
 import com.avatarduel.components.Basic;
-import com.avatarduel.components.Card;
+import com.avatarduel.components.ClosedCard;
 import com.avatarduel.components.CustomBox;
+import com.avatarduel.components.Space;
 import com.avatarduel.element.Element;
 import com.avatarduel.player.Player;
 import javafx.geometry.Pos;
@@ -26,7 +27,7 @@ public class GameView {
 
         HBox healthInfo = new HBox();
         healthInfo.getChildren().add(new Text("HP"));
-        healthInfo.getChildren().add(Basic.getSpace(10));
+        healthInfo.getChildren().add(new Space(10));
 
         BorderPane healthBox = new BorderPane();
         if (type.equals("top")) {
@@ -84,8 +85,8 @@ public class GameView {
             DeckView.updateDeckCounter("top", Player.player2.countCardsInDeck());
             sideBox.setAlignment(Pos.BOTTOM_CENTER);
             sideBox.getChildren().add(DeckView.getDeckCounter("top"));
-            sideBox.getChildren().add(Card.getClosedCard(60));
-            sideBox.getChildren().add(Basic.getSpace(10));
+            sideBox.getChildren().add(new ClosedCard(60));
+            sideBox.getChildren().add(new Space(10));
             sideBox.getChildren().add(genElementBox(type,Element.WATER));
             sideBox.getChildren().add(genElementBox(type,Element.AIR));
             sideBox.getChildren().add(genElementBox(type,Element.EARTH));
@@ -97,7 +98,7 @@ public class GameView {
             sideBox.getChildren().add(genElementBox(type,Element.EARTH));
             sideBox.getChildren().add(genElementBox(type,Element.AIR));
             sideBox.getChildren().add(genElementBox(type,Element.WATER));
-            sideBox.getChildren().add(Basic.getSpace(10));
+            sideBox.getChildren().add(new Space(10));
             sideBox.getChildren().add(ButtonView.deckButton);
             sideBox.getChildren().add(DeckView.getDeckCounter("bottom"));
         }
@@ -109,11 +110,11 @@ public class GameView {
         boxField.setMinWidth((size+pad)*counts+pad);
         boxField.setAlignment(Pos.CENTER);
         for (int i=0; i<counts-1; i++) {
-            FieldView.addBox(CustomBox.getBox(size));
+            FieldView.addBox(new CustomBox(size));
             boxField.getChildren().add(FieldView.getLastBox());
-            boxField.getChildren().add(Basic.getSpace(10));
+            boxField.getChildren().add(new Space(10));
         }
-        FieldView.addBox(CustomBox.getBox(size));
+        FieldView.addBox(new CustomBox(size));
         boxField.getChildren().add(FieldView.getLastBox());
         return boxField;
     }
@@ -123,7 +124,7 @@ public class GameView {
         fieldInside.setAlignment(Pos.CENTER);
         fieldInside.setBorder(Basic.getBorder(1));
         fieldInside.getChildren().add(genBoxField(8,110, 10));
-        fieldInside.getChildren().add(Basic.getSpace(10));
+        fieldInside.getChildren().add(new Space(10));
         fieldInside.getChildren().add(genBoxField(8,110, 10));
 
         HBox field = new HBox();

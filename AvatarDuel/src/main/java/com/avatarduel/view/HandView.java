@@ -1,7 +1,8 @@
 package com.avatarduel.view;
 
-import com.avatarduel.components.Basic;
-import com.avatarduel.components.Card;
+import com.avatarduel.components.ClosedCard;
+import com.avatarduel.components.OpenedCard;
+import com.avatarduel.components.Space;
 import com.avatarduel.controller.CardController;
 import com.avatarduel.element.Element;
 import com.avatarduel.model.StateModel;
@@ -62,14 +63,14 @@ public class HandView {
         HBox hand = getHand(type);
         Pane card;
         if (a.getId() == StateModel.getTurn()) {
-            card = Card.getOpenCard(62.5, x);
+            card = new OpenedCard(62.5, x);
             CardView.cardsBottom.add(card);
             CardController.showInfoOnHover(card, a, idx);
             CardController.setCardEventOnHand(card, a);
         } else {
-            card = Card.getClosedCard(62.5);
+            card = new ClosedCard(62.5);
         }
         hand.getChildren().add(card);
-        hand.getChildren().add(Basic.getSpace(10));
+        hand.getChildren().add(new Space(10));
     }
 }

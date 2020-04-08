@@ -14,12 +14,6 @@ import javafx.scene.text.Text;
 public class Basic {
     public static HBox scr;
 
-    public static HBox getSpace(double space) {
-        HBox spaceBox = new HBox();
-        spaceBox.setMinSize(space,space);
-        return spaceBox;
-    }
-
     public static Background getBackground(Color x) {
         return new Background(new BackgroundFill(x, CornerRadii.EMPTY, Insets.EMPTY));
     }

@@ -1,64 +1,42 @@
 package com.avatarduel.components;
 
-import com.avatarduel.card.*;
+import com.avatarduel.card.AuraSkillGameCard;
+import com.avatarduel.card.CharacterGameCard;
+import com.avatarduel.card.GameCard;
+import com.avatarduel.card.HasCostAttribute;
 import com.avatarduel.element.Element;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class Card {
-
-    // Width : Height = 5 : 8
-    public static HBox getClosedCard(double width) {
+public class OpenedCard extends BorderPane {
+    private OpenedCard(double width) {
+        super();
         double height = width/5*8;
 
-        Rectangle inside = new Rectangle();
-        inside.setWidth(width*0.75/2);
-        inside.setHeight(width*0.75/2);
-        inside.setRotate(45);
-        inside.setFill(Color.LIGHTGOLDENRODYELLOW);
-
-        Circle inside2 = new Circle();
-        inside2.setRadius(width*0.75/2);
-        inside2.setFill(Color.INDIANRED);
-
-        Rectangle inside3 = new Rectangle();
-        inside3.setWidth(width*0.9);
-        inside3.setHeight(height-width*0.1);
-        inside3.setFill(Color.LIGHTGOLDENRODYELLOW);
-
-        Rectangle inner = new Rectangle();
-        inner.setWidth(width);
-        inner.setHeight(height);
-        inner.setFill(Color.ORANGE);
-
-        HBox closedCard = new HBox();
-        closedCard.setMinWidth(width);
-        closedCard.setMinHeight(height);
-        closedCard.setAlignment(Pos.CENTER);
-        StackPane stack = new StackPane();
-        stack.getChildren().add(inner);
-        stack.getChildren().add(inside3);
-        stack.getChildren().add(inside2);
-        stack.getChildren().add(inside);
-        closedCard.getChildren().add(stack);
-
-        return closedCard;
+        // Card Layout
+        setMinWidth(width);
+        setMaxHeight(height);
+        setBorder(Basic.getBorder(1));
+        update(width, null);
     }
 
-    public static HBox getCardTop(double width, double height) {
+    public OpenedCard(double width, Element x) {
+        this(width);
+        setBackground(Basic.getBackground(x.getCardTemplateURL(), width, width/5*8));
+    }
+
+    private HBox getCardTop(double width, double height) {
         return getCardTop(width, height, "", null);
     }
 
-
-    public static HBox getCardTop(double width, double height, String title, Element x) {
+    private HBox getCardTop(double width, double height, String title, Element x) {
         BorderPane titleInside = new BorderPane();
         titleInside.setMinWidth(width*0.8);
         titleInside.setLeft(new Text(title));
@@ -85,11 +63,11 @@ public class Card {
         return cardTop;
     }
 
-    public static HBox getCardMiddle(double width, double height) {
+    private HBox getCardMiddle(double width, double height) {
         return getCardMiddle(width, height, "");
     }
 
-    public static HBox getCardMiddle(double width, double height, String imgUrl) {
+    private HBox getCardMiddle(double width, double height, String imgUrl) {
 
         HBox imageBox = new HBox();
         imageBox.setMinWidth(width*0.8);
@@ -115,11 +93,11 @@ public class Card {
         return cardMiddle;
     }
 
-    public static HBox getCardBottom(double width, double height) {
+    private HBox getCardBottom(double width, double height) {
         return getCardBottom(width, height, "", null);
     }
 
-    public static HBox getCardBottom(double width, double height, String desc, GameCard card) {
+    private HBox getCardBottom(double width, double height, String desc, GameCard card) {
         HBox description = new HBox();
         description.setMaxWidth(width*21/25);
         description.setMinHeight(height*7/40);
@@ -195,30 +173,12 @@ public class Card {
         return cardBottom;
     }
 
-    public static BorderPane getOpenCard(double width) {
-        double height = width/5*8;
-
-        // Card Layout
-        BorderPane openCard = new BorderPane();
-        openCard.setMinWidth(width);
-        openCard.setMaxHeight(height);
-        openCard.setBorder(Basic.getBorder(1));
-        update(openCard, width, null);
-
-        return openCard;
+    public void update(double width, double height, Element x) {
+        update(width, null);
+        setBackground(Basic.getBackground(x.getCardTemplateURL(), width, height));
     }
 
-    public static BorderPane getOpenCard(double width, Element x) {
-        BorderPane openCard = getOpenCard(width);
-        openCard.setBackground(Basic.getBackground(x.getCardTemplateURL(), width, width/5*8));
-        return openCard;
-    }
-
-    public static void update(BorderPane card, double width, double height, Element x) {
-        update(card, width, null);
-        card.setBackground(Basic.getBackground(x.getCardTemplateURL(), width, height));
-    }
-    public static void update(BorderPane card, double width, GameCard x) {
+    public void update(double width, GameCard x) {
         double height = width/5*8;
         HBox cardTop;
         HBox cardMiddle;
@@ -231,7 +191,7 @@ public class Card {
             // Card Bottom
             cardBottom = getCardBottom(width, height, x.getDesc(), x);
 
-            card.setBackground(Basic.getBackground(x.getElement().getCardTemplateURL(), width, height));
+            setBackground(Basic.getBackground(x.getElement().getCardTemplateURL(), width, height));
         } else {
             // Card Top
             cardTop = getCardTop(width, height);
@@ -239,11 +199,11 @@ public class Card {
             cardMiddle = getCardMiddle(width, height);
             // Card Bottom
             cardBottom = getCardBottom(width, height);
-            card.setBackground(Basic.getBackground(Color.WHITE));
+            setBackground(Basic.getBackground(Color.WHITE));
         }
         // Card Layout
-        card.setTop(cardTop);
-        card.setCenter(cardMiddle);
-        card.setBottom(cardBottom);
+        setTop(cardTop);
+        setCenter(cardMiddle);
+        setBottom(cardBottom);
     }
 }

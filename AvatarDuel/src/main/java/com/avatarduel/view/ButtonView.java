@@ -1,7 +1,7 @@
 package com.avatarduel.view;
 
 import com.avatarduel.components.Basic;
-import com.avatarduel.components.Card;
+import com.avatarduel.components.ClosedCard;
 import com.avatarduel.controller.ButtonController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class ButtonView {
-    public static HBox deckButton = Card.getClosedCard(60);
+    public static HBox deckButton = new ClosedCard(60);
     private static Button delete = new Button("Delete");
     private static Button main1 = new Button("Main 1");
     private static Button battle = new Button("Battle");

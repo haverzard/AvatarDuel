@@ -2,6 +2,7 @@ package com.avatarduel.view;
 
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.components.Basic;
+import com.avatarduel.components.Space;
 import com.avatarduel.player.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -56,7 +57,7 @@ public class MainView {
         nameBox2.getChildren().add(nameLabel2);
         nameBox2.getChildren().add(name2);
         names.getChildren().add(nameBox1);
-        names.getChildren().add(Basic.getSpace(50));
+        names.getChildren().add(new Space(50));
         names.getChildren().add(nameBox2);
 
         Button play = new Button("Let's play!");
@@ -71,7 +72,7 @@ public class MainView {
         });
         scr.getChildren().add(logo);
         scr.getChildren().add(names);
-        scr.getChildren().add(Basic.getSpace(50));
+        scr.getChildren().add(new Space(50));
         scr.getChildren().add(play);
         mainScr.getChildren().add(background);
         mainScr.getChildren().add(scr);
