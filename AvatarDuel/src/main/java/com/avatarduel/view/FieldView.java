@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FieldView {
-    public static List<HBox> fieldBoxes = new ArrayList<>();
+    public static List<HBox> fieldBoxes;
 
+    public static void init() {
+        fieldBoxes = new ArrayList<>();
+    }
 
     public static void initFieldBoxes() {
         Player p1, p2;
@@ -33,33 +36,57 @@ public class FieldView {
     }
 
     private static void initTopField(Player p2) {
-        for (int i=0; i<16; i++) {
+
+        // Skill row
+        for (int i=0; i<8; i++) {
             int j = (15-i)%16;
             fieldBoxes.get(i).getChildren().clear();
             Pane card = p2.cardsOnField.get(j);
             if (card != null) {
                 fieldBoxes.get(i).getChildren().add(card);
-                initFieldCard(p2, card);
+                initFieldCardSkill(p2, card, "top");
+            }
+        }
+        // Character row
+        for (int i=8; i<16; i++) {
+            int j = (15-i)%16;
+            fieldBoxes.get(i).getChildren().clear();
+            Pane card = p2.cardsOnField.get(j);
+            if (card != null) {
+                fieldBoxes.get(i).getChildren().add(card);
+                initFieldCardChar(p2, card);
             }
         }
     }
 
     private static void initBottomField(Player p1) {
-        for (int i=16; i<32; i++) {
+        // Character row
+        for (int i=16; i<24; i++) {
             int j = i-16;
             fieldBoxes.get(i).getChildren().clear();
             Pane card = p1.cardsOnField.get(j);
             if (card != null) {
                 fieldBoxes.get(i).getChildren().add(card);
                 fieldBoxes.get(i).setOnMouseClicked(null);
-                initFieldCard(p1, card);
+                initFieldCardChar(p1, card);
             } else {
                 FieldController.setFieldBoxOnClickEvent(i, p1);
             }
         }
+        // Skill row
+        for (int i=24; i<32; i++) {
+            int j = i-16;
+            fieldBoxes.get(i).getChildren().clear();
+            Pane card = p1.cardsOnField.get(j);
+            if (card != null) {
+                fieldBoxes.get(i).getChildren().add(card);
+                fieldBoxes.get(i).setOnMouseClicked(null);
+                initFieldCardSkill(p1, card, "bottom");
+            }
+        }
     }
 
-    public static void initFieldCard(Player a, Pane card) {
+    public static void initFieldCardChar(Player a, Pane card) {
         Player b = (a == Player.player1) ? Player.player2 : Player.player1;
         // Battle Phase Action
         if (a.getId() == StateModel.getTurn()) {
@@ -67,6 +94,12 @@ public class FieldView {
         } else {
             CardController.setTopCardBehaviour(card, a, b);
         }
+    }
+
+    public static void initFieldCardSkill(Player a, Pane card, String type) {
+        Player b = (a == Player.player1) ? Player.player2 : Player.player1;
+        // Battle Phase Action
+        CardController.setSkillCardBehaviour(card, a, type);
     }
 
     public static void clearBox(int idx) {

@@ -3,7 +3,7 @@ package com.avatarduel.card;
 import com.avatarduel.element.Element;
 
 // Concrete Prototype
-public class AuraSkillGameCard extends SkillGameCard {
+public class AuraSkillGameCard extends SkillGameCard implements HasAuraEffect, AppliableEffect{
     private int attackAura;
     private int defenseAura;
     public AuraSkillGameCard(String _name, String _desc, Element _element, String _imgUrl, int _cost, int _attack, int _defense) {
@@ -31,5 +31,13 @@ public class AuraSkillGameCard extends SkillGameCard {
 
     public void setDefenseAura(int _defense) {
         defenseAura = _defense;
+    }
+
+    public void addEffect(CharacterGameCard card){
+        card.addAuraSkill(this);
+    }
+
+    public void removeEffect(CharacterGameCard card){
+        card.removeAuraSkill(this);
     }
 }

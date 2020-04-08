@@ -7,13 +7,16 @@ import com.avatarduel.element.Element;
 import com.avatarduel.player.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class GameView {
+    private static String BACKGROUND_URL = "com/avatarduel/assets/image/background.png";
+    private static String FIELD_URL = "com/avatarduel/assets/image/fieldBackground.png";
 
-    public static BorderPane genHealthBox(String type) {
+    private static BorderPane genHealthBox(String type) {
         // Health Layout
         HBox healthBar = new HBox();
         healthBar.setMaxWidth(1040);
@@ -44,7 +47,7 @@ public class GameView {
         return healthBox;
     }
 
-    public static BorderPane genElementBox(String type, Element x) {
+    private static BorderPane genElementBox(String type, Element x) {
         Text t1 = new Text("0");
         Text t2 = new Text("/");
         Text t3 = new Text("0");
@@ -72,7 +75,7 @@ public class GameView {
         return elementBox;
     }
 
-    public static VBox genSideBox(String type) {
+    private static VBox genSideBox(String type) {
         VBox sideBox = new VBox();
         sideBox.setMinWidth(75);
         sideBox.setMinHeight(350);
@@ -100,7 +103,7 @@ public class GameView {
         return sideBox;
     }
 
-    public static HBox genBoxField(int counts, double size, double pad) {
+    private static HBox genBoxField(int counts, double size, double pad) {
         HBox boxField = new HBox();
         boxField.setMinWidth((size+pad)*counts+pad);
         boxField.setAlignment(Pos.CENTER);
@@ -114,7 +117,7 @@ public class GameView {
         return boxField;
     }
 
-    public static HBox genField() {
+    private static HBox genField() {
         VBox fieldInside = new VBox();
         fieldInside.setAlignment(Pos.CENTER);
         fieldInside.setBorder(Basic.getBorder(1));
@@ -124,14 +127,15 @@ public class GameView {
 
         HBox field = new HBox();
         field.setMinWidth(800);
-        field.setMinHeight(225);
+        field.setMinHeight(240);
+        field.setBackground(Basic.getBackground(FIELD_URL));
         field.setAlignment(Pos.CENTER);
         field.getChildren().add(fieldInside);
 
         return field;
     }
 
-    public static BorderPane genPlane(String type) {
+    private static BorderPane genPlane(String type) {
         BorderPane deckField = new BorderPane();
         BorderPane deck = new BorderPane();
         BorderPane plane = new BorderPane();
@@ -145,7 +149,7 @@ public class GameView {
         scrollPane.setMinWidth(800);
         scrollPane.setMaxWidth(800);
         scrollPane.setMinHeight(150);
-        scrollPane.setBackground(Basic.getBackground(Color.TRANSPARENT));
+        scrollPane.setStyle("-fx-background: transparent;\n -fx-background-color: transparent");
         if (type.equals("top")) {
             deckField.setBottom(genField());
             deckField.setTop(wrapper);
@@ -173,15 +177,10 @@ public class GameView {
         store.setAlignment(Pos.CENTER);
         store.getChildren().add(CardView.getCardInfo());
 
-        BorderPane cardLayout2 = new BorderPane();
-        cardLayout2.setMinWidth(250);
-        cardLayout2.setMaxHeight(400);
-        cardLayout2.setBorder(Basic.getBorder(1));
-
         HBox store2 = new HBox();
         store2.setMinHeight(440);
         store2.setAlignment(Pos.CENTER);
-        store2.getChildren().add(cardLayout2);
+        store2.getChildren().add(CardView.getCardDesc());
 
         // Left Layout
         BorderPane sidebar = new BorderPane();
@@ -210,7 +209,7 @@ public class GameView {
         BorderPane mainLayout = new BorderPane();
         mainLayout.setLeft(sidebar);
         mainLayout.setCenter(planeBox);
-
+        mainLayout.setBackground(Basic.getBackground(BACKGROUND_URL));
         MainView.screen.getChildren().add(mainLayout);
     }
 }

@@ -8,12 +8,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class HealthView {
-    private static Text healthValueTop = new Text();
-    private static Text healthValueBottom = new Text();
-    private static HBox healthBarBottom = new HBox();
-    private static HBox healthBarTop = new HBox();
+    private static Text healthValueTop;
+    private static Text healthValueBottom;
+    private static HBox healthBarBottom;
+    private static HBox healthBarTop;
 
     public static void init() {
+        healthValueTop = new Text();
+        healthValueBottom = new Text();
+        healthBarBottom = new HBox();
+        healthBarTop = new HBox();
         initHealthBar(healthBarBottom, Player.player1);
         initHealthBar(healthBarTop, Player.player2);
         initHealthValue(healthValueBottom, Player.player1);

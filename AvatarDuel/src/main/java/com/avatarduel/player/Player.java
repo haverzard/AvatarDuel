@@ -20,6 +20,7 @@ public class Player {
     // Class attribute
     private PlayerDeck myDeck;
     private int id;
+    private String name;
     private ArrayList<GameCard> hand;
     public Map<Integer, Pane> cardsOnField;
     public Map<Integer, Pair<GameCard,Boolean>> cardsOnFieldInfo;
@@ -30,6 +31,7 @@ public class Player {
     private Player() {
         counts++;
         id = counts;
+        name = "";
         myDeck = new PlayerDeck(new ArrayList<>());
         cardsOnField = new HashMap<>();
         cardsOnFieldInfo = new HashMap<>();
@@ -50,6 +52,12 @@ public class Player {
         }
     }
 
+    public static void resetPlayers() {
+        counts = 0;
+        player1 = new Player();
+        player2 = new Player();
+    }
+
     // Getter & Setter
     public int getHealth() {
         return health;
@@ -59,9 +67,13 @@ public class Player {
         health = _health;
     }
 
-    public void addToDeck(GameCard x) {
-        myDeck.add(x);
+    public int getId() {
+        return id;
     }
+
+    public String getName() { return name; }
+
+    public void setName(String _name) { name = _name; }
 
     public GameCard getHand(int idx) {
         if (idx < hand.size()) return hand.get(idx);
@@ -86,8 +98,8 @@ public class Player {
         }
     }
 
-    public int getId() {
-        return id;
+    public void addToDeck(GameCard x) {
+        myDeck.add(x);
     }
 
     public int countCardsInDeck() {
