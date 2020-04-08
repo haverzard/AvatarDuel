@@ -8,6 +8,7 @@ public class StateModel {
     private static int land;
     private static int target;
     private static int targetAttack;
+    private static int targetSkill;
 
     public static void init() {
         phase = 0;
@@ -16,6 +17,7 @@ public class StateModel {
         land = 1;
         target = -1;
         targetAttack = -1;
+        targetSkill = -1;
     }
 
     public static int getPhase() {
@@ -54,6 +56,10 @@ public class StateModel {
         return target;
     }
 
+    public static int getTargetSkill() {
+        return targetSkill;
+    }
+
     public static void setTarget(int value) {
         target = value;
     }
@@ -64,5 +70,9 @@ public class StateModel {
 
     public static void setTargetAttack(int value) {
         targetAttack = value;
+    }
+
+    public static void setTargetSkill(int value) {
+        targetSkill = value;
     }
 }

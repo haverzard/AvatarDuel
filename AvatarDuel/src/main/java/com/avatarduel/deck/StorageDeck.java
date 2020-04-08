@@ -4,7 +4,7 @@ import com.avatarduel.card.GameCard;
 
 import java.util.List;
 
-public class StorageDeck extends Deck {
+public class StorageDeck extends Deck implements HasDynamicCapacity{
 
     public StorageDeck(List<GameCard> x) {
         super(x);

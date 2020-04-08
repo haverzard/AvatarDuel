@@ -5,7 +5,7 @@ import com.avatarduel.card.GameCard;
 import java.util.Collections;
 import java.util.List;
 
-public class Deck {
+public class Deck implements HasCapacity{
     private int capacity;
     protected List<GameCard> gameCards; // Depend on Card, a higher abstraction, instead of CharacterCard, etc.
 

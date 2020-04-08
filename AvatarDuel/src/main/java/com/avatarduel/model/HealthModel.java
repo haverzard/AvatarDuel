@@ -1,10 +1,9 @@
 package com.avatarduel.model;
 
-import com.avatarduel.components.Basic;
+import com.avatarduel.controller.CardController;
 import com.avatarduel.controller.PlayerController;
 import com.avatarduel.controller.StateController;
 import com.avatarduel.player.Player;
-import com.avatarduel.view.FieldView;
 import com.avatarduel.view.HealthView;
 import com.avatarduel.view.MainView;
 import javafx.animation.ScaleTransition;
@@ -18,6 +17,13 @@ public class HealthModel {
     private static double hpPercentageTop = 1;
     private static double slideBottom = 0;
     private static double slideTop = 0;
+
+    public static void init() {
+        hpPercentageBottom = 1;
+        hpPercentageTop = 1;
+        slideBottom = 0;
+        slideTop = 0;
+    }
 
     public static TranslateTransition animateHP(String type, double init, double goal) {
         HBox healthBar = HealthView.getHealthBar(type);
@@ -58,15 +64,13 @@ public class HealthModel {
             animateHP("top", hp, newhp);
             PlayerController.updateHealth(enemy, newhp);
             updateHealthValue("top", newhp);
-            if (hp <= 0) {
-                MainView.screen.getChildren().add(Basic.getScreen("You Lose!"));
+            if (newhp <= 0) {
+                MainView.loadLoseScreen(attacker);
             }
         }
         attacker.switchCardMode(StateModel.getTargetAttack());
         if (isHitOnEnemy) {
-            FieldView.clearBox((15 - idx) % 16);
-            enemy.cardsOnField.remove(idx);
-            enemy.cardsOnFieldInfo.remove(idx);
+            CardController.deleteCard(enemy, idx);
         }
         StateController.updateState("Release attack card");
         attacker.cardsOnField.forEach((K, V) -> V.setEffect(null));
