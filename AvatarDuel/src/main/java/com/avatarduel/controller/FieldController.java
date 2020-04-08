@@ -30,7 +30,7 @@ public class FieldController {
                     if (p1.cardsOnField.get(j) == null && !p1.cardsOnField.containsValue(CardView.cardsBottom.get(target))) {
                         FieldView.getBox(j + 16).getChildren().add(CardView.cardsBottom.get(target));
                         FieldView.getBox(j + 16).setOnMouseClicked(null);
-                        FieldView.initFieldCardTop(p1, CardView.cardsBottom.get(target));
+                        FieldView.initFieldCardChar(p1, CardView.cardsBottom.get(target));
                         p1.cardsOnField.put(j, CardView.cardsBottom.get(target));
                         p1.cardsOnFieldInfo.put(j, new Pair<>(p1.getHand(target), false));
                         CardController.showInfoOnHover(CardView.cardsBottom.get(target), p1.cardsOnFieldInfo.get(j).getKey());
@@ -57,19 +57,23 @@ public class FieldController {
         FieldModel.getSkillInfo().put(card, x);
     }
 
-    public static void removeSkill(int loc, Pane card, Player a) {
+    public static void removeSkill(int loc, Pane card, Player invoker, Player target) {
         Pair<Integer,Integer> info = FieldModel.getSkillInfo().get(card);
-        System.out.println(info);
-        System.out.println(FieldModel.getSkillInfo());
-        /*
-        if (info.getValue() == a.getId()) {
-            CharacterGameCard charCard = (CharacterGameCard) a.cardsOnFieldInfo.get(info.getKey()).getKey();
-            charCard.removeAuraSkill((AuraSkillGameCard) a.cardsOnFieldInfo.get(loc).getKey());
-            List<Integer> skills = FieldModel.getCharacterSkillList().get(a.cardsOnField.get(info.getKey()));
+        if (info.getValue() == invoker.getId()) {
+            CharacterGameCard charCard = (CharacterGameCard) target.cardsOnFieldInfo.get(info.getKey()).getKey();
+            List<Integer> skills = FieldModel.getCharacterSkillList().get(target.cardsOnField.get(info.getKey()));
             skills.remove((Integer) loc);
+            if (target.cardsOnFieldInfo.get(loc).getKey() instanceof  AuraSkillGameCard)
+                charCard.removeAuraSkill((AuraSkillGameCard) target.cardsOnFieldInfo.get(loc).getKey());
+            else
+                charCard.detachedPowerUpinField();
             FieldModel.getSkillInfo().remove(card);
+            target.cardsOnField.remove(loc);
+            target.cardsOnFieldInfo.remove(loc);
+            if (invoker.getId() == target.getId())
+                FieldView.clearBox(loc + 16);
+            else
+                FieldView.clearBox((15-loc)%16);
         }
-
-         */
     }
 }

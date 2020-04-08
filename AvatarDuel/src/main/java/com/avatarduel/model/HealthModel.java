@@ -2,6 +2,7 @@ package com.avatarduel.model;
 
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.components.Basic;
+import com.avatarduel.controller.CardController;
 import com.avatarduel.controller.PlayerController;
 import com.avatarduel.controller.StateController;
 import com.avatarduel.player.Player;
@@ -73,9 +74,7 @@ public class HealthModel {
         }
         attacker.switchCardMode(StateModel.getTargetAttack());
         if (isHitOnEnemy) {
-            FieldView.clearBox((15 - idx) % 16);
-            enemy.cardsOnField.remove(idx);
-            enemy.cardsOnFieldInfo.remove(idx);
+            CardController.deleteCard(enemy, idx);
         }
         StateController.updateState("Release attack card");
         attacker.cardsOnField.forEach((K, V) -> V.setEffect(null));

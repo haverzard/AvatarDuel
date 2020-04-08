@@ -26,6 +26,7 @@ public class ButtonView {
 
     private static void initPhaseButton() {
         delete.setDisable(true);
+        main1.setDisable(false);
         battle.setDisable(true);
         main2.setDisable(true);
         end.setDisable(false);

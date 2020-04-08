@@ -1,8 +1,6 @@
 package com.avatarduel.components;
 
-import com.avatarduel.card.CharacterGameCard;
-import com.avatarduel.card.GameCard;
-import com.avatarduel.card.SkillGameCard;
+import com.avatarduel.card.*;
 import com.avatarduel.element.Element;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -135,7 +133,7 @@ public class Card {
         bottomBar.setTop(description);
         bottomBar.setBorder(Basic.getBorder(1));
 
-        if (card instanceof CharacterGameCard || card instanceof SkillGameCard) {
+        if (card instanceof HasCostAttribute) {
             HBox attr = new HBox();
             attr.setMinHeight(height * 3 / 40);
             attr.setBorder(Basic.getBorder(1,0, 0,0));
@@ -143,10 +141,14 @@ public class Card {
             BorderPane attrBox = new BorderPane();
             attrBox.setMinWidth(width*21/25);
             attr.getChildren().add(attrBox);
+            HBox store = new HBox();
+            store.setAlignment(Pos.CENTER_RIGHT);
+            HBox store2 = new HBox();
+            store2.setAlignment(Pos.CENTER_LEFT);
+            attrBox.setLeft(store2);
+            attrBox.setRight(store);
             if (card instanceof CharacterGameCard) {
                 CharacterGameCard temp = (CharacterGameCard) card;
-                HBox store = new HBox();
-                store.setAlignment(Pos.CENTER_RIGHT);
                 Label attack = new Label("ATT/"+temp.getAttack());
                 Label defense = new Label("DEF/"+temp.getDefense());
                 Label cost = new Label("POW/"+temp.getCost());
@@ -158,8 +160,27 @@ public class Card {
                 store.getChildren().add(attack);
                 store.getChildren().add(defense);
                 store.getChildren().add(cost);
-                attrBox.setLeft(Basic.getSpace(10));
-                attrBox.setRight(store);
+            } else {
+                if (card instanceof AuraSkillGameCard) {
+                    AuraSkillGameCard temp = (AuraSkillGameCard) card;
+                    Label attack = new Label(((temp.getAttackAura() >= 0) ? "+" : "")+temp.getAttackAura()+" ATT");
+                    Label defense = new Label(((temp.getDefenseAura() >= 0) ? "+" : "")+temp.getDefenseAura()+" DEF");
+                    Label cost = new Label("POW/"+temp.getCost());
+                    attack.setMinWidth(50);
+                    attack.setAlignment(Pos.CENTER_LEFT);
+                    defense.setMinWidth(50);
+                    defense.setAlignment(Pos.CENTER_LEFT);
+                    defense.setBorder(Basic.getBorder(0,0,0,1));
+                    cost.setMinWidth(50);
+                    store2.getChildren().add(attack);
+                    store2.getChildren().add(defense);
+                    store.getChildren().add(cost);
+                } else {
+                    HasCostAttribute temp = (HasCostAttribute) card;
+                    Label cost = new Label("POW/"+temp.getCost());
+                    cost.setMinWidth(50);
+                    store.getChildren().add(cost);
+                }
             }
         }
 

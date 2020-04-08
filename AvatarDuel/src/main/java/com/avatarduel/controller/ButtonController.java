@@ -44,6 +44,7 @@ public class ButtonController {
     private static void resetAllEffects() {
         ButtonView.getDeckButton().setEffect(null);
         CardView.clearInfo();
+        CardView.updateCardDesc(null);
         Player.player1.cardsOnField.forEach((K, V) -> V.setEffect(null));
         Player.player2.cardsOnField.forEach((K, V) -> V.setEffect(null));
         ButtonController.setDisableDelete(true);
@@ -91,20 +92,17 @@ public class ButtonController {
         delete.setOnAction(e-> {
             if (StateController.checkState("Skill card selected")) {
                 int targetSkill = StateModel.getTargetSkill();
-                Player a = (StateController.checkState("Player 1 turn")) ? Player.player1 : Player.player2;
+                Player target = (StateController.checkState("Player 1 turn")) ? Player.player1 : Player.player2;
+                Player invoker = target;
                 Pane skillCard;
                 if (targetSkill >= 16) {
-                    a = (StateController.checkState("Player 1 turn")) ? Player.player2 : Player.player1;
+                    target = (StateController.checkState("Player 1 turn")) ? Player.player2 : Player.player1;
                     targetSkill -= 16;
-                    skillCard = a.cardsOnField.get(targetSkill);
-                    FieldView.clearBox(targetSkill);
+                    skillCard = target.cardsOnField.get(targetSkill);
                 } else {
-                    FieldView.clearBox(targetSkill + 16);
-                    skillCard = a.cardsOnField.get(targetSkill);
+                    skillCard = target.cardsOnField.get(targetSkill);
                 }
-                FieldController.removeSkill(targetSkill, skillCard, a);
-                a.cardsOnField.remove(targetSkill);
-                a.cardsOnFieldInfo.remove(targetSkill);
+                FieldController.removeSkill(targetSkill, skillCard, invoker, target);
                 ButtonController.setDisableDelete(true);
                 StateController.updateState("Release skill card");
             }

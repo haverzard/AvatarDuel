@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,6 +22,11 @@ public class Basic {
 
     public static Background getBackground(Color x) {
         return new Background(new BackgroundFill(x, CornerRadii.EMPTY, Insets.EMPTY));
+    }
+
+    public static Background getBackground(String url) {
+        return new Background(new BackgroundImage(new Image(url), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT));
     }
 
     public static Border getBorder(double all) {

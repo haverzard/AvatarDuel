@@ -15,8 +15,8 @@ import javafx.scene.text.Text;
 
 public class MainView {
     public static StackPane screen = new StackPane();
-    private static final String IMAGE_LOGO = "com/avatarduel/card/image/avatarLogo.png";
-    private static final String MAIN_BACKGROUND = "com/avatarduel/card/image/mainScreen.jpg";
+    private static final String IMAGE_LOGO = "com/avatarduel/assets/image/avatarLogo.png";
+    private static final String MAIN_BACKGROUND = "com/avatarduel/assets/image/mainScreen.jpg";
 
     public static void loadMainScreen(AvatarDuel main) {
         // Must init player first to set name

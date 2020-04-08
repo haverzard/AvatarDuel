@@ -51,11 +51,11 @@ public class AvatarDuel extends Application {
 
   public void loadDeck(Player x) {
     Random rand = new Random();
-    for (int i = 0; i < 15; i++) x.addToDeck(characterDeck.access(rand.nextInt(characterDeck.getSize())).clone());
+    for (int i = 0; i < 25; i++) x.addToDeck(characterDeck.access(rand.nextInt(characterDeck.getSize())).clone());
     for (int i = 0; i < 10; i++) x.addToDeck(skillDeck.access(rand.nextInt(skillDeck.getSize())).clone());
-    for (int i = 0; i < 3; i++) x.addToDeck(powerUpDeck.access(rand.nextInt(powerUpDeck.getSize())).clone());
-    for (int i = 0; i < 2; i++) x.addToDeck(destroyDeck.access(rand.nextInt(destroyDeck.getSize())).clone());
-    for (int i = 0; i < 30; i++) x.addToDeck(landDeck.access(rand.nextInt(landDeck.getSize())).clone());
+    for (int i = 0; i < 5; i++) x.addToDeck(powerUpDeck.access(rand.nextInt(powerUpDeck.getSize())).clone());
+    for (int i = 0; i < 10; i++) x.addToDeck(destroyDeck.access(rand.nextInt(destroyDeck.getSize())).clone());
+    for (int i = 0; i < 10; i++) x.addToDeck(landDeck.access(rand.nextInt(landDeck.getSize())).clone());
     x.shuffleDeck();
   }
 
@@ -68,7 +68,10 @@ public class AvatarDuel extends Application {
 
   @Override
   public void start(Stage stage) {
+    // Initial
+    PlayerView.init();
     instance = this;
+
     MainView.loadMainScreen(this);
     Scene scene = new Scene(MainView.screen, 1440, 940);
 
@@ -98,11 +101,12 @@ public class AvatarDuel extends Application {
       FieldModel.init();
       initDraw();
       ButtonView.init();
-      HealthView.init();
-      HandView.init();
-      PowerView.init();
-      DeckView.init();
       CardView.init();
+      DeckView.init();
+      FieldView.init();
+      HandView.init();
+      HealthView.init();
+      PowerView.init();
 
       HandView.updateHand(Player.player2,Player.player1);
 
