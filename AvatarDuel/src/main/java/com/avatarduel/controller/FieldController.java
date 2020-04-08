@@ -59,10 +59,17 @@ public class FieldController {
 
     public static void removeSkill(int loc, Pane card, Player a) {
         Pair<Integer,Integer> info = FieldModel.getSkillInfo().get(card);
-        CharacterGameCard charCard = (CharacterGameCard) a.cardsOnFieldInfo.get(info.getKey()).getKey();
-        charCard.removeAuraSkill((AuraSkillGameCard) a.cardsOnFieldInfo.get(loc).getKey());
-        List<Integer> skills = FieldModel.getCharacterSkillList().get(info.getKey());
-        skills.remove(loc);
-        FieldModel.getSkillInfo().remove(card);
+        System.out.println(info);
+        System.out.println(FieldModel.getSkillInfo());
+        /*
+        if (info.getValue() == a.getId()) {
+            CharacterGameCard charCard = (CharacterGameCard) a.cardsOnFieldInfo.get(info.getKey()).getKey();
+            charCard.removeAuraSkill((AuraSkillGameCard) a.cardsOnFieldInfo.get(loc).getKey());
+            List<Integer> skills = FieldModel.getCharacterSkillList().get(a.cardsOnField.get(info.getKey()));
+            skills.remove((Integer) loc);
+            FieldModel.getSkillInfo().remove(card);
+        }
+
+         */
     }
 }

@@ -2,6 +2,7 @@ package com.avatarduel.view;
 
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.components.Basic;
+import com.avatarduel.player.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -18,6 +19,9 @@ public class MainView {
     private static final String MAIN_BACKGROUND = "com/avatarduel/card/image/mainScreen.jpg";
 
     public static void loadMainScreen(AvatarDuel main) {
+        // Must init player first to set name
+        Player.resetPlayers();
+
         // Main Screen
         StackPane mainScr = new StackPane();
         ImageView background = new ImageView(new Image(MAIN_BACKGROUND));
@@ -61,6 +65,8 @@ public class MainView {
             screen.getChildren().remove(mainScr);
             PlayerView.getPlayerName("top").setText("Player 2 - " + name2.getText());
             PlayerView.getPlayerName("bottom").setText("Player 1 - " + name1.getText());
+            Player.player1.setName(name1.getText());
+            Player.player2.setName(name2.getText());
             main.initGame();
         });
         scr.getChildren().add(logo);
@@ -70,5 +76,13 @@ public class MainView {
         mainScr.getChildren().add(background);
         mainScr.getChildren().add(scr);
         screen.getChildren().add(mainScr);
+    }
+
+    public static void loadLoseScreen(Player winner) {
+        MainView.screen.getChildren().add(Basic.getScreen("The winner is "+winner.getName()+"! Congratz!"));
+        Basic.scr.setOnMouseClicked(e -> {
+            MainView.screen.getChildren().clear();
+            MainView.loadMainScreen(AvatarDuel.getInstance());
+        });
     }
 }

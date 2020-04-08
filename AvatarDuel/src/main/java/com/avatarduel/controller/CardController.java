@@ -37,51 +37,27 @@ public class CardController {
             if (StateController.checkState("Battle phase")) {
                 bottomCardBehaviourCall(card,a,b);
             } else if (StateController.checkState("Main phase")) {
-                for(Integer K : a.cardsOnField.keySet()) {
-                    Pane V = a.cardsOnField.get(K);
-                    if (V == card) {
-                        // Try to add skill to character
-                        if (StateController.checkState("Card selected")
-                                && a.getHand(StateModel.getTarget()) instanceof SkillGameCard) {
-                            // Pre-condition target is skill card (check by condition above)
-                            int target = StateModel.getTarget();
-                            int i = 8;
-                            while (i<16 && a.cardsOnFieldInfo.get(i) != null) i++;
-                            if (i < 16) {
-                                GameCard skillCard = a.getHand(StateModel.getTarget());
-                                if (a.useCard((HasCostAttribute) skillCard, skillCard.getElement())) {
-                                    Pane skill = CardView.cardsBottom.get(target);
-                                    FieldView.getBox(i + 16).getChildren().add(skill);
-                                    FieldView.getBox(i + 16).setOnMouseClicked(null);
-                                    FieldView.initFieldCardBottom(a, skill);
-                                    a.cardsOnField.put(i, skill);
-                                    a.cardsOnFieldInfo.put(i, new Pair<>(skillCard, false));
-                                    FieldController.addSkillLocToChar(card, i);
-                                    FieldController.addSkillInfo(skill, K, a.getId());
-                                    CardController.showInfoOnHover(CardView.cardsBottom.get(target), a.cardsOnFieldInfo.get(i).getKey());
-                                    a.setHand(target, null);
-                                    ((CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey()).addAuraSkill((AuraSkillGameCard) skillCard);
-                                    HandView.removeFromHand();
-                                    PowerView.updatePowerCounters("bottom", a);
-                                    StateController.updateState("Release card");
-                                }
-                            }
-                        } else {
-                            a.switchCardMode(K);
-                        }
-                    }
-                }
+                bottomCardSkillBehaviourCall(card, a);
             }
         });
     }
-    public static void setBottomCardBehaviour2(Pane card, Player a, Player b) {
+    public static void setBottomCardBehaviour2(Pane card, Player a, Player b, String type) {
+        System.out.println(type);
         card.setOnMouseClicked(e -> {
             a.cardsOnField.forEach((K, V) -> V.setEffect(null));
+            for (Pane pane : CardView.cardsBottom) {
+                pane.setEffect(null);
+            }
+            StateController.updateState("Release card");
             if (StateController.checkState("Main phase")) {
                 for(Integer K : a.cardsOnField.keySet()) {
                     Pane V = a.cardsOnField.get(K);
                     if (V == card) {
-                        if (StateController.updateTargetSkill(K)) {
+                        int i = 0;
+                        if (type.equals("top")) {
+                            i += 16;
+                        }
+                        if (StateController.updateTargetSkill(K+i)) {
                             card.setEffect(Basic.getShadow(Color.RED, 30));
                             ButtonController.setDisableDelete(false);
                         } else {
@@ -96,17 +72,55 @@ public class CardController {
     }
 
     private static void bottomCardBehaviourCall(Pane card, Player a, Player b) {
-        for(Integer K : a.cardsOnField.keySet()) {
+        for (Integer K : a.cardsOnField.keySet()) {
             Pane V = a.cardsOnField.get(K);
             if (V == card && !a.cardsOnFieldInfo.get(K).getValue()) {
                 if (b.cardsOnField.isEmpty()) {
                     CharacterGameCard c = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
                     StateController.updateTargetAttack(K);
-                    HealthModel.updateAttack(a,b,0,c.getAttack(),false);
+                    HealthModel.updateAttack(a, b, 0, c.getAttack(), false);
                 } else if (StateController.updateTargetAttack(K)) {
                     card.setEffect(Basic.getShadow(Color.BLUE, 30));
                 } else {
                     StateController.updateState("Release attack card");
+                }
+                break;
+            }
+        }
+    }
+
+    private static void bottomCardSkillBehaviourCall(Pane card, Player a) {
+        for(Integer K : a.cardsOnField.keySet()) {
+            Pane V = a.cardsOnField.get(K);
+            if (V == card) {
+                // Try to add skill to character
+                if (StateController.checkState("Card selected")
+                        && a.getHand(StateModel.getTarget()) instanceof SkillGameCard) {
+                    // Pre-condition target is skill card (check by condition above)
+                    int target = StateModel.getTarget();
+                    int i = 8;
+                    while (i<16 && a.cardsOnFieldInfo.get(i) != null) i++;
+                    if (i < 16) {
+                        GameCard skillCard = a.getHand(StateModel.getTarget());
+                        if (a.useCard((HasCostAttribute) skillCard, skillCard.getElement())) {
+                            Pane skill = CardView.cardsBottom.get(target);
+                            FieldView.getBox(i + 16).getChildren().add(skill);
+                            FieldView.getBox(i + 16).setOnMouseClicked(null);
+                            FieldView.initFieldCardSkill(a, skill, "bottom");
+                            a.cardsOnField.put(i, skill);
+                            a.cardsOnFieldInfo.put(i, new Pair<>(skillCard, false));
+                            FieldController.addSkillLocToChar(card, i);
+                            FieldController.addSkillInfo(skill, K, a.getId());
+                            CardController.showInfoOnHover(CardView.cardsBottom.get(target), a.cardsOnFieldInfo.get(i).getKey());
+                            a.setHand(target, null);
+                            ((CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey()).addAuraSkill((AuraSkillGameCard) skillCard);
+                            HandView.removeFromHand();
+                            PowerView.updatePowerCounters("bottom", a);
+                            StateController.updateState("Release card");
+                        }
+                    }
+                } else {
+                    a.switchCardMode(K);
                 }
                 break;
             }
@@ -154,6 +168,8 @@ public class CardController {
                 pane.setEffect(null);
             }
             a.cardsOnField.forEach((K, V) -> V.setEffect(null));
+            ButtonController.setDisableDelete(true);
+            StateController.updateState("Release skill card");
             // Main Phase Action
             if (StateController.checkState("Main phase")) {
                 int temp = CardView.cardsBottom.indexOf(card); // Could be not found

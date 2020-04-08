@@ -25,10 +25,10 @@ public class PlayerController {
         PowerView.updatePowerCounters("top", p1);
 
         TranslateTransition animation = HealthModel.animateHP("top", p2.getHealth(), p1.getHealth());
-        animation.setOnFinished(e2 -> {
+        animation.setOnFinished(e -> {
             HealthModel.updateHealthValue("top", p1.getHealth());
             HealthModel.updateHealthValue("bottom", p2.getHealth());
-            Basic.scr.setOnMouseClicked(e3 -> MainView.screen.getChildren().remove(1));
+            Basic.scr.setOnMouseClicked(e2 -> MainView.screen.getChildren().remove(1));
         });
         HandView.updateHand(p1,p2);
         DeckView.updateDeckCounter("bottom", p2.countCardsInDeck());

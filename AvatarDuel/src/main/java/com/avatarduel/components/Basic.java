@@ -2,6 +2,7 @@ package com.avatarduel.components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -40,9 +41,10 @@ public class Basic {
 
     public static HBox getScreen(String text) {
         scr = new HBox();
-        Text main = new Text(text);
+        Label main = new Label(text);
         main.setFont(Font.font("Courier New", FontPosture.ITALIC, 100));
-        main.setFill(Color.WHITE);
+        main.setTextFill(Color.WHITE);
+        main.setWrapText(true);
         scr.setMinSize(1380,880);
         scr.setAlignment(Pos.CENTER);
         scr.setBackground(getBackground(new Color(0,0,0,0.3)));

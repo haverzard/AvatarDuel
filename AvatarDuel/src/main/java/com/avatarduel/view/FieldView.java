@@ -33,13 +33,25 @@ public class FieldView {
     }
 
     private static void initTopField(Player p2) {
-        for (int i=0; i<16; i++) {
+
+        // Skill row
+        for (int i=0; i<8; i++) {
             int j = (15-i)%16;
             fieldBoxes.get(i).getChildren().clear();
             Pane card = p2.cardsOnField.get(j);
             if (card != null) {
                 fieldBoxes.get(i).getChildren().add(card);
-                initFieldCardTop(p2, card);
+                initFieldCardSkill(p2, card, "top");
+            }
+        }
+        // Character row
+        for (int i=8; i<16; i++) {
+            int j = (15-i)%16;
+            fieldBoxes.get(i).getChildren().clear();
+            Pane card = p2.cardsOnField.get(j);
+            if (card != null) {
+                fieldBoxes.get(i).getChildren().add(card);
+                //initFieldCardTop(p2, card);
             }
         }
     }
@@ -66,9 +78,7 @@ public class FieldView {
             if (card != null) {
                 fieldBoxes.get(i).getChildren().add(card);
                 fieldBoxes.get(i).setOnMouseClicked(null);
-                //initFieldCardTop(p1, card);
-            } else {
-                FieldController.setFieldBoxOnClickEvent(i, p1);
+                initFieldCardSkill(p1, card, "bottom");
             }
         }
     }
@@ -83,14 +93,10 @@ public class FieldView {
         }
     }
 
-    public static void initFieldCardBottom(Player a, Pane card) {
+    public static void initFieldCardSkill(Player a, Pane card, String type) {
         Player b = (a == Player.player1) ? Player.player2 : Player.player1;
         // Battle Phase Action
-        if (a.getId() == StateModel.getTurn()) {
-            CardController.setBottomCardBehaviour2(card, a, b);
-        } else {
-            CardController.setTopCardBehaviour2(card, a, b);
-        }
+        CardController.setBottomCardBehaviour2(card, a, b, type);
     }
 
     public static void clearBox(int idx) {

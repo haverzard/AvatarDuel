@@ -28,7 +28,7 @@ public class ButtonView {
         delete.setDisable(true);
         battle.setDisable(true);
         main2.setDisable(true);
-        end.setDisable(true);
+        end.setDisable(false);
     }
 
     private static void initDeckButton() {

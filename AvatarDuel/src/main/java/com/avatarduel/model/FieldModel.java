@@ -8,8 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 public class FieldModel {
-    private static Map<Pane, List<Integer>> characterSkillList = new HashMap<>();
-    private static Map<Pane, Pair<Integer,Integer>> skillInfo = new HashMap<>();
+    private static Map<Pane, List<Integer>> characterSkillList;
+    private static Map<Pane, Pair<Integer,Integer>> skillInfo;
+
+    public static void init() {
+        characterSkillList = new HashMap<>();
+        skillInfo = new HashMap<>();
+    }
 
     public static Map<Pane, List<Integer>> getCharacterSkillList() {
         return characterSkillList;

@@ -1,36 +1,43 @@
 package com.avatarduel.controller;
 
 import com.avatarduel.components.Basic;
-import com.avatarduel.model.FieldModel;
-import com.avatarduel.model.StateModel;
-import com.avatarduel.view.*;
 import com.avatarduel.element.Element;
+import com.avatarduel.model.StateModel;
 import com.avatarduel.player.Player;
+import com.avatarduel.view.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
 
 public class ButtonController {
     private static void endTurn(Pane deckButton, Button end, Button main1) {
+        ButtonView.init();
         StateController.nextTurn();
         Player.player1.refreshHand();
         Player.player2.refreshHand();
         HandView.clearHands();
         CardView.resetCardsBottom();
-        MainView.screen.getChildren().add(Basic.getScreen("End Turn"));
         PlayerController.switchName();
         resetAllEffects();
         deckButton.setEffect(Basic.getShadow(Color.BLUE, 30));
         Player.player1.resetPower();
         Player.player2.resetPower();
+        Player possibleLoser;
+        Player possibleWinner;
         if (StateController.checkState("Player 1 turn")) {
-            PlayerController.switchPlayer(Player.player2, Player.player1);
+            possibleLoser = Player.player1;
+            possibleWinner = Player.player2;
         } else {
-            PlayerController.switchPlayer(Player.player1, Player.player2);
+            possibleLoser = Player.player2;
+            possibleWinner = Player.player1;
         }
-        end.setDisable(true);
+        if (possibleLoser.countCardsInDeck() == 0) {
+            MainView.loadLoseScreen(possibleWinner);
+        } else {
+            MainView.screen.getChildren().add(Basic.getScreen("End Turn"));
+            PlayerController.switchPlayer(possibleWinner, possibleLoser);
+        }
         main1.setDisable(false);
     }
 
@@ -47,7 +54,7 @@ public class ButtonController {
         now.setDisable(true);
         next.setDisable(false);
         MainView.screen.getChildren().add(Basic.getScreen(message));
-        Basic.scr.setOnMouseClicked(e3 -> MainView.screen.getChildren().remove(1));
+        Basic.scr.setOnMouseClicked(e -> MainView.screen.getChildren().remove(1));
         resetAllEffects();
     }
 
@@ -84,14 +91,17 @@ public class ButtonController {
         delete.setOnAction(e-> {
             if (StateController.checkState("Skill card selected")) {
                 int targetSkill = StateModel.getTargetSkill();
-                FieldView.clearBox(targetSkill+16);
-                Player a;
-                if (StateController.checkState("Player 1 turn")) {
-                    a = Player.player1;
+                Player a = (StateController.checkState("Player 1 turn")) ? Player.player1 : Player.player2;
+                Pane skillCard;
+                if (targetSkill >= 16) {
+                    a = (StateController.checkState("Player 1 turn")) ? Player.player2 : Player.player1;
+                    targetSkill -= 16;
+                    skillCard = a.cardsOnField.get(targetSkill);
+                    FieldView.clearBox(targetSkill);
                 } else {
-                    a = Player.player2;
+                    FieldView.clearBox(targetSkill + 16);
+                    skillCard = a.cardsOnField.get(targetSkill);
                 }
-                Pane skillCard = a.cardsOnField.get(targetSkill);
                 FieldController.removeSkill(targetSkill, skillCard, a);
                 a.cardsOnField.remove(targetSkill);
                 a.cardsOnFieldInfo.remove(targetSkill);
