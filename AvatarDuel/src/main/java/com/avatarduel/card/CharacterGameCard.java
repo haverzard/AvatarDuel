@@ -9,8 +9,6 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     private int cost;
     private int attack;
     private int defense;
-    private int bonusAttack;
-    private int bonusDefense;
     private PowerUpSkillGameCard powerUpCard;
     private List<AuraSkillGameCard> listofAura;
     public CharacterGameCard() {
@@ -29,8 +27,6 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
         cost = _cost;
         attack = _attack;
         defense = _defense;
-        bonusAttack = 0;
-        bonusDefense = 0;
         powerUpCard = null;
         this.listofAura = new ArrayList<AuraSkillGameCard>();
     }
@@ -49,7 +45,7 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     }
 
     public int getAttack() {
-        this.bonusAttack = 0;
+        int bonusAttack = 0;
         for (AuraSkillGameCard x : this.listofAura){
             this.bonusAttack += x.getAttackAura();
         }
@@ -61,7 +57,7 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     }
 
     public int getDefense() {
-        this.bonusDefense = 0;
+        int bonusDefense = 0;
         for (AuraSkillGameCard x : this.listofAura){
             this.bonusDefense += x.getDefenseAura();
         }
