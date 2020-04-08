@@ -51,11 +51,11 @@ public class AvatarDuel extends Application {
 
   public void loadDeck(Player x) {
     Random rand = new Random();
-    for (int i = 0; i < 25; i++) x.addToDeck(characterDeck.access(rand.nextInt(characterDeck.getSize())).clone());
-    for (int i = 0; i < 10; i++) x.addToDeck(skillDeck.access(rand.nextInt(skillDeck.getSize())).clone());
-    for (int i = 0; i < 5; i++) x.addToDeck(powerUpDeck.access(rand.nextInt(powerUpDeck.getSize())).clone());
-    for (int i = 0; i < 10; i++) x.addToDeck(destroyDeck.access(rand.nextInt(destroyDeck.getSize())).clone());
-    for (int i = 0; i < 10; i++) x.addToDeck(landDeck.access(rand.nextInt(landDeck.getSize())).clone());
+    for (int i = 0; i < 24; i++) x.addToDeck(characterDeck.access(rand.nextInt(characterDeck.getSize())).clone());
+    for (int i = 0; i < 8; i++) x.addToDeck(skillDeck.access(rand.nextInt(skillDeck.getSize())).clone());
+    for (int i = 0; i < 8; i++) x.addToDeck(powerUpDeck.access(rand.nextInt(powerUpDeck.getSize())).clone());
+    for (int i = 0; i < 8; i++) x.addToDeck(destroyDeck.access(rand.nextInt(destroyDeck.getSize())).clone());
+    for (int i = 0; i < 12; i++) x.addToDeck(landDeck.access(rand.nextInt(landDeck.getSize())).clone());
     x.shuffleDeck();
   }
 
