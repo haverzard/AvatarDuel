@@ -1,6 +1,6 @@
-id	name	element	description	imagepath
-1	Destroy 1	AIR Destroy 1	com/avatarduel/card/image/land/Eastern Water Temple.png
-2	Destroy 2	FIRE Destroy 2	com/avatarduel/card/image/land/Eastern Water Temple.png
-3	Destroy 3	EARTH Destroy 3	com/avatarduel/card/image/land/Eastern Water Temple.png
-4	Destroy 4	WATER Destroy 4	com/avatarduel/card/image/land/Eastern Water Temple.png
-5	Destroy 5	AIR Destroy 5	com/avatarduel/card/image/land/Eastern Water Temple.png
+id,name,element,description,imagepath,power
+93,Destroy 1,AIR,Destroy 1,com/avatarduel/card/image/land/Eastern Water Temple.png,1
+94,Destroy 2,FIRE,Destroy 2,com/avatarduel/card/image/land/Eastern Water Temple.png,2
+95,Destroy 3,WATER,Destroy 3,com/avatarduel/card/image/land/Eastern Water Temple.png,2
+96,Destroy 4,EARTH,Destroy 4,com/avatarduel/card/image/land/Eastern Water Temple.png,1
+97,Destroy 5,AIR,Destroy 5,com/avatarduel/card/image/land/Eastern Water Temple.png,1

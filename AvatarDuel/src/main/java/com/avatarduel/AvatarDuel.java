@@ -34,7 +34,7 @@ public class AvatarDuel extends Application {
 
   public void loadCards(String path, StorageDeck deck, GameCardFactory cardFactory) throws IOException, URISyntaxException {
     File CSVFile = new File(getClass().getResource(path).toURI());
-    CSVReader reader = new CSVReader(CSVFile, "\t");
+    CSVReader reader = new CSVReader(CSVFile, ",");
     reader.setSkipHeader(true);
     List<String[]> rows = reader.read();
     for (String[] row : rows) {
