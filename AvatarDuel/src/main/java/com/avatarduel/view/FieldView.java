@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FieldView {
-    public static List<HBox> fieldBoxes = new ArrayList<>();
+    public static List<HBox> fieldBoxes;
 
+    public static void init() {
+        fieldBoxes = new ArrayList<>();
+    }
 
     public static void initFieldBoxes() {
         Player p1, p2;
@@ -51,7 +54,7 @@ public class FieldView {
             Pane card = p2.cardsOnField.get(j);
             if (card != null) {
                 fieldBoxes.get(i).getChildren().add(card);
-                //initFieldCardTop(p2, card);
+                initFieldCardChar(p2, card);
             }
         }
     }
@@ -65,7 +68,7 @@ public class FieldView {
             if (card != null) {
                 fieldBoxes.get(i).getChildren().add(card);
                 fieldBoxes.get(i).setOnMouseClicked(null);
-                initFieldCardTop(p1, card);
+                initFieldCardChar(p1, card);
             } else {
                 FieldController.setFieldBoxOnClickEvent(i, p1);
             }
@@ -83,7 +86,7 @@ public class FieldView {
         }
     }
 
-    public static void initFieldCardTop(Player a, Pane card) {
+    public static void initFieldCardChar(Player a, Pane card) {
         Player b = (a == Player.player1) ? Player.player2 : Player.player1;
         // Battle Phase Action
         if (a.getId() == StateModel.getTurn()) {
@@ -96,7 +99,7 @@ public class FieldView {
     public static void initFieldCardSkill(Player a, Pane card, String type) {
         Player b = (a == Player.player1) ? Player.player2 : Player.player1;
         // Battle Phase Action
-        CardController.setBottomCardBehaviour2(card, a, b, type);
+        CardController.setSkillCardBehaviour(card, a, b, type);
     }
 
     public static void clearBox(int idx) {

@@ -9,18 +9,22 @@ import com.avatarduel.player.Player;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class HandView {
-    private static HBox bottomHand = new HBox();
-    private static HBox topHand = new HBox();
+    private static HBox bottomHand;
+    private static HBox topHand;
 
     public static void init() {
+        bottomHand = new HBox();
+        topHand = new HBox();
         initHand(topHand);
         initHand(bottomHand);
     }
 
     private static void initHand(HBox hand) {
         hand.setMinWidth(800);
+        hand.setMinHeight(130);
         hand.setAlignment(Pos.CENTER);
     }
 

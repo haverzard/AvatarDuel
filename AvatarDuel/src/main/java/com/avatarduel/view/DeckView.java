@@ -5,10 +5,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 public class DeckView {
-    private static HBox deckCounterBottom = new HBox();
-    private static HBox deckCounterTop = new HBox();
+    private static HBox deckCounterBottom;
+    private static HBox deckCounterTop;
 
     public static void init() {
+        deckCounterBottom = new HBox();
+        deckCounterTop = new HBox();
         deckCounterTop.setAlignment(Pos.CENTER);
         deckCounterBottom.setAlignment(Pos.CENTER);
     }

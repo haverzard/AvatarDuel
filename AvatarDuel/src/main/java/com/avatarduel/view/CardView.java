@@ -2,6 +2,7 @@ package com.avatarduel.view;
 
 import com.avatarduel.card.CharacterGameCard;
 import com.avatarduel.card.GameCard;
+import com.avatarduel.card.PowerUpSkillGameCard;
 import com.avatarduel.components.Basic;
 import com.avatarduel.components.Card;
 import javafx.geometry.Pos;
@@ -17,14 +18,18 @@ import java.util.List;
 
 public class CardView {
     private static double cardWidth = 250;
-    public static List<Pane> cardsBottom = new ArrayList<>();
-    private static BorderPane cardInfo = Card.getOpenCard(cardWidth);
-    private static BorderPane cardDesc = new BorderPane();
+    public static List<Pane> cardsBottom;
+    private static BorderPane cardInfo;
+    private static BorderPane cardDesc;
 
     public static void init() {
+        cardsBottom = new ArrayList<>();
+        cardInfo = Card.getOpenCard(cardWidth);
+        cardDesc = new BorderPane();
         cardDesc.setMinWidth(cardWidth);
         cardDesc.setMaxHeight(cardWidth/5*8);
         cardDesc.setBorder(Basic.getBorder(1));
+        cardDesc.setBackground(Basic.getBackground(Color.WHITE));
     }
 
     public static void clearInfo() {
@@ -64,7 +69,20 @@ public class CardView {
                 skill.getChildren().add(Basic.getSpace(50));
                 skill.getChildren().add(new Label("Current skill attached"));
                 // Iterate skill here plz
-                skill.getChildren().add(new Label("None"));
+                CharacterGameCard card = (CharacterGameCard) x;
+                if (!card.getAuraSkillGameCardsList().isEmpty() || card.isAttachedPowerUpinField()) {
+                    if (card.isAttachedPowerUpinField()) {
+                        PowerUpSkillGameCard temp = card.getPowerUpSkillGameCard();
+                        skill.getChildren().add(new Label("- " + temp.getName() + " (Power Up)"));
+                    }
+                    card.getAuraSkillGameCardsList().forEach(v -> {
+                        skill.getChildren().add(new Label("- "+v.getName()+" (Aura) - "
+                                +" ATT: "+(v.getAttackAura() >= 0 ? "+" : "")+v.getAttackAura()
+                                +" DEF: "+(v.getDefenseAura() >= 0 ? "+" : "")+v.getDefenseAura()));
+                    });
+                } else {
+                    skill.getChildren().add(new Label("None"));
+                }
                 layout.setCenter(skill);
             }
 
