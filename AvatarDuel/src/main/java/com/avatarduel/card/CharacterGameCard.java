@@ -2,6 +2,7 @@ package com.avatarduel.card;
 import java.util.List;
 import java.util.ArrayList;
 import com.avatarduel.element.Element;
+import com.avatarduel.card.PowerUpSkillGameCard;
 
 // Concrete Prototype
 public class CharacterGameCard extends GameCard implements HasCostAttribute, HasBattleAttribute {
@@ -95,5 +96,13 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
 
     public AuraSkillGameCard getAuraSkillGameCard(int i) {
         return listofAura.get(i);
+    }
+
+    public List<AuraSkillGameCard> getAuraSkillGameCardsList() {
+        return listofAura;
+    }
+
+    public boolean isAttachedPowerUpinField() {
+        return powerUpCard != null;
     }
 }
