@@ -80,10 +80,11 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
         this.listofAura.remove(newCard);
     }
 
-    public void nullifyAuraSkill (){
+    public void nullifyAllSkill (){
         this.bonusAttack = 0;
         this.bonusDefense = 0;
         this.listofAura.clear();
+        powerUpCard = null;
     }
 
     public void setPowerUpinField(PowerUpSkillGameCard card){
@@ -104,5 +105,9 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
 
     public boolean isAttachedPowerUpinField() {
         return powerUpCard != null;
+    }
+
+    public PowerUpSkillGameCard getPowerUpSkillGameCard() {
+        return powerUpCard;
     }
 }
