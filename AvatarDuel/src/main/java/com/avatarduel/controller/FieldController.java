@@ -1,9 +1,6 @@
 package com.avatarduel.controller;
 
-import com.avatarduel.card.AuraSkillGameCard;
-import com.avatarduel.card.CharacterGameCard;
-import com.avatarduel.card.GameCard;
-import com.avatarduel.card.HasCostAttribute;
+import com.avatarduel.card.*;
 import com.avatarduel.model.FieldModel;
 import com.avatarduel.model.StateModel;
 import com.avatarduel.player.Player;
@@ -63,10 +60,7 @@ public class FieldController {
             CharacterGameCard charCard = (CharacterGameCard) target.cardsOnFieldInfo.get(info.getKey()).getKey();
             List<Integer> skills = FieldModel.getCharacterSkillList().get(target.cardsOnField.get(info.getKey()));
             skills.remove((Integer) loc);
-            if (target.cardsOnFieldInfo.get(loc).getKey() instanceof  AuraSkillGameCard)
-                charCard.removeAuraSkill((AuraSkillGameCard) target.cardsOnFieldInfo.get(loc).getKey());
-            else
-                charCard.detachedPowerUpinField();
+            ((AppliableEffect) target.cardsOnFieldInfo.get(loc).getKey()).removeEffect(charCard);
             FieldModel.getSkillInfo().remove(card);
             target.cardsOnField.remove(loc);
             target.cardsOnFieldInfo.remove(loc);

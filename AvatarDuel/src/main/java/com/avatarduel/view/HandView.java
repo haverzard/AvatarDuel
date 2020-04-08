@@ -9,7 +9,6 @@ import com.avatarduel.player.Player;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 public class HandView {
     private static HBox bottomHand;

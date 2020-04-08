@@ -11,13 +11,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class ButtonController {
-    private static void endTurn(Pane deckButton, Button end, Button main1) {
+    private static void endTurn(Pane deckButton, Button main1) {
         ButtonView.init();
         StateController.nextTurn();
         Player.player1.refreshHand();
         Player.player2.refreshHand();
         HandView.clearHands();
         CardView.resetCardsBottom();
+        CardView.clearInfo();
+        CardView.updateCardDesc(null);
         PlayerController.switchName();
         resetAllEffects();
         deckButton.setEffect(Basic.getShadow(Color.BLUE, 30));
@@ -43,8 +45,6 @@ public class ButtonController {
 
     private static void resetAllEffects() {
         ButtonView.getDeckButton().setEffect(null);
-        CardView.clearInfo();
-        CardView.updateCardDesc(null);
         Player.player1.cardsOnField.forEach((K, V) -> V.setEffect(null));
         Player.player2.cardsOnField.forEach((K, V) -> V.setEffect(null));
         ButtonController.setDisableDelete(true);
@@ -63,7 +63,7 @@ public class ButtonController {
         main1.setOnAction(e -> enterNextPhase(main1, battle, "Main Phase 1"));
         battle.setOnAction(e -> enterNextPhase(battle, main2, "Battle Phase"));
         main2.setOnAction(e -> enterNextPhase(main2, end, "Main Phase 2"));
-        end.setOnAction(e -> endTurn(deckButton, end, main1));
+        end.setOnAction(e -> endTurn(deckButton, main1));
     }
 
     public static void setDeckButtonEvent(HBox deckButton) {
@@ -98,10 +98,8 @@ public class ButtonController {
                 if (targetSkill >= 16) {
                     target = (StateController.checkState("Player 1 turn")) ? Player.player2 : Player.player1;
                     targetSkill -= 16;
-                    skillCard = target.cardsOnField.get(targetSkill);
-                } else {
-                    skillCard = target.cardsOnField.get(targetSkill);
                 }
+                skillCard = target.cardsOnField.get(targetSkill);
                 FieldController.removeSkill(targetSkill, skillCard, invoker, target);
                 ButtonController.setDisableDelete(true);
                 StateController.updateState("Release skill card");

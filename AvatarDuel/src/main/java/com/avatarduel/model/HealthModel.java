@@ -1,18 +1,14 @@
 package com.avatarduel.model;
 
-import com.avatarduel.AvatarDuel;
-import com.avatarduel.components.Basic;
 import com.avatarduel.controller.CardController;
 import com.avatarduel.controller.PlayerController;
 import com.avatarduel.controller.StateController;
 import com.avatarduel.player.Player;
-import com.avatarduel.view.FieldView;
 import com.avatarduel.view.HealthView;
 import com.avatarduel.view.MainView;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class HealthModel {

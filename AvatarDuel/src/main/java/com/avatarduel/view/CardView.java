@@ -75,11 +75,10 @@ public class CardView {
                         PowerUpSkillGameCard temp = card.getPowerUpSkillGameCard();
                         skill.getChildren().add(new Label("- " + temp.getName() + " (Power Up)"));
                     }
-                    card.getAuraSkillGameCardsList().forEach(v -> {
-                        skill.getChildren().add(new Label("- "+v.getName()+" (Aura) - "
-                                +" ATT: "+(v.getAttackAura() >= 0 ? "+" : "")+v.getAttackAura()
-                                +" DEF: "+(v.getDefenseAura() >= 0 ? "+" : "")+v.getDefenseAura()));
-                    });
+                    card.getAuraSkillGameCardsList().forEach(v ->
+                            skill.getChildren().add(new Label("- "+v.getName()+" (Aura) - "
+                            +" ATT: "+(v.getAttackAura() >= 0 ? "+" : "")+v.getAttackAura()
+                            +" DEF: "+(v.getDefenseAura() >= 0 ? "+" : "")+v.getDefenseAura())));
                 } else {
                     skill.getChildren().add(new Label("None"));
                 }

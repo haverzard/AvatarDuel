@@ -99,7 +99,7 @@ public class FieldView {
     public static void initFieldCardSkill(Player a, Pane card, String type) {
         Player b = (a == Player.player1) ? Player.player2 : Player.player1;
         // Battle Phase Action
-        CardController.setSkillCardBehaviour(card, a, b, type);
+        CardController.setSkillCardBehaviour(card, a, type);
     }
 
     public static void clearBox(int idx) {

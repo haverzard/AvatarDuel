@@ -43,8 +43,7 @@ public class CardController {
             }
         });
     }
-    public static void setSkillCardBehaviour(Pane card, Player a, Player b, String type) {
-        System.out.println(type);
+    public static void setSkillCardBehaviour(Pane card, Player a, String type) {
         card.setOnMouseClicked(e -> {
             a.cardsOnField.forEach((K, V) -> V.setEffect(null));
             for (Pane pane : CardView.cardsBottom) {
@@ -121,10 +120,7 @@ public class CardController {
                                     FieldController.addSkillInfo(skill, K, a.getId());
                                     CardController.showInfoOnHover(CardView.cardsBottom.get(target), a.cardsOnFieldInfo.get(i).getKey());
                                     a.setHand(target, null);
-                                    if (skillCard instanceof PowerUpSkillGameCard)
-                                        ((CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey()).setPowerUpinField((PowerUpSkillGameCard) skillCard);
-                                    else
-                                        ((CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey()).addAuraSkill((AuraSkillGameCard) skillCard);
+                                    ((AppliableEffect) skillCard).addEffect((CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey());
                                     HandView.removeFromHand();
                                     PowerView.updatePowerCounters("bottom", a);
                                     StateController.updateState("Release card");
@@ -188,22 +184,26 @@ public class CardController {
                         int i = 8;
                         while (i < 16 && a.cardsOnFieldInfo.get(i) != null) i++;
                         if (i < 16) {
-                            if (invoker.useCard((HasCostAttribute) skillCard, skillCard.getElement())) {
-                                Pane skill = CardView.cardsBottom.get(target);
-                                int j = (15 - i) % 16;
-                                FieldView.getBox(j).getChildren().add(skill);
-                                FieldView.getBox(j).setOnMouseClicked(null);
-                                FieldView.initFieldCardSkill(a, skill, "top");
-                                a.cardsOnField.put(i, skill);
-                                a.cardsOnFieldInfo.put(i, new Pair<>(skillCard, false));
-                                FieldController.addSkillLocToChar(card, j);
-                                FieldController.addSkillInfo(skill, K, invoker.getId());
-                                CardController.showInfoOnHover(CardView.cardsBottom.get(target), a.cardsOnFieldInfo.get(i).getKey());
-                                invoker.setHand(target, null);
-                                ((CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey()).addAuraSkill((AuraSkillGameCard) skillCard);
-                                HandView.removeFromHand();
-                                PowerView.updatePowerCounters("bottom", invoker);
-                                StateController.updateState("Release card");
+                            if ((skillCard instanceof PowerUpSkillGameCard
+                                    && !((CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey()).isAttachedPowerUpinField())
+                                    || skillCard instanceof AuraSkillGameCard) {
+                                if (invoker.useCard((HasCostAttribute) skillCard, skillCard.getElement())) {
+                                    Pane skill = CardView.cardsBottom.get(target);
+                                    int j = (15 - i) % 16;
+                                    FieldView.getBox(j).getChildren().add(skill);
+                                    FieldView.getBox(j).setOnMouseClicked(null);
+                                    FieldView.initFieldCardSkill(a, skill, "top");
+                                    a.cardsOnField.put(i, skill);
+                                    a.cardsOnFieldInfo.put(i, new Pair<>(skillCard, false));
+                                    FieldController.addSkillLocToChar(card, j);
+                                    FieldController.addSkillInfo(skill, K, invoker.getId());
+                                    CardController.showInfoOnHover(CardView.cardsBottom.get(target), a.cardsOnFieldInfo.get(i).getKey());
+                                    invoker.setHand(target, null);
+                                    ((AppliableEffect) skillCard).addEffect((CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey());
+                                    HandView.removeFromHand();
+                                    PowerView.updatePowerCounters("bottom", invoker);
+                                    StateController.updateState("Release card");
+                                }
                             }
                         }
                     }
