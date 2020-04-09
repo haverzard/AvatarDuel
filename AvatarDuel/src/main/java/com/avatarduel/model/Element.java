@@ -7,7 +7,8 @@ public enum Element {
     WATER,
     FIRE,
     AIR,
-    EARTH;
+    EARTH,
+    ENERGY;
 
     public Background getBackground() {
         switch (this) {
@@ -19,6 +20,8 @@ public enum Element {
                 return Basic.getBackground("com/avatarduel/assets/image/fire.png",30,30);
             case EARTH:
                 return Basic.getBackground("com/avatarduel/assets/image/earth.png",30,30);
+            case ENERGY:
+                return Basic.getBackground("com/avatarduel/assets/image/energy.png",30,30);
             default:
                 assert(false);
                 return null;
@@ -35,6 +38,8 @@ public enum Element {
                 return "com/avatarduel/assets/image/fireTemp.png";
             case EARTH:
                 return "com/avatarduel/assets/image/earthTemp.png";
+            case ENERGY:
+                return "com/avatarduel/assets/image/energyTemp.png";
             default:
                 assert(false);
                 return "";
