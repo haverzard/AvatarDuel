@@ -17,6 +17,7 @@ import java.util.List;
 
 public class FieldController {
     private static int fieldBoxCounts = 12;
+    private List<Integer> usedAttackTargets;
     private FieldView topField;
     private FieldView bottomField;
     private FieldModel fieldModel;
@@ -87,11 +88,19 @@ public class FieldController {
         p1 = phaseController.getTurn().getPlayerInTurn();
         p2 = phaseController.getTurn().getPlayerNotInTurn();
 
+        if (usedAttackTargets != null) {
+            usedAttackTargets.forEach(v->{
+                p2.switchCardMode(v);
+            });
+        }
+
         // Top fields
         initTopField(p2);
 
         // Bottom fields
         initBottomField(p1);
+
+        usedAttackTargets = new ArrayList<>();
     }
 
     private void initTopField(Player p2) {
@@ -231,6 +240,7 @@ public class FieldController {
                     GameCard skillCard = a.getHand(target);
                     if (skillCard instanceof DestroySkillGameCard && a.useCard((HasCostAttribute) skillCard, skillCard.getElement())) {
                         deleteCard(a,K);
+                        setFieldBoxOnClickEvent(K+fieldBoxCounts,a);
                         a.setHand(target, null);
                         handController.removeFromHand();
                         sideController.getSideV(Loc.BOTTOM).updatePowerCounters(a);
@@ -378,12 +388,17 @@ public class FieldController {
                         && (j < fieldBoxCounts/2 && card instanceof CharacterGameCard)
                         && p1.useCard((HasCostAttribute) card, card.getElement())) { // Pre-condition that the card is character
                     if (p1.cardsOnField.get(j) == null && !p1.cardsOnField.containsValue(cardController.getCardsBottom().get(target))) {
-                        getBox(j + fieldBoxCounts).getChildren().add(cardController.getCardsBottom().get(target));
+                        Pane temp = cardController.getCardsBottom().get(target);
+                        getBox(j + fieldBoxCounts).getChildren().add(temp);
                         getBox(j + fieldBoxCounts).setOnMouseClicked(null);
-                        initFieldCardChar(p1, cardController.getCardsBottom().get(target));
-                        p1.cardsOnField.put(j, cardController.getCardsBottom().get(target));
+                        temp.setOnMouseClicked(e2 -> {
+                            if (phaseController.getGamePhase().getCanUseNonLandCard()) {
+                                bottomCardSkillBehaviourCall(temp, p1);
+                            }
+                        });
+                        p1.cardsOnField.put(j, temp);
                         p1.cardsOnFieldInfo.put(j, new Pair<>(p1.getHand(target), false));
-                        cardController.showInfoOnHover(cardController.getCardsBottom().get(target), p1.cardsOnFieldInfo.get(j).getKey());
+                        cardController.showInfoOnHover(temp, p1.cardsOnFieldInfo.get(j).getKey());
                         p1.setHand(target, null);
                         handController.removeFromHand();
                         sideController.getSideV(Loc.BOTTOM).updatePowerCounters(p1);
@@ -440,6 +455,7 @@ public class FieldController {
         if (isHitOnEnemy) {
             deleteCard(enemy, idx);
         }
+        usedAttackTargets.add(selectionController.getAttack().getTarget());
         selectionController.releaseAttack();
         attacker.cardsOnField.forEach((K, V) -> V.setEffect(null));
 

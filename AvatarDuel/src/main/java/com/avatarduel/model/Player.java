@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,10 +37,10 @@ public class Player {
         cardsOnFieldInfo = new HashMap<>();
         hand = new ArrayList<>();
         power = new HashMap<>();
-        power.put(Element.WATER, new Pair<>(0, 0));
-        power.put(Element.AIR, new Pair<>(0, 0));
-        power.put(Element.EARTH, new Pair<>(0, 0));
-        power.put(Element.FIRE, new Pair<>(0, 0));
+        // Just add new element and it will handle that automatically
+        Arrays.asList(Element.values()).forEach(v->{
+            power.put(v, new Pair<>(0, 0));
+        });
         health = 80;
     }
 

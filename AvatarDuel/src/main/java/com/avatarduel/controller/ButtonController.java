@@ -23,17 +23,13 @@ public class ButtonController {
         Player.getPlayers();
         phaseBtnView = new PhaseButtonView();
         deckBtnView = new DeckButtonView();
-        phaseBtnView.getMain1().setOnAction(e -> {
-            enterNextPhase(phaseBtnView.getMain1(), phaseBtnView.getBattle(), "Main Phase 1");
+        phaseBtnView.getMain().setOnAction(e -> {
+            enterNextPhase(phaseBtnView.getMain(), phaseBtnView.getBattle(), "Main Phase 1");
             phaseController.setGamePhase(new MainPhase());
         });
         phaseBtnView.getBattle().setOnAction(e -> {
-            enterNextPhase(phaseBtnView.getBattle(), phaseBtnView.getMain2(), "Battle Phase");
+            enterNextPhase(phaseBtnView.getBattle(), phaseBtnView.getEnd(), "Battle Phase");
             phaseController.setGamePhase(new BattlePhase());
-        });
-        phaseBtnView.getMain2().setOnAction(e -> {
-            enterNextPhase(phaseBtnView.getMain2(), phaseBtnView.getEnd(), "Main Phase 2");
-            phaseController.setGamePhase(new MainPhase());
         });
         this.phaseController = phaseController;
         this.selectionController = selectionController;

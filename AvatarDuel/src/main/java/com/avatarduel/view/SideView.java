@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Pair;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,17 +39,15 @@ public class SideView extends VBox {
             getChildren().add(deckCounter);
             getChildren().add(new ClosedCard(60));
             getChildren().add(new Space(10));
-            getChildren().add(genElementBox(Element.WATER));
-            getChildren().add(genElementBox(Element.AIR));
-            getChildren().add(genElementBox(Element.EARTH));
-            getChildren().add(genElementBox(Element.FIRE));
+            Arrays.asList(Element.values()).forEach(v->{
+                getChildren().add(genElementBox(v));
+            });
         } else {
             updateDeckCounter(p.countCardsInDeck());
             setAlignment(Pos.TOP_CENTER);
-            getChildren().add(genElementBox(Element.FIRE));
-            getChildren().add(genElementBox(Element.EARTH));
-            getChildren().add(genElementBox(Element.AIR));
-            getChildren().add(genElementBox(Element.WATER));
+            Arrays.asList(Element.values()).forEach(v->{
+                getChildren().add(genElementBox(v));
+            });
             getChildren().add(new Space(10));
             getChildren().add(buttonController.getDeckBtnView());
             getChildren().add(deckCounter);

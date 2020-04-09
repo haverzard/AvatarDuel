@@ -144,7 +144,7 @@ public class GameController {
             MainView.screen.getChildren().add(Basic.getScreen("End Turn"));
             switchPlayer(possibleWinner, possibleLoser);
         }
-        buttonController.getPhaseBtnView().getMain1().setDisable(false);
+        buttonController.getPhaseBtnView().getMain().setDisable(false);
     }
 
 
