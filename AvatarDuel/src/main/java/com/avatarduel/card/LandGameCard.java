@@ -1,6 +1,6 @@
 package com.avatarduel.card;
 
-import com.avatarduel.element.Element;
+import com.avatarduel.model.Element;
 
 // Concrete Prototype
 public class LandGameCard extends GameCard {

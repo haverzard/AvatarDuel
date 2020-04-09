@@ -4,7 +4,7 @@ import com.avatarduel.card.AuraSkillGameCard;
 import com.avatarduel.card.CharacterGameCard;
 import com.avatarduel.card.GameCard;
 import com.avatarduel.card.HasCostAttribute;
-import com.avatarduel.element.Element;
+import com.avatarduel.model.Element;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -25,6 +25,10 @@ public class OpenedCard extends BorderPane {
         setMaxHeight(height);
         setBorder(Basic.getBorder(1));
         update(width, null);
+    }
+
+    public OpenedCard() {
+        super();
     }
 
     public OpenedCard(double width, Element x) {

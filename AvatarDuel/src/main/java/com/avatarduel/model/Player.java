@@ -1,10 +1,9 @@
-package com.avatarduel.player;
+package com.avatarduel.model;
 
 import com.avatarduel.card.GameCard;
 import com.avatarduel.card.HasCostAttribute;
 import com.avatarduel.card.LandGameCard;
 import com.avatarduel.deck.*;
-import com.avatarduel.element.Element;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 

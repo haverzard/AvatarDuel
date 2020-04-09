@@ -1,8 +1,7 @@
-package com.avatarduel.element;
+package com.avatarduel.model;
 
 import com.avatarduel.components.Basic;
 import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
 
 public enum Element {
     WATER,

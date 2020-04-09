@@ -2,51 +2,29 @@ package com.avatarduel.view;
 
 import com.avatarduel.card.*;
 import com.avatarduel.components.Basic;
-import com.avatarduel.components.OpenedCard;
 import com.avatarduel.components.Space;
-import com.avatarduel.element.Element;
+import com.avatarduel.model.Element;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CardView {
+public class DescCardView extends BorderPane {
     private static double cardWidth = 250;
-    public static List<Pane> cardsBottom;
-    private static OpenedCard cardInfo;
-    private static BorderPane cardDesc;
 
-    public static void init() {
-        cardsBottom = new ArrayList<>();
-        cardInfo = new OpenedCard(cardWidth, Element.AIR);
-        cardDesc = new BorderPane();
-        cardDesc.setMinWidth(cardWidth);
-        cardDesc.setMaxHeight(cardWidth/5*8);
-        cardDesc.setBorder(Basic.getBorder(1));
-        cardDesc.setBackground(Basic.getBackground(Element.AIR.getCardTemplateURL(),cardWidth,cardWidth/5*8));
+    public DescCardView() {
+        super();
+        setMinWidth(cardWidth);
+        setMaxHeight(cardWidth/5*8);
+        setBorder(Basic.getBorder(1));
+        setBackground(Basic.getBackground(Element.AIR.getCardTemplateURL(),cardWidth,cardWidth/5*8));
     }
-
-    public static void clearInfo() {
-        cardInfo.update(cardWidth,cardWidth/5*8, Element.AIR);
-    }
-
-    public static void resetCardsBottom() {
-        for (Pane pane : cardsBottom) {
-            pane.setEffect(null);
-        }
-        cardsBottom.clear();
-    }
-
-    public static void updateCardDesc(GameCard x) {
-        cardDesc.getChildren().clear();
-        cardDesc.setBackground(Basic.getBackground(Element.AIR.getCardTemplateURL()));
+    public void updateCardDesc(GameCard x) {
+        getChildren().clear();
+        setBackground(Basic.getBackground(Element.AIR.getCardTemplateURL()));
         if (x != null) {
-            cardDesc.setBackground(Basic.getBackground(x.getElement().getCardTemplateURL()));
+            setBackground(Basic.getBackground(x.getElement().getCardTemplateURL()));
             HBox store = new HBox();
             store.setAlignment(Pos.CENTER);
             BorderPane layout = new BorderPane();
@@ -76,8 +54,8 @@ public class CardView {
                     }
                     card.getAuraSkillGameCardsList().forEach(v ->
                             skill.getChildren().add(new Label("- "+v.getName()+" (Aura) - "
-                            +" ATT: "+(v.getAttackAura() >= 0 ? "+" : "")+v.getAttackAura()
-                            +" DEF: "+(v.getDefenseAura() >= 0 ? "+" : "")+v.getDefenseAura())));
+                                    +" ATT: "+(v.getAttackAura() >= 0 ? "+" : "")+v.getAttackAura()
+                                    +" DEF: "+(v.getDefenseAura() >= 0 ? "+" : "")+v.getDefenseAura())));
                 } else {
                     skill.getChildren().add(new Label("None"));
                 }
@@ -101,13 +79,7 @@ public class CardView {
             }
 
             store.getChildren().add(layout);
-            cardDesc.setCenter(store);
+            setCenter(store);
         }
     }
-
-    public static OpenedCard getCardInfo() {
-        return cardInfo;
-    }
-
-    public static BorderPane getCardDesc() { return cardDesc; }
 }

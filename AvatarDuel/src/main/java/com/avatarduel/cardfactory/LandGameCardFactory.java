@@ -2,7 +2,7 @@ package com.avatarduel.cardfactory;
 
 import com.avatarduel.card.GameCard;
 import com.avatarduel.card.LandGameCard;
-import com.avatarduel.element.Element;
+import com.avatarduel.model.Element;
 
 public class LandGameCardFactory extends GameCardFactory {
     @Override

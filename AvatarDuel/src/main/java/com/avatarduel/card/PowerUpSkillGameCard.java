@@ -1,5 +1,5 @@
 package com.avatarduel.card;
-import com.avatarduel.element.Element;
+import com.avatarduel.model.Element;
 
 public class PowerUpSkillGameCard extends SkillGameCard implements AppliableEffect{
     public PowerUpSkillGameCard(String _name, String _desc, Element _element, String _imgUrl, int _cost) {

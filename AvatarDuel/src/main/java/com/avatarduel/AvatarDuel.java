@@ -2,16 +2,12 @@ package com.avatarduel;
 
 import com.avatarduel.card.GameCard;
 import com.avatarduel.cardfactory.*;
-import com.avatarduel.components.Basic;
-import com.avatarduel.model.FieldModel;
-import com.avatarduel.model.HealthModel;
+import com.avatarduel.view.MainView;
 import com.avatarduel.view.GameView;
 import com.avatarduel.deck.StorageDeck;
-import com.avatarduel.element.Element;
-import com.avatarduel.model.StateModel;
-import com.avatarduel.player.Player;
+import com.avatarduel.model.Element;
+import com.avatarduel.model.Player;
 import com.avatarduel.util.CSVReader;
-import com.avatarduel.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -69,10 +65,9 @@ public class AvatarDuel extends Application {
   @Override
   public void start(Stage stage) {
     // Initial
-    PlayerView.init();
     instance = this;
 
-    MainView.loadMainScreen(this);
+    MainView.screen.getChildren().add(new MainView(this));
     Scene scene = new Scene(MainView.screen, 1440, 940);
 
     stage.setTitle("Avatar Duel");
@@ -86,7 +81,6 @@ public class AvatarDuel extends Application {
 
   public void initGame() {
     try {
-      Player.player2.setHealth(65);
       // Load all cards
       this.loadCards(CHARACTER_CSV_FILE_PATH, characterDeck, new CharacterGameCardFactory());
       this.loadCards(SKILL_CSV_FILE_PATH, skillDeck, new AuraSkillGameCardFactory());
@@ -95,22 +89,9 @@ public class AvatarDuel extends Application {
       this.loadCards(POWER_UP_CSV_FILE_PATH, powerUpDeck, new PowerUpSkillGameCardFactory());
       this.loadDeck(Player.player1);
       this.loadDeck(Player.player2);
-      // Init some additional functionality
-      HealthModel.init();
-      StateModel.init();
-      FieldModel.init();
       initDraw();
-      ButtonView.init();
-      CardView.init();
-      DeckView.init();
-      FieldView.init();
-      HandView.init();
-      HealthView.init();
-      PowerView.init();
 
-      HandView.updateHand(Player.player2,Player.player1);
-
-      GameView.loadGameLayout();
+      MainView.screen.getChildren().add(new GameView());
 
       // Cheats, please delete later
       for (int i=0; i<100; i++) {
@@ -123,8 +104,6 @@ public class AvatarDuel extends Application {
         Player.player2.addPower(Element.WATER);
         Player.player2.addPower(Element.EARTH);
       }
-      PowerView.updatePowerCounters("bottom", Player.player1);
-      PowerView.updatePowerCounters("top", Player.player2);
 
     } catch (Exception e) {
       e.printStackTrace();

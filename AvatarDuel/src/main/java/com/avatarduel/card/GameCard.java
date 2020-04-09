@@ -1,6 +1,6 @@
 package com.avatarduel.card;
 
-import com.avatarduel.element.Element;
+import com.avatarduel.model.Element;
 
 // Prototype
 abstract public class GameCard {

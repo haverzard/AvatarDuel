@@ -2,7 +2,7 @@ package com.avatarduel.cardfactory;
 
 import com.avatarduel.card.AuraSkillGameCard;
 import com.avatarduel.card.GameCard;
-import com.avatarduel.element.Element;
+import com.avatarduel.model.Element;
 
 // Concrete Factory
 public class AuraSkillGameCardFactory  extends GameCardFactory {
