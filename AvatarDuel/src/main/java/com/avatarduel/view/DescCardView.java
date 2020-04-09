@@ -45,7 +45,6 @@ public class DescCardView extends BorderPane {
                 VBox skill = new VBox();
                 skill.getChildren().add(new Space(50));
                 skill.getChildren().add(new Label("Current skill attached"));
-                // Iterate skill here plz
                 CharacterGameCard card = (CharacterGameCard) x;
                 if (!card.getAuraSkillGameCardsList().isEmpty() || card.isAttachedPowerUpinField()) {
                     if (card.isAttachedPowerUpinField()) {

@@ -1,9 +1,6 @@
 package com.avatarduel.components;
 
-import com.avatarduel.card.AuraSkillGameCard;
-import com.avatarduel.card.CharacterGameCard;
-import com.avatarduel.card.GameCard;
-import com.avatarduel.card.HasCostAttribute;
+import com.avatarduel.card.*;
 import com.avatarduel.model.Element;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -11,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -68,25 +66,28 @@ public class OpenedCard extends BorderPane {
     }
 
     private HBox getCardMiddle(double width, double height) {
-        return getCardMiddle(width, height, "");
+        return getCardMiddle(width, height, null);
     }
 
-    private HBox getCardMiddle(double width, double height, String imgUrl) {
+    private HBox getCardMiddle(double width, double height, GameCard x) {
 
-        HBox imageBox = new HBox();
+        VBox imageBox = new VBox();
+        imageBox.setAlignment(Pos.CENTER_RIGHT);
         imageBox.setMinWidth(width*0.8);
-        imageBox.setBorder(Basic.getBorder(1));
         try {
-            if (!imgUrl.isEmpty()) {
+            if (x != null) {
                 ImageView image = new ImageView();
                 image.setFitWidth(width * 0.8);
                 image.setFitHeight(height / 2);
-                image.setImage(new Image(imgUrl));
+                image.setImage(new Image(x.getImgUrl()));
+                imageBox.getChildren().add(new Label(String.format("[%s]",x.getType())));
                 imageBox.getChildren().add(image);
+            } else {
+                imageBox.setBorder(Basic.getBorder(1));
             }
             //System.out.println(imgUrl);
-        } catch(Exception e) {
-            //System.out.println(e);
+        } catch (Exception e) {
+            assert(false);
         }
 
         HBox cardMiddle = new HBox();
@@ -191,7 +192,7 @@ public class OpenedCard extends BorderPane {
             // Card Top
             cardTop = getCardTop(width, height, x.getName(), x.getElement());
             // Card Middle
-            cardMiddle = getCardMiddle(width, height, x.getImgUrl());
+            cardMiddle = getCardMiddle(width, height, x);
             // Card Bottom
             cardBottom = getCardBottom(width, height, x.getDesc(), x);
 

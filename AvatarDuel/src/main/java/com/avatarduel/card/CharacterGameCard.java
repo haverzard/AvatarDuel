@@ -22,7 +22,7 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     }
 
     public CharacterGameCard(String _name, String _desc, Element _element, String _imgUrl, int _cost, int _attack, int _defense, List<AuraSkillGameCard> list) {
-        super(_name,_desc,_element, _imgUrl);
+        super("Character",_name,_desc,_element, _imgUrl);
         cost = _cost;
         attack = _attack;
         defense = _defense;
