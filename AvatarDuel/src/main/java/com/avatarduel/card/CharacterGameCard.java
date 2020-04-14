@@ -46,7 +46,8 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     }
 
     /**
-     * Clone the character game card
+     * Clone the character game card.
+     * NOTE: skill is not included
      */
     public GameCard clone() {
         return new CharacterGameCard(getName(), getDesc(), getElement(), getImgUrl(), cost, attack, defense, new ArrayList<>());
