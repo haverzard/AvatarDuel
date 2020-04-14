@@ -27,6 +27,6 @@ id,name,element,description,imagepath,power,attack,defense
 90,Ice Prison,WATER,This technique covers an opponent in a prison made of ice.,com/avatarduel/card/image/skill/Ice Prison.png,3,-4,2
 91,Tangle Mine,WATER,Military weapons invented by Hakoda to aid the Southern Water Tribe's quest to defeat the Fire Nation.,com/avatarduel/card/image/skill/Tangle Mine.png,2,2,-1
 92,Wolf Armor,WATER,Protective battle gear worn by the warriors of the Southern Water Tribe.,com/avatarduel/card/image/skill/Wolf Armor.png,2,2,1
-93,Astral Buff,ENERGY,Drawing spirits to possess the user in exchange for exceptional power.,com/avatarduel/card/image/skill/Astral Buff.png,2,2,2
-94,Unbreakable Bond,ENERGY,Loyal pet that would never betray their master.,com/avatarduel/card/image/skill/Unbreakable Bond.png,1,1,1
-95,Energy Barrier,ENERGY,A Barrier that protects anyone inside it made out of exceptional energy.,com/avatarduel/card/image/skill/Energy Barrier.png,2,0,5
+159,Astral Buff,ENERGY,Drawing spirits to possess the user in exchange for exceptional power.,com/avatarduel/card/image/skill/Astral Buff.png,2,2,2
+160,Unbreakable Bond,ENERGY,Loyal pet that would never betray their master.,com/avatarduel/card/image/skill/Unbreakable Bond.png,1,1,1
+161,Energy Barrier,ENERGY,A Barrier that protects anyone inside it made out of exceptional energy.,com/avatarduel/card/image/skill/Energy Barrier.png,2,0,5
