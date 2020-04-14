@@ -1,4 +1,4 @@
-﻿name,element,description,imagepath,power
+name,element,description,imagepath,power
 121,The Awakening,AIR,Rise up and return to provide a strong attack.,com\avatarduel\card\image\skill\The Awakening.png,1
 122,Earth Shock,EARTH,Earth shakes that shake all enemies.,com\avatarduel\card\image\skill\Earth Shock.png,3
 123,Air Running,AIR,Sometimes running is a way to fight your enemy.,com\avatarduel\card\image\skill\Air Running.png,2
@@ -20,3 +20,6 @@
 139,Freeze Airbending,WATER,The sharpness of the cold will be very piercing.,com\avatarduel\card\image\skill\Freeze Airbending.png,3
 140,Xtreme Earthbending,EARTH,Unusual control ready to destroy every one who is against the truth.,com\avatarduel\card\image\skill\Extreme Earthbending.png,4
 142,Xtreme Waterbending,WATER,Unusual control ready to destroy every one who is against the truth.,com\avatarduel\card\image\skill\Extreme Waterbending.png,4
+143,Energy Beam,ENERGY,An energy beam that is highly concentrated focusing on the enemy.,com\avatarduel\card\image\skill\Energy Beam.png,3
+144,Energy Disintegrator,ENERGY,Calling an unknown energy to disintegrate the enemy totally.,com\avatarduel\card\image\skill\Energy Disintegrator.png,4
+145,Extraction,ENERGY,Pulling out the enemy's soul, causing them to go unconscious.,com\avatarduel\card\image\skill\Extraction.png,3

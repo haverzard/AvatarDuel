@@ -1,23 +1,23 @@
-﻿id,name,element,description,imagepath,power
+id,name,element,description,imagepath,power
 98,Air Funnel,AIR,Technique to create a cannon for small projectiles.,com/avatarduel/card/image/skill/Air Funnel.png,2
 99,Air Scooter,AIR,A form of transportation invented by Aang.,com/avatarduel/card/image/skill/Air Scooter.png,2
 100,Airbender Staff,AIR,A wooden stave used primarily by airbenders to augment their bending.,com/avatarduel/card/image/skill/Airbender Staff.png,2
 101,Airbender Upgraded Staff,AIR,Upgraded staff made by Mechanist for Aang at the Fire Nation Invasion.,com/avatarduel/card/image/skill/Airbender Upgraded Staff.png,2
 102,Asphyxiation,AIR,Manipulates the flow of air within a person's respiratory system and prevents any new intake of breath by forming a ball of air around the head.,com/avatarduel/card/image/skill/Asphyxiation.png,3
-103,Glider,AIR,"Aerial transportation made by Mechanist inspired from Air nomad gliders.",com/avatarduel/card/image/skill/Glider.png,1
-104,Hot Air Balloon,AIR,"Air balloon created by Mechanist originally developed for the Fire Nation",com/avatarduel/card/image/skill/Hot Air Balloon.png,3
+"103,Glider,AIR,""Aerial transportation made by Mechanist inspired from Air nomad gliders."",com/avatarduel/card/image/skill/Glider.png,1"
+"104,Hot Air Balloon,AIR,""Air balloon created by Mechanist originally developed for the Fire Nation"",com/avatarduel/card/image/skill/Hot Air Balloon.png,3"
 105,Crystal Armor,EARTH,Armor made of crystal that makes the person cannot move.,com/avatarduel/card/image/skill/Crystal Armor.png,3
 106,Earth Sink,EARTH,Make the person sink to the ground.,com/avatarduel/card/image/skill/Earth Sink.png,2
 107,Lavabending,EARTH,Manipulate molten earth.,com/avatarduel/card/image/skill/Lavabending.png,4
 108,Metalbending,EARTH,Ability to bend metal.,com/avatarduel/card/image/skill/Metalbending.png,4
-109,Rock Gloves,EARTH,"Favored weapons of Ba Sing Se's secret police force known as the Dai Li.",com/avatarduel/card/image/skill/Rock Gloves.png,1
+"109,Rock Gloves,EARTH,""Favored weapons of Ba Sing Se's secret police force known as the Dai Li."",com/avatarduel/card/image/skill/Rock Gloves.png,1"
 110,Slinky Tank,EARTH,Stone vehicles provided both transportation and protection during the invasion of the Fire Nation.,com/avatarduel/card/image/skill/Slinky Tank.png,3
 111,Surface Rocks,EARTH,Largse rocks used as projectiles of Royal Earthbender Guards.,com/avatarduel/card/image/skill/Surface Rocks.png,2
-112,Blue Fire,FIRE,"Bend completely blue flames which are hotter than the orange flames.",com/avatarduel/card/image/skill/Blue Fire.png,3
+"112,Blue Fire,FIRE,""Bend completely blue flames which are hotter than the orange flames."",com/avatarduel/card/image/skill/Blue Fire.png,3"
 113,Combustionbending,FIRE,Ignite objects with their mind instead of traditional firebending methods.,com/avatarduel/card/image/skill/Combustionbending.png,3
 114,Fire Armor,FIRE,Fire Nation armor.,com/avatarduel/card/image/skill/Fire Armor.png,1
 115,Lightningbending,FIRE,Manipulate lightning by separating the yin and yang energies.,com/avatarduel/card/image/skill/Lightningbending.png,4
-116,Shozin Comet,FIRE,"Formerly known as the Great Comet. A celestial object that passes close to the Earth every one hundred years just skimming the surface of the upper atmosphere.",com/avatarduel/card/image/skill/Shozin Comet.png,4
+"116,Shozin Comet,FIRE,""Formerly known as the Great Comet. A celestial object that passes close to the Earth every one hundred years just skimming the surface of the upper atmosphere."",com/avatarduel/card/image/skill/Shozin Comet.png,4"
 117,Trebuchets,FIRE,Large weapons to conduct long-range artilery warfare.,com/avatarduel/card/image/skill/Trebuchets.png,2
 118,Wall of Flames,FIRE,Wall of concentrated flames acts as a barrier to incoming attacks.,com/avatarduel/card/image/skill/Wall of Flames.png,3
 119,Bloodbending,WATER,Ability that allows waterbender to manipulate person's movement.,com/avatarduel/card/image/skill/Bloodbending.png,4
@@ -27,3 +27,6 @@
 123,Ice Prison,WATER,This technique covers an opponent in a prison made of ice.,com/avatarduel/card/image/skill/Ice Prison.png,3
 124,Tangle Mine,WATER,Military weapons invented by Hakoda to aid the Southern Water Tribe's quest to defeat the Fire Nation.,com/avatarduel/card/image/skill/Tangle Mine.png,2
 125,Wolf Armor,WATER,Protective battle gear worn by the warriors of the Southern Water Tribe.,com/avatarduel/card/image/skill/Wolf Armor.png,2
+126,Caller Of The Spirit,ENERGY,Calling vengeful spirits to aid the user.,com/avatarduel/card/image/skill/Caller Of The Spirit.png,3
+127,Energy Jab,ENERGY,Punching the enemy with a fist full of energy.,com/avatarduel/card/image/skill/Energy Jab.png,2
+128,Soul Shackles,ENERGY,Immobilizing the enemy totally while slowly pulling out their souls.,com/avatarduel/card/image/skill/Soul Shackles.png,3
