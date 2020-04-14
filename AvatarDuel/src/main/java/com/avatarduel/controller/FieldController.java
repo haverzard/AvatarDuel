@@ -296,7 +296,7 @@ public class FieldController {
                 CharacterGameCard attacker = (CharacterGameCard) b.cardsOnFieldInfo.get(selectionController.getAttack().getTarget()).getKey();
                 CharacterGameCard enemy = (CharacterGameCard) a.cardsOnFieldInfo.get(K).getKey();
                 if ((!a.cardsOnFieldInfo.get(K).getValue() || attacker.isAttachedPowerUpinField())
-                        && attacker.getAttack() >= enemy.getAttack()) {
+                        && attacker.getAttack() > enemy.getAttack()) {
                     updateAttack(b,a,K,attacker.getAttack()-enemy.getAttack(),true);
                 } else if (a.cardsOnFieldInfo.get(K).getValue() && attacker.getAttack() > enemy.getDefense()) {
                     updateAttack(b,a,K,0,true);
