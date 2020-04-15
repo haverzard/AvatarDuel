@@ -1,25 +1,25 @@
-name,element,description,imagepath,power
-121,The Awakening,AIR,Rise up and return to provide a strong attack.,com\avatarduel\card\image\skill\The Awakening.png,1
-122,Earth Shock,EARTH,Earth shakes that shake all enemies.,com\avatarduel\card\image\skill\Earth Shock.png,3
-123,Air Running,AIR,Sometimes running is a way to fight your enemy.,com\avatarduel\card\image\skill\Air Running.png,2
-124,Air Stick,AIR,The breath of air from the movement of the stick is very amazing.,com\avatarduel\card\image\skill\Air Stick.png,3
-125,Air Smile,AIR,Quite often a smile can weaken and defeat an opponent.,com\avatarduel\card\image\skill\Air Smile.png,2
-126,Air Ball,AIR,Keep moving and beating.,com\avatarduel\card\image\skill\Air Ball.png,3
-127,Earth Canyon,EARTH,Deploy cliffs to the right and left to prepare for an attack.,com\avatarduel\card\image\skill\Earth Canyon.png,4
-128,Fire Stick,FIRE,Move fast and burn every enemy in front.,com\avatarduel\card\image\skill\Fire Stick.png,3
-129,Fire Blow,FIRE,Blow but not air the fire will attack everything in front.,com\avatarduel\card\image\skill\Fire Blow.png,3
-130,The Fire Five,FIRE,Launch attacks from various sides that will knock out your opponents!.,com\avatarduel\card\image\skill\The Fire Five.png,3
-131,Air Whirlpool,AIR,The whirlpool will rotate and destroy your opponent.,com\avatarduel\card\image\skill\Air Whirlpool.png,2
-132,The Whirlpool,WATER,Destroy your opponent with a very strong vortex power.,com\avatarduel\card\image\skill\The Whirlpool.png,2
-133,Earth Destroy,EARTH,Let the earth devour everything that is in front.,com\avatarduel\card\image\skill\Earth Destroy.png,3
-134,Ring Of Fire,FIRE,Destroy everything around you with a very hot fire.,com\avatarduel\card\image\skill\Ring Of Fire.png,2
-135,Air Blower,AIR,Blowing air of destruction for each who fights.,com\avatarduel\card\image\skill\Air Blower.png,1
-136,Eclipseetack,WATER,A very high tide that will be used when an eclipse comes.,com\avatarduel\card\image\skill\Eclipseetack.png,2
-137,Frededator,WATER,Control and rule over every power to attack.,com\avatarduel\card\image\skill\Frededator.png,3
-138,Senja Firebending,FIRE,Not the time to reflect on in the evening sometimes dusk can weaken and make yourself complacent towards destruction.,com\avatarduel\card\image\skill\Senja Firebending.png,3
-139,Freeze Airbending,WATER,The sharpness of the cold will be very piercing.,com\avatarduel\card\image\skill\Freeze Airbending.png,3
-140,Xtreme Earthbending,EARTH,Unusual control ready to destroy every one who is against the truth.,com\avatarduel\card\image\skill\Extreme Earthbending.png,4
-142,Xtreme Waterbending,WATER,Unusual control ready to destroy every one who is against the truth.,com\avatarduel\card\image\skill\Extreme Waterbending.png,4
-143,Energy Beam,ENERGY,An energy beam that is highly concentrated focusing on the enemy.,com\avatarduel\card\image\skill\Energy Beam.png,3
-144,Energy Disintegrator,ENERGY,Calling an unknown energy to disintegrate the enemy totally.,com\avatarduel\card\image\skill\Energy Disintegrator.png,4
-145,Extraction,ENERGY,Pulling out the enemy's soul, causing them to go unconscious.,com\avatarduel\card\image\skill\Extraction.png,3
+id,name,element,description,imagepath,power
+170,The Awakening,AIR,Rise up and return to provide a strong attack.,com\avatarduel\card\image\skill\The Awakening.png,1
+171,Earth Shock,EARTH,Earth shakes that shake all enemies.,com\avatarduel\card\image\skill\Earth Shock.png,3
+172,Air Running,AIR,Sometimes running is a way to fight your enemy.,com\avatarduel\card\image\skill\Air Running.png,2
+173,Air Stick,AIR,The breath of air from the movement of the stick is very amazing.,com\avatarduel\card\image\skill\Air Stick.png,3
+174,Air Smile,AIR,Quite often a smile can weaken and defeat an opponent.,com\avatarduel\card\image\skill\Air Smile.png,2
+175,Air Ball,AIR,Keep moving and beating.,com\avatarduel\card\image\skill\Air Ball.png,3
+176,Earth Canyon,EARTH,Deploy cliffs to the right and left to prepare for an attack.,com\avatarduel\card\image\skill\Earth Canyon.png,4
+177,Fire Stick,FIRE,Move fast and burn every enemy in front.,com\avatarduel\card\image\skill\Fire Stick.png,3
+178,Fire Blow,FIRE,Blow but not air the fire will attack everything in front.,com\avatarduel\card\image\skill\Fire Blow.png,3
+179,The Fire Five,FIRE,Launch attacks from various sides that will knock out your opponents!.,com\avatarduel\card\image\skill\The Fire Five.png,3
+180,Air Whirlpool,AIR,The whirlpool will rotate and destroy your opponent.,com\avatarduel\card\image\skill\Air Whirlpool.png,2
+181,The Whirlpool,WATER,Destroy your opponent with a very strong vortex power.,com\avatarduel\card\image\skill\The Whirlpool.png,2
+182,Earth Destroy,EARTH,Let the earth devour everything that is in front.,com\avatarduel\card\image\skill\Earth Destroy.png,3
+183,Ring Of Fire,FIRE,Destroy everything around you with a very hot fire.,com\avatarduel\card\image\skill\Ring Of Fire.png,2
+184,Air Blower,AIR,Blowing air of destruction for each who fights.,com\avatarduel\card\image\skill\Air Blower.png,1
+185,Eclipseetack,WATER,A very high tide that will be used when an eclipse comes.,com\avatarduel\card\image\skill\Eclipseetack.png,2
+186,Frededator,WATER,Control and rule over every power to attack.,com\avatarduel\card\image\skill\Frededator.png,3
+187,Senja Firebending,FIRE,Not the time to reflect on in the evening sometimes dusk can weaken and make yourself complacent towards destruction.,com\avatarduel\card\image\skill\Senja Firebending.png,3
+188,Freeze Airbending,WATER,The sharpness of the cold will be very piercing.,com\avatarduel\card\image\skill\Freeze Airbending.png,3
+189,Xtreme Earthbending,EARTH,Unusual control ready to destroy every one who is against the truth.,com\avatarduel\card\image\skill\Extreme Earthbending.png,4
+190,Xtreme Waterbending,WATER,Unusual control ready to destroy every one who is against the truth.,com\avatarduel\card\image\skill\Extreme Waterbending.png,4
+191,Energy Beam,ENERGY,An energy beam that is highly concentrated focusing on the enemy.,com\avatarduel\card\image\skill\Energy Beam.png,3
+192,Energy Disintegrator,ENERGY,Calling an unknown energy to disintegrate the enemy totally.,com\avatarduel\card\image\skill\Energy Disintegrator.png,4
+193,Extraction,ENERGY,Pulling out the enemy's soul causing them to go unconscious.,com\avatarduel\card\image\skill\Extraction.png,3
