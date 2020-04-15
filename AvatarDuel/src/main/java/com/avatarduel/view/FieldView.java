@@ -1,121 +1,73 @@
 package com.avatarduel.view;
 
-import com.avatarduel.controller.CardController;
-import com.avatarduel.controller.FieldController;
-import com.avatarduel.controller.StateController;
-import com.avatarduel.model.StateModel;
-import com.avatarduel.player.Player;
+import com.avatarduel.components.Basic;
+import com.avatarduel.components.CustomBox;
+import com.avatarduel.components.Space;
+import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FieldView {
-    public static List<HBox> fieldBoxes;
+public class FieldView extends HBox {
+    private static String FIELD_URL = "com/avatarduel/assets/image/fieldBackground.png";
+    private static int fieldBoxCounts = 12;
+    private List<HBox> fieldBoxes;
 
-    public static void init() {
+    public FieldView() {
+        super();
         fieldBoxes = new ArrayList<>();
+        VBox fieldInside = new VBox();
+        fieldInside.setAlignment(Pos.CENTER);
+        fieldInside.setBorder(Basic.getBorder(1));
+        fieldInside.getChildren().add(genBoxField());
+        fieldInside.getChildren().add(new Space(10));
+        fieldInside.getChildren().add(genBoxField());
+
+        setMinWidth(800);
+        setMinHeight(240);
+        setBackground(Basic.getBackground(FIELD_URL));
+        setAlignment(Pos.CENTER);
+        getChildren().add(fieldInside);
     }
 
-    public static void initFieldBoxes() {
-        Player p1, p2;
-        if (StateController.checkState("Player 1 turn")) {
-            p1 = Player.player1;
-            p2 = Player.player2;
-        } else {
-            p1 = Player.player2;
-            p2 = Player.player1;
+    private HBox genBoxField() {
+        int counts = fieldBoxCounts/2;
+        double size = 110;
+        double pad = 10;
+        HBox boxField = new HBox();
+        boxField.setMinWidth((size+pad)*counts+pad);
+        boxField.setAlignment(Pos.CENTER);
+        for (int i=0; i<counts-1; i++) {
+            addBox(new CustomBox(size));
+            boxField.getChildren().add(getLastBox());
+            boxField.getChildren().add(new Space(10));
         }
-
-        // Top fields
-        initTopField(p2);
-
-        // Bottom fields
-        initBottomField(p1);
+        addBox(new CustomBox(size));
+        boxField.getChildren().add(getLastBox());
+        return boxField;
     }
 
-    private static void initTopField(Player p2) {
-
-        // Skill row
-        for (int i=0; i<8; i++) {
-            int j = (15-i)%16;
-            fieldBoxes.get(i).getChildren().clear();
-            Pane card = p2.cardsOnField.get(j);
-            if (card != null) {
-                fieldBoxes.get(i).getChildren().add(card);
-                initFieldCardSkill(p2, card, "top");
-            }
-        }
-        // Character row
-        for (int i=8; i<16; i++) {
-            int j = (15-i)%16;
-            fieldBoxes.get(i).getChildren().clear();
-            Pane card = p2.cardsOnField.get(j);
-            if (card != null) {
-                fieldBoxes.get(i).getChildren().add(card);
-                initFieldCardChar(p2, card);
-            }
-        }
+    public List<HBox> getFieldBoxes() {
+        return fieldBoxes;
     }
 
-    private static void initBottomField(Player p1) {
-        // Character row
-        for (int i=16; i<24; i++) {
-            int j = i-16;
-            fieldBoxes.get(i).getChildren().clear();
-            Pane card = p1.cardsOnField.get(j);
-            if (card != null) {
-                fieldBoxes.get(i).getChildren().add(card);
-                fieldBoxes.get(i).setOnMouseClicked(null);
-                initFieldCardChar(p1, card);
-            } else {
-                FieldController.setFieldBoxOnClickEvent(i, p1);
-            }
-        }
-        // Skill row
-        for (int i=24; i<32; i++) {
-            int j = i-16;
-            fieldBoxes.get(i).getChildren().clear();
-            Pane card = p1.cardsOnField.get(j);
-            if (card != null) {
-                fieldBoxes.get(i).getChildren().add(card);
-                fieldBoxes.get(i).setOnMouseClicked(null);
-                initFieldCardSkill(p1, card, "bottom");
-            }
-        }
-    }
-
-    public static void initFieldCardChar(Player a, Pane card) {
-        Player b = (a == Player.player1) ? Player.player2 : Player.player1;
-        // Battle Phase Action
-        if (a.getId() == StateModel.getTurn()) {
-            CardController.setBottomCardBehaviour(card, a, b);
-        } else {
-            CardController.setTopCardBehaviour(card, a, b);
-        }
-    }
-
-    public static void initFieldCardSkill(Player a, Pane card, String type) {
-        Player b = (a == Player.player1) ? Player.player2 : Player.player1;
-        // Battle Phase Action
-        CardController.setSkillCardBehaviour(card, a, type);
-    }
-
-    public static void clearBox(int idx) {
-        fieldBoxes.get(idx).getChildren().clear();
-    }
-
-    public static HBox getLastBox() {
-        return fieldBoxes.get(FieldView.fieldBoxes.size()-1);
+    public HBox getLastBox() {
+        return fieldBoxes.get(fieldBoxes.size()-1);
     }
 
     // Pre-condition idx is valid
-    public static HBox getBox(int idx) {
+    public HBox getBox(int idx) {
         return fieldBoxes.get(idx);
     }
 
-    public static void addBox(HBox box) {
+    public void addBox(HBox box) {
         fieldBoxes.add(box);
     }
+
+    public void clearBox(int idx) {
+        fieldBoxes.get(idx).getChildren().clear();
+    }
+
 }

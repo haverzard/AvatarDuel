@@ -2,7 +2,8 @@ package com.avatarduel.view;
 
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.components.Basic;
-import com.avatarduel.player.Player;
+import com.avatarduel.components.Space;
+import com.avatarduel.model.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -13,17 +14,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class MainView {
+public class MainView extends StackPane {
+    private static MainView instance = null;
     public static StackPane screen = new StackPane();
     private static final String IMAGE_LOGO = "com/avatarduel/assets/image/avatarLogo.png";
     private static final String MAIN_BACKGROUND = "com/avatarduel/assets/image/mainScreen.jpg";
 
-    public static void loadMainScreen(AvatarDuel main) {
-        // Must init player first to set name
+    public MainView(AvatarDuel main) {
+        // Must reset players first to set name
         Player.resetPlayers();
 
         // Main Screen
-        StackPane mainScr = new StackPane();
         ImageView background = new ImageView(new Image(MAIN_BACKGROUND));
         background.setFitWidth(1440);
         background.setFitHeight(940);
@@ -56,33 +57,35 @@ public class MainView {
         nameBox2.getChildren().add(nameLabel2);
         nameBox2.getChildren().add(name2);
         names.getChildren().add(nameBox1);
-        names.getChildren().add(Basic.getSpace(50));
+        names.getChildren().add(new Space(50));
         names.getChildren().add(nameBox2);
 
         Button play = new Button("Let's play!");
         play.setMinSize(200,50);
         play.setOnAction(e-> {
-            screen.getChildren().remove(mainScr);
-            PlayerView.getPlayerName("top").setText("Player 2 - " + name2.getText());
-            PlayerView.getPlayerName("bottom").setText("Player 1 - " + name1.getText());
+            screen.getChildren().remove(this);
             Player.player1.setName(name1.getText());
             Player.player2.setName(name2.getText());
             main.initGame();
         });
         scr.getChildren().add(logo);
         scr.getChildren().add(names);
-        scr.getChildren().add(Basic.getSpace(50));
+        scr.getChildren().add(new Space(50));
         scr.getChildren().add(play);
-        mainScr.getChildren().add(background);
-        mainScr.getChildren().add(scr);
-        screen.getChildren().add(mainScr);
+        getChildren().add(background);
+        getChildren().add(scr);
     }
 
-    public static void loadLoseScreen(Player winner) {
+    public static MainView getInstance() {
+        if (instance == null) instance = new MainView(AvatarDuel.getInstance());
+        return instance;
+    }
+
+    public void loadLoseScreen(Player winner) {
         MainView.screen.getChildren().add(Basic.getScreen("The winner is "+winner.getName()+"! Congratz!"));
         Basic.scr.setOnMouseClicked(e -> {
             MainView.screen.getChildren().clear();
-            MainView.loadMainScreen(AvatarDuel.getInstance());
+            MainView.screen.getChildren().add(getInstance());
         });
     }
 }

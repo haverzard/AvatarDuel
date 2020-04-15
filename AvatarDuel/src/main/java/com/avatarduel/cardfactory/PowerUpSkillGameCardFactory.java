@@ -2,7 +2,7 @@ package com.avatarduel.cardfactory;
 
 import com.avatarduel.card.PowerUpSkillGameCard;
 import com.avatarduel.card.GameCard;
-import com.avatarduel.element.Element;
+import com.avatarduel.model.Element;
 
 public class PowerUpSkillGameCardFactory extends GameCardFactory {
     @Override
