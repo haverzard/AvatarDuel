@@ -149,7 +149,6 @@ public class OpenedCard extends BorderPane {
      * @param height raw height value  
      * @param desc description value of the card
      * @param card card value
-     * @return
      */
     private HBox getCardBottom(double width, double height, String desc, GameCard card) {
         HBox description = new HBox();
