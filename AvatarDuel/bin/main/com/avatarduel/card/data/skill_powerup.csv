@@ -27,6 +27,6 @@ id,name,element,description,imagepath,power
 123,Ice Prison,WATER,This technique covers an opponent in a prison made of ice.,com/avatarduel/card/image/skill/Ice Prison.png,3
 124,Tangle Mine,WATER,Military weapons invented by Hakoda to aid the Southern Water Tribe's quest to defeat the Fire Nation.,com/avatarduel/card/image/skill/Tangle Mine.png,2
 125,Wolf Armor,WATER,Protective battle gear worn by the warriors of the Southern Water Tribe.,com/avatarduel/card/image/skill/Wolf Armor.png,2
-126,Caller Of The Spirit,ENERGY,Calling vengeful spirits to aid the user.,com/avatarduel/card/image/skill/Caller Of The Spirit.png,3
-127,Energy Jab,ENERGY,Punching the enemy with a fist full of energy.,com/avatarduel/card/image/skill/Energy Jab.png,2
-128,Soul Shackles,ENERGY,Immobilizing the enemy totally while slowly pulling out their souls.,com/avatarduel/card/image/skill/Soul Shackles.png,3
+170,Caller Of The Spirit,ENERGY,Calling vengeful spirits to aid the user.,com/avatarduel/card/image/skill/Caller Of The Spirit.png,3
+171,Energy Jab,ENERGY,Punching the enemy with a fist full of energy.,com/avatarduel/card/image/skill/Energy Jab.png,2
+172,Soul Shackles,ENERGY,Immobilizing the enemy totally while slowly pulling out their souls.,com/avatarduel/card/image/skill/Soul Shackles.png,3
