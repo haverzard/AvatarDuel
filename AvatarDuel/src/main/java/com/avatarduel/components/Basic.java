@@ -14,6 +14,11 @@ import javafx.scene.text.Text;
 public class Basic {
     public static HBox scr;
 
+    /**
+     * 
+     * @param x
+     * @return
+     */
     public static Background getBackground(Color x) {
         return new Background(new BackgroundFill(x, CornerRadii.EMPTY, Insets.EMPTY));
     }

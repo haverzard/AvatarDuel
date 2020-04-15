@@ -3,6 +3,9 @@ package com.avatarduel.model;
 import com.avatarduel.components.Basic;
 import javafx.scene.layout.Background;
 
+/**
+ * List of available elements in AvatarDuel application.
+ */
 public enum Element {
     WATER,
     FIRE,
@@ -10,6 +13,10 @@ public enum Element {
     EARTH,
     ENERGY;
 
+    /**
+     * @return the background with specific element image
+     * @see Image
+     */
     public Background getBackground() {
         switch (this) {
             case WATER:
@@ -28,6 +35,9 @@ public enum Element {
         }
     }
 
+    /**
+     * @return the address of card's template
+     */
     public String getCardTemplateURL() {
         switch (this) {
             case AIR:
