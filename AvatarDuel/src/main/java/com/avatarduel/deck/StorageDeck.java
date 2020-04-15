@@ -6,10 +6,19 @@ import java.util.List;
 
 public class StorageDeck extends Deck implements HasDynamicCapacity{
 
+    /**
+     * Creates a new storage deck with cards.
+     * @param x cards to be inserted
+     */
     public StorageDeck(List<GameCard> x) {
         super(x);
     }
 
+    /**
+     * Creates a new storage deck with it's capacity and cards.
+     * @param x cards to be inserted
+     * @param _capacity deck's capacity
+     */
     public StorageDeck(List<GameCard> x, int _capacity) {
         super(x);
         setCapacity(_capacity);
@@ -26,6 +35,10 @@ public class StorageDeck extends Deck implements HasDynamicCapacity{
         setCapacity(getCapacity()+1);
     }
 
+    /**
+     * Access to a specific card by index
+     * @param idx Index to be accessed
+     */
     public GameCard access(int idx) {
         if (gameCards.size() > idx) return gameCards.get(idx);
         return null; // Could add exception here
