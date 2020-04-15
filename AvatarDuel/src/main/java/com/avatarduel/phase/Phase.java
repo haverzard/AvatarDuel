@@ -3,6 +3,8 @@ package com.avatarduel.phase;
 // there is no initial value for this class's member
 /**
  * Base class for all Phase classes
+ * 
+ * @author Kelompok 2
  */
 abstract public class Phase {
     protected boolean canAttack;
