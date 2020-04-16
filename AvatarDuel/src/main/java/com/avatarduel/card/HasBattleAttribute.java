@@ -9,6 +9,7 @@ package com.avatarduel.card;
 public interface HasBattleAttribute {
     /**
      * Get the value of attack attribute in the class
+     * @return the attack value of object from the class that implements this inteface.
      */
     public int getAttack();
 
@@ -20,6 +21,7 @@ public interface HasBattleAttribute {
 
     /**
      * Get the value of defense attribute in the class
+     * @return the defense value of object from the class that implements this inteface.
      */
     public int getDefense();
 

@@ -73,8 +73,12 @@ public class Player {
     }
 
     // Getter & Setter
+
+
     /**
      * Get the value health attribute in the class.
+     *
+     * @return The Health value of this Player.
      */
     public int getHealth() {
         return health;
@@ -90,6 +94,8 @@ public class Player {
 
     /**
      * Get the value of id attribute in the class
+     * 
+     * @return The ID Number of this Player
      */
     public int getId() {
         return id;
@@ -97,6 +103,8 @@ public class Player {
 
     /**
      * Get the value of name attribute in the class
+     * 
+     * @return The Name attribute of this Player.
      */
     public String getName() { return name; }
 
@@ -109,6 +117,8 @@ public class Player {
     /**
      * Access the card in player's hand by index
      * @param idx to be accessed index
+     * 
+     * @return The idx-th Card in the Player hand (the idx card in the hand list of cards).
      */
     public GameCard getHand(int idx) {
         if (idx < hand.size()) return hand.get(idx);
@@ -156,6 +166,8 @@ public class Player {
 
     /**
      * Get the amount of cards in deck
+     * 
+     * @return The number of deck card of this Player
      */
     public int countCardsInDeck() {
         return myDeck.getSize();
@@ -163,6 +175,8 @@ public class Player {
 
     /**
      * Get the amount of cards in player's hand
+     * 
+     * @return The number of cards in player's hand
      */
     public int countCardsInHand() {
         return hand.size();
@@ -205,7 +219,9 @@ public class Player {
     }
 
     /**
-     * Get the element of the card
+     * Take the card from deck to Player hand and get the element of the card was taken
+     * 
+     * @return The type of element that was taken
      */
     public Element takeCard() {
         GameCard temp = myDeck.pop();
@@ -217,9 +233,14 @@ public class Player {
     }
 
     // Use Skill or Character Card
+
     /**
      * Put the card at field if power sufficient and chosen card exist in hand
-     * @return boolean
+     *
+     * @param card  The card that used
+     * @param e The type of element that used
+     *
+     * @return Success value of action
      */
     public boolean useCard(HasCostAttribute card, Element e) {
         Pair<Integer,Integer> t = power.get(e);

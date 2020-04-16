@@ -20,6 +20,8 @@ public class Basic {
     /**
      * Get the Background value
      * @param x JavaFX's color
+     * 
+     * @return The new background with color x.
      */
     public static Background getBackground(Color x) {
         return new Background(new BackgroundFill(x, CornerRadii.EMPTY, Insets.EMPTY));
@@ -28,6 +30,8 @@ public class Basic {
     /**
      * Get the Background value
      * @param url JavaFX's URL
+     * 
+     * @return The new background with the image from the url string.
      */
     public static Background getBackground(String url) {
         return new Background(new BackgroundImage(new Image(url), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -39,6 +43,8 @@ public class Basic {
      * @param url JavaFX's color
      * @param x horizontal size
      * @param y vertical size
+     * 
+     * @return The new background with the image from the url string with horizontal size x and vertical size y.
      */
     public static Background getBackground(String url, double x, double y) {
         return new Background(new BackgroundImage(new Image(url), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -48,6 +54,8 @@ public class Basic {
     /**
      * Get the Border value
      * @param all border width's value
+     * 
+     * @return The new border with all border width's value.
      */
     public static Border getBorder(double all) {
         return new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(all)));
@@ -57,6 +65,8 @@ public class Basic {
      * Get the border value
      * @param all border width's value
      * @param x Border's color
+     * 
+     * @return The new border with all border width's value and x Border's color.
      */
     public static Border getBorder(double all, Color x) {
         return new Border(new BorderStroke(x, BorderStrokeStyle.SOLID, null, new BorderWidths(all)));
@@ -68,6 +78,8 @@ public class Basic {
      * @param right right border width value
      * @param bottom bottom border width value
      * @param left left border width value
+     * 
+     * @return The new border with specific width size for every side.
      */
     public static Border getBorder(double top, double right, double bottom, double left) {
         return new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(top,right,bottom,left)));
@@ -80,6 +92,8 @@ public class Basic {
      * @param bottom bottom border width value
      * @param left left border width value
      * @param x border color
+     * 
+     * @return The new border with specific width size for every side and color x.
      */
     public static Border getBorder(double top, double right, double bottom, double left, Color x) {
         return new Border(new BorderStroke(x, BorderStrokeStyle.SOLID, null, new BorderWidths(top,right,bottom,left)));
@@ -88,6 +102,8 @@ public class Basic {
     /**
      * Get HBox value
      * @param text Text for the label
+     * 
+     * @return HBox value pf the screen.
      */
     public static HBox getScreen(String text) {
         scr = new HBox();
@@ -107,6 +123,8 @@ public class Basic {
      * Get the DropShadow Value
      * @param x border color
      * @param spread border width value
+     * 
+     * @return The dropshadow with color x and number of spreads spread.
      */
     public static DropShadow getShadow(Color x, double spread) {
         DropShadow border = new DropShadow();

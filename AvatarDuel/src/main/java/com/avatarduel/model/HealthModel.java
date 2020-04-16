@@ -17,6 +17,8 @@ public class HealthModel {
 
     /**
      * Get the value of Hp percentage in the class.
+     * 
+     * @return The Health Number Percentage attribute of this object.
      */
     public double getHpPercentage() {
         return hpPercentage;
@@ -32,6 +34,8 @@ public class HealthModel {
 
     /**
      * Get the value of slide attribute in the class
+     * 
+     * @return The slide attribute of this object.
      */
     public double getSlide() {
         return slide;

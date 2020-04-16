@@ -16,6 +16,8 @@ public class DestroySkillGameCard extends SkillGameCard{
 
     /**
      * Clone the destroy skill game card
+     * 
+     * @return the new Destroy Skill Gamecard with same instance of this destroy card object.
      */
     public GameCard clone() {
         return new DestroySkillGameCard(getName(), getDesc(), getElement(), getImgUrl(), getCost());

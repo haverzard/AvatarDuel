@@ -9,6 +9,7 @@ package com.avatarduel.deck;
 public interface HasCapacity {
     /**
      * Get the value of capacity attribute in the class
+     * @return the Capacity of the Object that implements HasCapacity interface
      */
     public int getCapacity();
 

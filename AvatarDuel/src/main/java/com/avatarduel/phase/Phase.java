@@ -15,6 +15,8 @@ abstract public class Phase {
 
     /**
      * Get the value of canAttack attribute
+     * 
+     * @return The canAttack attribute value of this object.
      */
     public boolean getCanAttack() {
         return canAttack;
@@ -22,6 +24,8 @@ abstract public class Phase {
 
     /**
      * Get the value of canSwitchCard mode attribute
+     * 
+     * @return the value of canSwitchCardMode of this object.
      */
     public boolean getCanSwitchCardMode() {
         return canSwitchCardMode;
@@ -29,6 +33,8 @@ abstract public class Phase {
 
     /**
      * Get the value of canUseNonCardLand attribute
+     * 
+     * @return The value of canUseNonCardLand attribute in this object.
      */
     public boolean getCanUseNonLandCard() {
         return canUseNonLandCard;
@@ -36,6 +42,8 @@ abstract public class Phase {
 
     /**
      * Get the value of canUseLandCard attribute
+     * 
+     * @return The value of canUseLandCard attribute in this object.
      */
     public boolean getCanUseLandCard() {
         return canUseLandCard;
@@ -43,6 +51,8 @@ abstract public class Phase {
 
     /**
      * Get the value of canDraw attribute
+     * 
+     * @return The value of canDraw attribute in this object.
      */
     public boolean getCanDraw() {
         return canDraw;
@@ -50,6 +60,7 @@ abstract public class Phase {
 
     /**
      * Set the value of canAttack attribute
+     * 
      * @param canAttack canAttack's new value
      */
     public void setCanAttack(boolean canAttack) {
@@ -58,6 +69,7 @@ abstract public class Phase {
 
     /**
      * Set the value of canSwitchCardMode attribute
+     * 
      * @param canSwitchCardMode canSwitchCardMode's new value
      */
     public void setCanSwitchCardMode(boolean canSwitchCardMode) {
@@ -66,6 +78,7 @@ abstract public class Phase {
 
     /**
      * Set the value of canUseNonLandCard attribute
+     * 
      * @param canUseNonLandCard canUseNonLandCard's new value
      */
     public void setCanUseNonLandCard(boolean canUseNonLandCard) {
@@ -74,6 +87,7 @@ abstract public class Phase {
 
     /**
      * Set the value of canUseLandCard attribute
+     * 
      * @param canUseLandCard canUseLandCard's new value
      */
     public void setCanUseLandCard(boolean canUseLandCard) {
@@ -82,6 +96,7 @@ abstract public class Phase {
 
     /**
      * Set the value of canDraw attribute
+     * 
      * @param canDraw canDraw's new value
      */
     public void setCanDraw(boolean canDraw) {

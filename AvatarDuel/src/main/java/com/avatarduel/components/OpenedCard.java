@@ -51,6 +51,8 @@ public class OpenedCard extends BorderPane {
      * Get the top part of the Card
      * @param width width raw value
      * @param height height raw value
+     * 
+     * @return The top part of the Card with width width raw value and height height raw value.
      */
     private HBox getCardTop(double width, double height) {
         return getCardTop(width, height, "", null);

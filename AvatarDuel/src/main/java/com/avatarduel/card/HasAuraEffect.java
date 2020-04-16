@@ -9,6 +9,7 @@ package com.avatarduel.card;
 interface HasAuraEffect {
     /**
      * Get the value of attack aura attribute in the class
+     * @return the attackAura value of object from the class that implements this inteface.
      */
     public int getAttackAura();
 
@@ -20,6 +21,7 @@ interface HasAuraEffect {
 
     /**
      * Get the value of defense aura attribute in the class
+     * @return the defenseAura value of object from the class that implements this inteface.
      */
     public int getDefenseAura();
 

@@ -28,8 +28,11 @@ public class Deck implements HasCapacity{
     // we let the subclass to decide so Liskov Sub is not violated.
 
     // Getter & Setter
+
     /**
-     * Get deck's capacity
+     * Get deck's capacity.
+     *
+     * @return The capacity attribute.
      */
     public int getCapacity() {
         return capacity;
@@ -45,6 +48,7 @@ public class Deck implements HasCapacity{
 
     /**
      * Get deck's amount of cards
+     * @return the number of cards found on the deck.
      */
     public int getSize() {
         return gameCards.size();
@@ -60,6 +64,7 @@ public class Deck implements HasCapacity{
 
     /**
      * Take the top-most card (if card(s) exist)
+     * @return a Card in the head of gamecards deck (the card in the gameCard list that index is zero)
      */
     public GameCard pop() {
         if (!gameCards.isEmpty()) return gameCards.remove(0);

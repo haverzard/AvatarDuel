@@ -13,9 +13,11 @@ public enum Element {
     EARTH,
     ENERGY;
 
+
     /**
-     * @return the background with specific element image
-     * @see Image
+     * Gets the background.
+     *
+     * @return The background with specific element image.
      */
     public Background getBackground() {
         switch (this) {

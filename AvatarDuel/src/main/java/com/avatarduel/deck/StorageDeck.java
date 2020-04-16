@@ -38,6 +38,7 @@ public class StorageDeck extends Deck implements HasDynamicCapacity{
     /**
      * Access to a specific card by index
      * @param idx Index to be accessed
+     * @return the idx-th game card in storage deck, or return null idx if out of range
      */
     public GameCard access(int idx) {
         if (gameCards.size() > idx) return gameCards.get(idx);

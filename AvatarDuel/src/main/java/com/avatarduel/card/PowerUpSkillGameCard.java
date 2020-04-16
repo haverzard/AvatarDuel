@@ -16,6 +16,8 @@ public class PowerUpSkillGameCard extends SkillGameCard implements AppliableEffe
 
     /**
      * Clone the powerup skill game card
+     * 
+     * @return The new power up skill card that have same instance with this card object.
      */
     public GameCard clone() {
         return new PowerUpSkillGameCard(getName(), getDesc(), getElement(), getImgUrl(), getCost());

@@ -20,9 +20,22 @@ abstract public class SkillGameCard extends GameCard implements HasCostAttribute
     }
 
     // Getter & Setter
+
+    /**
+     * Gets the cost for use this card skill.
+     *
+     * @return The cost for use this card skill.
+     */
     public int getCost() {
         return cost;
     }
+
+
+    /**
+     * Sets cost for use this card skill.
+     *
+     * @param cost  The desired value for cost for use this card skill.
+     */
     public void setCost(int cost) {
         this.cost = cost;
     }

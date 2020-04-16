@@ -17,6 +17,8 @@ public class LandGameCard extends GameCard {
 
     /**
      * Clone the land game card
+     * 
+     * @return the new Land Gamecard with same instance with this Land card.
      */
     public GameCard clone() {
         return new LandGameCard(getName(), getDesc(), getElement(), getImgUrl());
