@@ -9,11 +9,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+/**
+ * PlayerView describes the Player attributes in the current match on the GUI.
+ * 
+ * @author Kelompok 2
+ */
 public class PlayerView extends BorderPane {
     private Text healthValue;
     private HBox healthBar;
     private Text playerName;
 
+    /**
+     * Create the player attributes on the GUI. 
+     * @param p The designated player.
+     * @param type The position of the player on the field (TOP/BOTTOM)
+     */
     public PlayerView(Player p, Loc type) {
         super();
         healthValue = new Text();
@@ -47,14 +57,26 @@ public class PlayerView extends BorderPane {
         }
     }
 
+    /**
+     * Gets the health bar of the player
+     * @return The health bar of the player
+     */
     public HBox getHealthBar() {
         return healthBar;
     }
 
+    /**
+     * Gets the health value of the player
+     * @return The health value of the player
+     */
     public Text getHealthValue() {
         return healthValue;
     }
 
+    /**
+     * Gets the player name
+     * @return The name of the player
+     */
     public Text getPlayerName() {
         return playerName;
     }

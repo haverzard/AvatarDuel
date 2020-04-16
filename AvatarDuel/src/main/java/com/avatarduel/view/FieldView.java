@@ -10,11 +10,20 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * FieldView describes the field view on the GUI that extends HBox class
+ * that have fieldBox attribute that can be filled with GameCards.
+ * 
+ * @author Kelompok 2
+ */
 public class FieldView extends HBox {
     private static String FIELD_URL = "com/avatarduel/assets/image/fieldBackground.png";
     private static int fieldBoxCounts = 12;
     private List<HBox> fieldBoxes;
 
+    /**
+     * Create the field view on the GUI.
+     */
     public FieldView() {
         super();
         fieldBoxes = new ArrayList<>();
@@ -32,6 +41,9 @@ public class FieldView extends HBox {
         getChildren().add(fieldInside);
     }
 
+    /**
+     * Create the boxes in the field GUI.
+     */
     private HBox genBoxField() {
         int counts = fieldBoxCounts/2;
         double size = 110;
