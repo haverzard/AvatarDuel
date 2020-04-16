@@ -8,6 +8,8 @@ import com.avatarduel.model.Element;
 
 /**
  * Factory class to create a Aura Skill Gamecard
+ * 
+ * @author Kelompok 2
  */
 public class AuraSkillGameCardFactory  extends GameCardFactory {
  

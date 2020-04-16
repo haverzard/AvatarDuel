@@ -3,6 +3,13 @@ package com.avatarduel.card;
 import com.avatarduel.model.Element;
 
 // Concrete Prototype
+
+/**
+ * LandGameCard is GameCard with the Element features
+ * to add the power of player.
+ * 
+ * @author Kelompok 2
+ */
 public class LandGameCard extends GameCard {
     /**
      * Creates a new land game card

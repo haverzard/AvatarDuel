@@ -6,6 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Concrete Prototype
+
+/**
+ * CharacterGameCard is Gamecard that have some defined properties
+ * like cost to use, attack value, defense value, and some skill attached.S
+ * 
+ * @author Kelompok 2
+ */
 public class CharacterGameCard extends GameCard implements HasCostAttribute, HasBattleAttribute {
     
     private int cost;

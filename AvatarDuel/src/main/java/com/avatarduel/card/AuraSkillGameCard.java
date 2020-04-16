@@ -5,7 +5,7 @@ import com.avatarduel.model.Element;
 // Concrete Prototype
 
 /**
- * This class describes an aura skill game card that extends skill card class
+ * AuraSkillGameCard describes an aura game card that extends skill card class
  * and have aura effect that can appliable.
  * 
  * @author Kelompok 2

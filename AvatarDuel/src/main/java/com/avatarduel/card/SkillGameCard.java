@@ -3,6 +3,12 @@ package com.avatarduel.card;
 import com.avatarduel.model.Element;
 
 // Prototype
+
+/**
+ * This class describe the SkillGameCard that have cost attribute to use.
+ * 
+ * @author Kelompok 2
+ */
 abstract public class SkillGameCard extends GameCard implements HasCostAttribute {
     private int cost;
 

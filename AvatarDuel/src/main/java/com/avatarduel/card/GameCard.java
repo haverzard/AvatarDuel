@@ -26,7 +26,8 @@ abstract public class GameCard {
     }
 
     /**
-     * Creates a new game card
+     * Creates a new game card with a certain properties.
+     * 
      * @param _type card's type
      * @param _name card's name
      * @param _desc card's description
@@ -48,7 +49,7 @@ abstract public class GameCard {
 
     // Getter & Setter
     /**
-     * Get card's name
+     * Get card's name.
 
      @return The name of Gamecards.
      */
@@ -57,16 +58,16 @@ abstract public class GameCard {
     }
 
     /**
-     * Set card's name
-     * @param _name new card's name
+     * Set card's name.
+     * @param _name new card's name.
      */
     public void setName(String _name) {
         name = _name;
     }
 
     /**
-     * Get card's description
-     * @return The decription attribute of this card
+     * Get card's description.
+     * @return The decription attribute of this card.
      */
     public String getDesc() {
         return desc;
