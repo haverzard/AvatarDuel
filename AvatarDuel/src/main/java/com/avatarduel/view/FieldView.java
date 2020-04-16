@@ -79,6 +79,7 @@ public class FieldView extends HBox {
 
     /**
      * Gets the fieldBox in the field based on index.
+     * @param idx An id from field 
      * @return The fieldBoxes from the list based on index.
      */
     public HBox getBox(int idx) {
@@ -86,6 +87,7 @@ public class FieldView extends HBox {
     }
 
     /**
+     * @param box The box to be added 
      * Adding box to the fieldBoxes list.
      */
     public void addBox(HBox box) {
@@ -93,6 +95,7 @@ public class FieldView extends HBox {
     }
 
     /**
+     * @param idx An id from field 
      * Clearing the fieldBoxes list.
      */
     public void clearBox(int idx) {

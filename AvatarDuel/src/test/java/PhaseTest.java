@@ -4,7 +4,7 @@ import com.avatarduel.phase.*;
 
 import org.junit.Test;
 
-public class TestPhase {
+public class PhaseTest {
     @Test
     public void testBattlePhase() {
         BattlePhase dummy = new BattlePhase();

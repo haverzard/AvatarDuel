@@ -1,7 +1,7 @@
 import com.avatarduel.cardfactory.*;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-public class TestCardFactory {
+public class CardFactoryTest {
 
     @Test
     public void testAuraSkillGameCardFactory () {

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 
-public class TestDeck {
+public class DeckTest {
     @Test
     public void test () {
         List<GameCard> gameCardList = new ArrayList<GameCard>();
