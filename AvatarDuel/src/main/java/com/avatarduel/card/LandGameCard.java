@@ -3,6 +3,13 @@ package com.avatarduel.card;
 import com.avatarduel.model.Element;
 
 // Concrete Prototype
+
+/**
+ * LandGameCard is GameCard with the Element features
+ * to add the power of player.
+ * 
+ * @author Kelompok 2
+ */
 public class LandGameCard extends GameCard {
     /**
      * Creates a new land game card
@@ -17,6 +24,8 @@ public class LandGameCard extends GameCard {
 
     /**
      * Clone the land game card
+     * 
+     * @return the new Land Gamecard with same instance with this Land card.
      */
     public GameCard clone() {
         return new LandGameCard(getName(), getDesc(), getElement(), getImgUrl());

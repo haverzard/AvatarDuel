@@ -1,6 +1,14 @@
 package com.avatarduel.card;
+
 import com.avatarduel.model.Element;
 
+
+/**
+ * PowerUpSkillGameCard is Skill GameCard that can ubed to make attack damage effect in 
+ * defense mode, this Class is to describe the PowerUpSkillGameCard.
+ * 
+ * @author Kelompok 2
+ */
 public class PowerUpSkillGameCard extends SkillGameCard implements AppliableEffect{
     /**
      * Creates a new powerup skill game card
@@ -16,6 +24,8 @@ public class PowerUpSkillGameCard extends SkillGameCard implements AppliableEffe
 
     /**
      * Clone the powerup skill game card
+     * 
+     * @return The new power up skill card that have same instance with this card object.
      */
     public GameCard clone() {
         return new PowerUpSkillGameCard(getName(), getDesc(), getElement(), getImgUrl(), getCost());

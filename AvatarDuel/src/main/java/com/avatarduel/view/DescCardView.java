@@ -10,9 +10,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * DescCardView describes the card description view that extends BorderPane class.
+ * 
+ * @author Kelompok 2
+ */
 public class DescCardView extends BorderPane {
     private static double cardWidth = 250;
 
+    /**
+     * Create a description box on card view.
+     */
     public DescCardView() {
         super();
         setMinWidth(cardWidth);
@@ -20,6 +28,12 @@ public class DescCardView extends BorderPane {
         setBorder(Basic.getBorder(1));
         setBackground(Basic.getBackground(Element.AIR.getCardTemplateURL(),cardWidth,cardWidth/5*8));
     }
+
+    /**
+     * Fill the description box based on the GameCard used.
+     * 
+     * @param x the GameCard that is used to make the description.
+     */
     public void updateCardDesc(GameCard x) {
         getChildren().clear();
         setBackground(Basic.getBackground(Element.AIR.getCardTemplateURL()));

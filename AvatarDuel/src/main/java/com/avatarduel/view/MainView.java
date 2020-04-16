@@ -14,12 +14,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * MainView describes the main screen view that extend StackPane class.
+ * 
+ * @author Kelompok 2
+ */
 public class MainView extends StackPane {
     private static MainView instance = null;
     public static StackPane screen = new StackPane();
     private static final String IMAGE_LOGO = "com/avatarduel/assets/image/avatarLogo.png";
     private static final String MAIN_BACKGROUND = "com/avatarduel/assets/image/mainScreen.jpg";
 
+    /**
+     * Create the main menu screen GUI.
+     * 
+     * @param main The main program object class.
+     */
     public MainView(AvatarDuel main) {
         // Must reset players first to set name
         Player.resetPlayers();
@@ -76,11 +86,19 @@ public class MainView extends StackPane {
         getChildren().add(scr);
     }
 
+    /**
+     * Gets the instance.
+     * @return The instance.
+     */
     public static MainView getInstance() {
         if (instance == null) instance = new MainView(AvatarDuel.getInstance());
         return instance;
     }
 
+    /**
+     * Load the match result screen.
+     * @param winner The Player who wins the match.
+     */
     public void loadLoseScreen(Player winner) {
         MainView.screen.getChildren().add(Basic.getScreen("The winner is "+winner.getName()+"! Congratz!"));
         Basic.scr.setOnMouseClicked(e -> {

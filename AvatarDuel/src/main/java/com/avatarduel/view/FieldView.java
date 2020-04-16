@@ -10,11 +10,20 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * FieldView describes the field view on the GUI that extends HBox class
+ * that have fieldBox attribute that can be filled with GameCards.
+ * 
+ * @author Kelompok 2
+ */
 public class FieldView extends HBox {
     private static String FIELD_URL = "com/avatarduel/assets/image/fieldBackground.png";
     private static int fieldBoxCounts = 12;
     private List<HBox> fieldBoxes;
 
+    /**
+     * Create the field view on the GUI.
+     */
     public FieldView() {
         super();
         fieldBoxes = new ArrayList<>();
@@ -32,6 +41,9 @@ public class FieldView extends HBox {
         getChildren().add(fieldInside);
     }
 
+    /**
+     * Create the boxes in the field GUI.
+     */
     private HBox genBoxField() {
         int counts = fieldBoxCounts/2;
         double size = 110;
@@ -49,23 +61,40 @@ public class FieldView extends HBox {
         return boxField;
     }
 
+    /**
+     * Gets the fieldBoxes which contains the state of the field and the GameCards in it.
+     * @return The current state of the field.
+     */
     public List<HBox> getFieldBoxes() {
         return fieldBoxes;
     }
 
+    /**
+     * Gets the last fieldBox in the field
+     * @return The last fieldBoxes from the list.
+     */
     public HBox getLastBox() {
         return fieldBoxes.get(fieldBoxes.size()-1);
     }
 
-    // Pre-condition idx is valid
+    /**
+     * Gets the fieldBox in the field based on index.
+     * @return The fieldBoxes from the list based on index.
+     */
     public HBox getBox(int idx) {
         return fieldBoxes.get(idx);
     }
 
+    /**
+     * Adding box to the fieldBoxes list.
+     */
     public void addBox(HBox box) {
         fieldBoxes.add(box);
     }
 
+    /**
+     * Clearing the fieldBoxes list.
+     */
     public void clearBox(int idx) {
         fieldBoxes.get(idx).getChildren().clear();
     }

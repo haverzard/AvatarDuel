@@ -6,7 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Concrete Prototype
+
+/**
+ * CharacterGameCard is Gamecard that have some defined properties
+ * like cost to use, attack value, defense value, and some skill attached.S
+ * 
+ * @author Kelompok 2
+ */
 public class CharacterGameCard extends GameCard implements HasCostAttribute, HasBattleAttribute {
+    
     private int cost;
     private int attack;
     private int defense;
@@ -54,15 +62,31 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     }
 
     // Getter & Setter
+
+    /**
+     * Gets the cost to add character to arena.
+     *
+     * @return The cost needed to add character to arena.
+     */
     public int getCost() {
         return cost;
     }
+
+
+    /**
+     * Sets the cost to add character to arena.
+     *
+     * @param _cost  The desired cost needed to add character to arena.
+     */
     public void setCost(int _cost) {
         cost = _cost;
     }
+
     /**
      * Get card's attack
      * with the applied attack effects on it
+     * 
+     * @return the attack of this character card that has been added with bonus attack.
      */
     public int getAttack() {
         int bonusAttack = 0;
@@ -78,9 +102,12 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     public void setAttack(int _attack) {
         attack = _attack;
     }
+
     /**
      * Get card's defense
      * with the applied defense effects on it
+     * 
+     * @return the defence attribute of this character card that has been added with defence bonus.
      */
     public int getDefense() {
         int bonusDefense = 0;
@@ -96,14 +123,20 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
     public void setDefense(int _defense) {
         defense = _defense;
     }
+
     /**
      * Get card's aura skills
+     * 
+     * @return List of Aura skill gamecard that this character have.
      */
     public List<AuraSkillGameCard> getAuraSkillGameCardsList() {
         return listofAura;
     }
+
     /**
      * Get card's powerup skill
+     * 
+     * @return List of power up skill gamecard that this character have.
      */
     public PowerUpSkillGameCard getPowerUpSkillGameCard() {
         return powerUpCard;
@@ -150,6 +183,8 @@ public class CharacterGameCard extends GameCard implements HasCostAttribute, Has
 
     /**
      * Return true if there is an attached power up skill on the card
+     * 
+     * @return logical condition : TRUE if the field not have power up skill and FALSE otherwise.
      */
     public boolean isAttachedPowerUpinField() {
         return powerUpCard != null;

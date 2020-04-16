@@ -17,12 +17,24 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * SideView describes the attribute that the player currently have (powerCounters and deckCounter).
+ * 
+ * @author Kelompok 2
+ */
 public class SideView extends VBox {
     private Map<Element, HBox> powerCounters;
     private ButtonController buttonController;
     private HBox deckCounter;
 
 
+    /**
+     * Create the side attribute view on the GUI.
+     * 
+     * @param p The designated player.
+     * @param type The location of the player on the field.
+     * @param buttonController The ButtonController.
+     */
     public SideView(Player p, Loc type, ButtonController buttonController) {
         super();
         powerCounters = new HashMap<>();

@@ -1,6 +1,13 @@
 package com.avatarduel.card;
 import com.avatarduel.model.Element;
 
+
+/**
+ * DestroySkillGameCard is a Skill Gamecard that can be used to destroy the enemy character card
+ * with a certain cost.
+ * 
+ * @author Kelompok 2
+ */
 public class DestroySkillGameCard extends SkillGameCard{
     /**
      * Creates a new destroy skill game card
@@ -16,6 +23,8 @@ public class DestroySkillGameCard extends SkillGameCard{
 
     /**
      * Clone the destroy skill game card
+     * 
+     * @return the new Destroy Skill Gamecard with same instance of this destroy card object.
      */
     public GameCard clone() {
         return new DestroySkillGameCard(getName(), getDesc(), getElement(), getImgUrl(), getCost());

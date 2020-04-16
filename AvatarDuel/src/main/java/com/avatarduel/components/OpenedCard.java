@@ -14,6 +14,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class OpenedCard extends BorderPane {
+
+    /**
+     * Create a new Opened Card
+     * @param width Minimum width value
+     */
     private OpenedCard(double width) {
         super();
         double height = width/5*8;
@@ -25,19 +30,41 @@ public class OpenedCard extends BorderPane {
         update(width, null);
     }
 
+    /**
+     * Create a default new Opened Card
+     */
     public OpenedCard() {
         super();
     }
 
+    /**
+     * Create a new Opened Card
+     * @param width Minimum width value
+     * @param x Element of the Card
+     */
     public OpenedCard(double width, Element x) {
         this(width);
         setBackground(Basic.getBackground(x.getCardTemplateURL(), width, width/5*8));
     }
 
+    /**
+     * Get the top part of the Card
+     * @param width width raw value
+     * @param height height raw value
+     * 
+     * @return The top part of the Card with width width raw value and height height raw value.
+     */
     private HBox getCardTop(double width, double height) {
         return getCardTop(width, height, "", null);
     }
 
+    /**
+     * Get the top part of the card
+     * @param width width raw value
+     * @param height height raw value
+     * @param title title value
+     * @param x element value
+     */
     private HBox getCardTop(double width, double height, String title, Element x) {
         BorderPane titleInside = new BorderPane();
         titleInside.setMinWidth(width*0.8);
@@ -65,10 +92,21 @@ public class OpenedCard extends BorderPane {
         return cardTop;
     }
 
+    /**
+     * Get a simple middle-part of the card
+     * @param width raw width value
+     * @param height raw height value
+     */
     private HBox getCardMiddle(double width, double height) {
         return getCardMiddle(width, height, null);
     }
 
+    /**
+     * Get a simple middle-part of the card
+     * @param width raw width value
+     * @param height raw height value
+     * @param x value of card
+     */
     private HBox getCardMiddle(double width, double height, GameCard x) {
 
         VBox imageBox = new VBox();
@@ -98,10 +136,22 @@ public class OpenedCard extends BorderPane {
         return cardMiddle;
     }
 
+    /**
+     * Get bottom-part of the card 
+     * @param width raw width value
+     * @param height raw height value
+     */
     private HBox getCardBottom(double width, double height) {
         return getCardBottom(width, height, "", null);
     }
 
+    /**
+     * Get bottom-part of the card
+     * @param width raw width value
+     * @param height raw height value  
+     * @param desc description value of the card
+     * @param card card value
+     */
     private HBox getCardBottom(double width, double height, String desc, GameCard card) {
         HBox description = new HBox();
         description.setMaxWidth(width*21/25);
@@ -178,11 +228,22 @@ public class OpenedCard extends BorderPane {
         return cardBottom;
     }
 
+    /**
+     * Update a card
+     * @param width value of width
+     * @param height value of height
+     * @param x Card's element
+     */
     public void update(double width, double height, Element x) {
         update(width, null);
         setBackground(Basic.getBackground(x.getCardTemplateURL(), width, height));
     }
 
+    /**
+     * Update a card
+     * @param width raw width value
+     * @param x Card's value
+     */
     public void update(double width, GameCard x) {
         double height = width/5*8;
         HBox cardTop;

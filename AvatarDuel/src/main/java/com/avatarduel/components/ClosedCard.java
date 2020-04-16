@@ -10,6 +10,10 @@ import javafx.scene.shape.Rectangle;
 public class ClosedCard extends HBox {
 
     // Width : Height = 5 : 8
+    /**
+     * Create a Closed card Object
+     * @param width height and width raw input
+     */
     public ClosedCard(double width) {
         super();
         double height = width/5*8;

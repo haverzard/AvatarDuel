@@ -26,7 +26,8 @@ abstract public class GameCard {
     }
 
     /**
-     * Creates a new game card
+     * Creates a new game card with a certain properties.
+     * 
      * @param _type card's type
      * @param _name card's name
      * @param _desc card's description
@@ -48,24 +49,30 @@ abstract public class GameCard {
 
     // Getter & Setter
     /**
-     * Get card's name
+     * Get card's name.
+
+     @return The name of Gamecards.
      */
     public String getName() {
         return name;
     }
+
     /**
-     * Set card's name
-     * @param _name new card's name
+     * Set card's name.
+     * @param _name new card's name.
      */
     public void setName(String _name) {
         name = _name;
     }
+
     /**
-     * Get card's description
+     * Get card's description.
+     * @return The decription attribute of this card.
      */
     public String getDesc() {
         return desc;
     }
+
     /**
      * Set card's description
      * @param _desc new card's description
@@ -73,12 +80,16 @@ abstract public class GameCard {
     public void setDesc(String _desc) {
         desc = _desc;
     }
+
     /**
      * Get card's element
+     * 
+     * @return The type of element attribute of this card
      */
     public Element getElement() {
         return element;
     }
+
     /**
      * Set card's element
      * @param _element new card's element
@@ -86,12 +97,16 @@ abstract public class GameCard {
     public void setElement(Element _element) {
         element = _element;
     }
+
     /**
      * Get card's image url
+     * 
+     * @return The URL or address of this card image.
      */
     public String getImgUrl() {
         return imgUrl;
     }
+
     /**
      * Set card's image url
      * @param _imgUrl new card's image url
@@ -99,8 +114,13 @@ abstract public class GameCard {
     public void setImgUrl(String _imgUrl) {
         imgUrl = _imgUrl;
     }
+
     /**
      * Get card's type
+     * 
+     * @return The type of this Gamecard.
      */
-    public String getType() { return type; }
+    public String getType() {
+        return type; 
+    }
 }
