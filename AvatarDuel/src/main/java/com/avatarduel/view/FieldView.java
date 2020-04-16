@@ -61,23 +61,40 @@ public class FieldView extends HBox {
         return boxField;
     }
 
+    /**
+     * Gets the fieldBoxes which contains the state of the field and the GameCards in it.
+     * @return The current state of the field.
+     */
     public List<HBox> getFieldBoxes() {
         return fieldBoxes;
     }
 
+    /**
+     * Gets the last fieldBox in the field
+     * @return The last fieldBoxes from the list.
+     */
     public HBox getLastBox() {
         return fieldBoxes.get(fieldBoxes.size()-1);
     }
 
-    // Pre-condition idx is valid
+    /**
+     * Gets the fieldBox in the field based on index.
+     * @return The fieldBoxes from the list based on index.
+     */
     public HBox getBox(int idx) {
         return fieldBoxes.get(idx);
     }
 
+    /**
+     * Adding box to the fieldBoxes list.
+     */
     public void addBox(HBox box) {
         fieldBoxes.add(box);
     }
 
+    /**
+     * Clearing the fieldBoxes list.
+     */
     public void clearBox(int idx) {
         fieldBoxes.get(idx).getChildren().clear();
     }
