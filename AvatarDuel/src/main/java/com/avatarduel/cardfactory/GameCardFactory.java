@@ -9,7 +9,7 @@ import com.avatarduel.card.GameCard;
  * 
  * @author Kelompok 2
  */
-abstract public class GameCardFactory {
+abstract public class GameCardFactory implements CardCreation {
 
     /**
      * Create the card with corresponding features.
