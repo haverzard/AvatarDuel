@@ -101,6 +101,7 @@ public class MainView extends StackPane {
      */
     public void loadLoseScreen(Player winner) {
         MainView.screen.getChildren().add(Basic.getScreen("The winner is "+winner.getName()+"! Congratz!"));
+        Player.resetPlayers();
         Basic.scr.setOnMouseClicked(e -> {
             MainView.screen.getChildren().clear();
             MainView.screen.getChildren().add(getInstance());
