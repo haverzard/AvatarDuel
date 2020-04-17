@@ -56,7 +56,7 @@ public class AvatarDuel extends Application {
   }
 
   public void initDraw() {
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 7; i++) {
       Player.player1.takeCard();
       Player.player2.takeCard();
     }
