@@ -56,7 +56,7 @@ public class AvatarDuel extends Application {
   }
 
   public void initDraw() {
-    for (int i = 0; i < 59; i++) {
+    for (int i = 0; i < 6; i++) {
       Player.player1.takeCard();
       Player.player2.takeCard();
     }
@@ -94,16 +94,18 @@ public class AvatarDuel extends Application {
       MainView.screen.getChildren().add(new GameView());
 
       // Cheats, please delete later
-      for (int i=0; i<100; i++) {
-        Player.player1.addPower(Element.AIR);
-        Player.player1.addPower(Element.FIRE);
-        Player.player1.addPower(Element.WATER);
-        Player.player1.addPower(Element.EARTH);
-        Player.player2.addPower(Element.AIR);
-        Player.player2.addPower(Element.FIRE);
-        Player.player2.addPower(Element.WATER);
-        Player.player2.addPower(Element.EARTH);
-      }
+      // for (int i=0; i<100; i++) {
+      //   Player.player1.addPower(Element.AIR);
+      //   Player.player1.addPower(Element.FIRE);
+      //   Player.player1.addPower(Element.WATER);
+      //   Player.player1.addPower(Element.EARTH);
+      //   Player.player1.addPower(Element.ENERGY);
+      //   Player.player2.addPower(Element.AIR);
+      //   Player.player2.addPower(Element.FIRE);
+      //   Player.player2.addPower(Element.WATER);
+      //   Player.player2.addPower(Element.EARTH);
+      //   Player.player2.addPower(Element.ENERGY);
+      // }
 
     } catch (Exception e) {
       e.printStackTrace();

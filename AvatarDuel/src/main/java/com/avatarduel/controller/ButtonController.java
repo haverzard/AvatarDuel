@@ -24,7 +24,7 @@ public class ButtonController {
         phaseBtnView = new PhaseButtonView();
         deckBtnView = new DeckButtonView();
         phaseBtnView.getMain().setOnAction(e -> {
-            enterNextPhase(phaseBtnView.getMain(), phaseBtnView.getBattle(), "Main Phase 1");
+            enterNextPhase(phaseBtnView.getMain(), phaseBtnView.getBattle(), "Main Phase");
             phaseController.setGamePhase(new MainPhase());
         });
         phaseBtnView.getBattle().setOnAction(e -> {
