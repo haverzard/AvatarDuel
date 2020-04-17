@@ -244,7 +244,7 @@ public class Player {
      */
     public boolean useCard(HasCostAttribute card, Element e) {
         Pair<Integer,Integer> t = power.get(e);
-        if (t.getKey() > card.getCost() && hand.contains(card)) {
+        if (t.getKey() >= card.getCost() && hand.contains(card)) {
             power.put(e,new Pair<>(t.getKey()-card.getCost(),t.getValue()));
             return true;
         }
