@@ -50,8 +50,8 @@ public class MainView extends StackPane {
         names.setAlignment(Pos.CENTER);
         VBox nameBox1 = new VBox();
         VBox nameBox2 = new VBox();
-        TextArea name1 = new TextArea("Beza");
-        TextArea name2 = new TextArea("Lel");
+        TextArea name1 = new TextArea("Kelompok");
+        TextArea name2 = new TextArea("Dua");
         Text nameLabel1 = new Text("Player 1 Name:");
         Text nameLabel2 = new Text("Player 2 Name:");
         nameLabel1.setFont(new Font(30));
