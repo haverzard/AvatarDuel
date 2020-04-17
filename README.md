@@ -3,8 +3,16 @@
 Avatar Card Duel using gradle with JavaFX for GUI.
 
 ## How to compile
-- In Linux: '''./gradlew'''
-- In Windows: '''gradlew.bat'''
+- In Linux: 
+```script
+./gradlew
+```
+
+- In Windows: 
+```script
+gradlew.bat
+```
+
 
 ## How to play
 1. Enter the players' name
