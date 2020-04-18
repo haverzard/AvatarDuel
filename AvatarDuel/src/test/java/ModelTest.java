@@ -145,6 +145,12 @@ public class ModelTest {
 		assertEquals(0, Player.player2.countCardsInHand());
 		assertEquals(0, Player.player2.countCardsInDeck());
 
+		assertEquals(80, Player.player1.getHealth());
+		assertEquals(80, Player.player2.getHealth());
+
+		assertEquals(1, Player.player1.getId());
+		assertEquals(2, Player.player2.getId());
+
 	}
 	
 
@@ -164,8 +170,19 @@ public class ModelTest {
 
 	@Test
 	public void turnTest() {
+
+		Player.getPlayers();
+
 		Turn theTurn = new Turn();
 
-		//assertEquals(-1, theTurn.getTurn());
+		assertTrue(theTurn.checkTurn(Player.player1));
+
+		theTurn.nextTurn();
+
+		assertTrue(theTurn.checkTurn(Player.player2));
+
+		assertEquals(Player.player2, theTurn.getPlayerInTurn());
+
+		assertEquals(Player.player1, theTurn.getPlayerNotInTurn());
 	}
 }
