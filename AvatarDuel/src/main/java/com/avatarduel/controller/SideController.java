@@ -27,6 +27,8 @@ public class SideController {
         Player.getPlayers();
         topSideV = new SideView(Player.player2, Loc.TOP, buttonController);
         bottomSideV = new SideView(Player.player1, Loc.BOTTOM, buttonController);
+        topSideV.updatePowerCounters(Player.player2);
+        bottomSideV.updatePowerCounters(Player.player1);
     }
 
     /**

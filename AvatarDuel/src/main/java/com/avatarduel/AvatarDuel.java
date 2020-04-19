@@ -91,25 +91,26 @@ public class AvatarDuel extends Application {
       this.loadDeck(Player.player2);
       initDraw();
 
-      MainView.screen.getChildren().add(new GameView());
+      
 
-      /*
-       Cheats for fast test
-       for (int i=0; i<100; i++) {
-         Player.player1.addPower(Element.AIR);
-         Player.player1.addPower(Element.FIRE);
-         Player.player1.addPower(Element.WATER);
-         Player.player1.addPower(Element.EARTH);
-         Player.player1.addPower(Element.ENERGY);
-         Player.player2.addPower(Element.AIR);
-         Player.player2.addPower(Element.FIRE);
-         Player.player2.addPower(Element.WATER);
-         Player.player2.addPower(Element.EARTH);
-         Player.player2.addPower(Element.ENERGY);
-       }
-       Player.player1.resetPower();
-       Player.player2.resetPower();
-      */
+      
+      //  Cheats for fast test
+      //  for (int i=0; i<100; i++) {
+      //    Player.player1.addPower(Element.AIR);
+      //    Player.player1.addPower(Element.FIRE);
+      //    Player.player1.addPower(Element.WATER);
+      //    Player.player1.addPower(Element.EARTH);
+      //    Player.player1.addPower(Element.ENERGY);
+      //    Player.player2.addPower(Element.AIR);
+      //    Player.player2.addPower(Element.FIRE);
+      //    Player.player2.addPower(Element.WATER);
+      //    Player.player2.addPower(Element.EARTH);
+      //    Player.player2.addPower(Element.ENERGY);
+      //  }
+      //  Player.player1.resetPower();
+      //  Player.player2.resetPower();
+      
+       MainView.screen.getChildren().add(new GameView());
 
     } catch (Exception e) {
       e.printStackTrace();
