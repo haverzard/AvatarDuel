@@ -48,9 +48,9 @@ public class AvatarDuel extends Application {
   public void loadDeck(Player x) {
     Random rand = new Random();
     for (int i = 0; i < 24; i++) x.addToDeck(characterDeck.access(rand.nextInt(characterDeck.getSize())).clone());
-    for (int i = 0; i < 8; i++) x.addToDeck(skillDeck.access(rand.nextInt(skillDeck.getSize())).clone());
-    for (int i = 0; i < 8; i++) x.addToDeck(powerUpDeck.access(rand.nextInt(powerUpDeck.getSize())).clone());
-    for (int i = 0; i < 8; i++) x.addToDeck(destroyDeck.access(rand.nextInt(destroyDeck.getSize())).clone());
+    for (int i = 0; i < 16; i++) x.addToDeck(skillDeck.access(rand.nextInt(skillDeck.getSize())).clone());
+    for (int i = 0; i < 4; i++) x.addToDeck(powerUpDeck.access(rand.nextInt(powerUpDeck.getSize())).clone());
+    for (int i = 0; i < 4; i++) x.addToDeck(destroyDeck.access(rand.nextInt(destroyDeck.getSize())).clone());
     for (int i = 0; i < 12; i++) x.addToDeck(landDeck.access(rand.nextInt(landDeck.getSize())).clone());
     x.shuffleDeck();
   }
@@ -93,19 +93,23 @@ public class AvatarDuel extends Application {
 
       MainView.screen.getChildren().add(new GameView());
 
-      // Cheats, please delete later
-      // for (int i=0; i<100; i++) {
-      //   Player.player1.addPower(Element.AIR);
-      //   Player.player1.addPower(Element.FIRE);
-      //   Player.player1.addPower(Element.WATER);
-      //   Player.player1.addPower(Element.EARTH);
-      //   Player.player1.addPower(Element.ENERGY);
-      //   Player.player2.addPower(Element.AIR);
-      //   Player.player2.addPower(Element.FIRE);
-      //   Player.player2.addPower(Element.WATER);
-      //   Player.player2.addPower(Element.EARTH);
-      //   Player.player2.addPower(Element.ENERGY);
-      // }
+      /*
+       Cheats for fast test
+       for (int i=0; i<100; i++) {
+         Player.player1.addPower(Element.AIR);
+         Player.player1.addPower(Element.FIRE);
+         Player.player1.addPower(Element.WATER);
+         Player.player1.addPower(Element.EARTH);
+         Player.player1.addPower(Element.ENERGY);
+         Player.player2.addPower(Element.AIR);
+         Player.player2.addPower(Element.FIRE);
+         Player.player2.addPower(Element.WATER);
+         Player.player2.addPower(Element.EARTH);
+         Player.player2.addPower(Element.ENERGY);
+       }
+       Player.player1.resetPower();
+       Player.player2.resetPower();
+      */
 
     } catch (Exception e) {
       e.printStackTrace();

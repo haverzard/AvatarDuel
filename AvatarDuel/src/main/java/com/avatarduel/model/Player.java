@@ -204,7 +204,7 @@ public class Player {
      */
     public void addPower(Element x) {
         Pair<Integer,Integer> temp = power.get(x);
-        power.put(x,new Pair<>(temp.getValue()+1,temp.getValue()+1));
+        power.put(x,new Pair<>(temp.getKey()+1,temp.getValue()+1));
     }
 
     /**
