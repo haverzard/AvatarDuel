@@ -283,7 +283,7 @@ public class FieldController {
         card.setOnMouseClicked(e -> {
             if (phaseController.getGamePhase().getCanAttack()) {
                 topCardBehaviourCall(card,a,b);
-            } else if (phaseController.getGamePhase().getCanUseLandCard()) {
+            } else if (phaseController.getGamePhase().getCanUseNonLandCard()) {
                 topCardSkillBehaviourCall(card,a,b);
             }
         });
@@ -337,7 +337,7 @@ public class FieldController {
                                     initFieldCardSkill(a, skill, Loc.TOP);
                                     a.cardsOnField.put(i, skill);
                                     a.cardsOnFieldInfo.put(i, new Pair<>(skillCard, false));
-                                    addSkillLocToChar(card, j);
+                                    addSkillLocToChar(card, i);
                                     addSkillInfo(skill, K, invoker.getId());
                                     cardController.showInfoOnHover(cardController.getCardsBottom().get(target), a.cardsOnFieldInfo.get(i).getKey());
                                     invoker.setHand(target, null);
@@ -362,17 +362,18 @@ public class FieldController {
         else
             clearBox((fieldBoxCounts-1-idx) % fieldBoxCounts);
         Pane card = a.cardsOnField.remove(idx);
+        a.cardsOnFieldInfo.remove(idx);
         List<Integer> x = fieldModel.getCharacterSkillList().remove(card);
         if (x != null) {
             x.forEach(K -> {
                 a.cardsOnFieldInfo.remove(K);
                 Pane temp = a.cardsOnField.remove(K);
+                fieldModel.getSkillInfo().remove(temp);
                 if (phaseController.getTurn().checkTurn(a))
                     K += fieldBoxCounts;
                 else
                     K = (fieldBoxCounts-1-K) % fieldBoxCounts;
                 clearBox(K);
-                fieldModel.getSkillInfo().remove(temp);
             });
         }
     }
