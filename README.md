@@ -13,6 +13,29 @@ Avatar Card Duel using gradle with JavaFX for GUI.
 gradlew.bat
 ```
 
+## How to run
+### Application
+- In Linux: 
+```script
+./gradlew run
+```
+
+- In Windows: 
+```script
+gradlew.bat run
+```
+
+### Test
+- In Linux: 
+```script
+./gradlew test
+```
+
+- In Windows: 
+```script
+gradlew.bat test
+```
+
 
 ## How to play
 1. Enter the players' name
@@ -34,22 +57,3 @@ gradlew.bat
 - You can also double click to cancel selection or just click other card to select that other card.
 - You win if your attack makes enemy's health into 0.
 - You lose if your deck is empty when you're entering draw phase.
-
-## Scenario Test GamePlay
-1. Add more than one Aura Skill Game Card
-    1. Add multiple aura skill on a game card
-    2. Sum attribute point card manually and match with the display information in card  
-2. Ensure only one power up for one character
-    1. Add one power up skill on a game card
-    2. Add one more power up skill on a game card = not applicable
-    3. Attack an opponent's defense mode card = effect the opponent's HP
-3. Ensure the battle mechanism fulfill the specification
-    1. For attacking an opponent's attack mode card
-        1. Case for player's attack point > opponent's attack point = effect the opponent's HP
-        2. Case for player's attack point <= opponent's attack point = failed to attack
-    2. For attacking an opponent's defense mode card without power up effect
-        1. Case for player's attack point > opponent's defense point = card destroyed
-        2. Case for player's attack point <= opponent's defense point = failed to attack
-    3. For attacking an opponent's defense mode card with power up effect
-        1. Case for player's attack point > opponent's attack point = effect the opponent's HP
-        2. Case for player's attack point <= opponent's attack point = failed to attack
