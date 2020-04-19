@@ -15,6 +15,9 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represent the Field Controller for MVC pattern in AvatarDuel
+ */
 public class FieldController {
     private static int fieldBoxCounts = 12;
     private List<Integer> usedAttackTargets;
@@ -29,11 +32,24 @@ public class FieldController {
     private HandController handController;
     private SideController sideController;
 
+    /**
+     * Creates a new field controller
+     */
     public FieldController() {
         this(new PhaseController(), new SelectionController(), new CardController(), new ButtonController(), new PlayerController(),
                 new HandController(), new SideController());
     }
 
+    /**
+     * Creates a new field controller with user defined
+     * @param phaseController user defined phase controller 
+     * @param selectionController user defined select controller
+     * @param cardController user defined card controller
+     * @param buttonController user defined button controller
+     * @param playerController user defined player controller
+     * @param handController user defined hand controller
+     * @param sideController user defined side controller
+     */
     public FieldController(PhaseController phaseController, SelectionController selectionController,
                            CardController cardController, ButtonController buttonController,
                            PlayerController playerController, HandController handController,
@@ -51,19 +67,37 @@ public class FieldController {
         this.sideController = sideController;
     }
 
+    /**
+     * Get top field
+     * @return top field view
+     */
     public FieldView getTopField() {
         return topField;
     }
 
+    /**
+     * Get bottom field
+     * @return bottom field view
+     */
     public FieldView getBottomField() {
         return bottomField;
     }
 
+    /**
+     * Get field from location
+     * @param type location
+     * @return field from location
+     */
     public FieldView getField(Loc type) {
         if (type == Loc.TOP) return topField;
         else return bottomField;
     }
 
+    /**
+     * Get HBox from id in field
+     * @param idx id in field
+     * @return HBox from field
+     */
     public HBox getBox(int idx) {
         assert (idx >= 0 && idx < fieldBoxCounts*2);
         if (idx >= fieldBoxCounts) {
@@ -73,6 +107,10 @@ public class FieldController {
         }
     }
 
+    /**
+     * Clear box with id
+     * @param idx Deleted box's id 
+     */
     public void clearBox(int idx) {
         assert (idx >= 0 && idx < fieldBoxCounts*2);
         if (idx >= fieldBoxCounts) {
@@ -82,7 +120,9 @@ public class FieldController {
         }
     }
 
-
+    /**
+     * Init field box
+     */
     public void initFieldBoxes() {
         Player p1, p2;
         p1 = phaseController.getTurn().getPlayerInTurn();
@@ -103,6 +143,10 @@ public class FieldController {
         usedAttackTargets = new ArrayList<>();
     }
 
+    /**
+     * Init top field
+     * @param p2 player in top field (Player 2)
+     */
     private void initTopField(Player p2) {
         // Skill row
         for (int i=0; i<fieldBoxCounts/2; i++) {
@@ -126,6 +170,10 @@ public class FieldController {
         }
     }
 
+    /**
+     * Init bottom field
+     * @param p1 player in bottom field (Player 1)
+     */
     private void initBottomField(Player p1) {
         // Character row
         for (int i=fieldBoxCounts; i<fieldBoxCounts/2*3; i++) {
@@ -163,11 +211,23 @@ public class FieldController {
         }
     }
 
+    /**
+     * Init field for skill card section
+     * @param a Player
+     * @param card Pane Card
+     * @param type Location of player
+     */
     public void initFieldCardSkill(Player a, Pane card, Loc type) {
         // Battle Phase Action
         setSkillCardBehaviour(card, a, type);
     }
 
+    /**
+     * Set Behaviour card on bottom field when clicked
+     * @param card Selected card
+     * @param a Player in action
+     * @param b Targeted player
+     */
     public void setBottomCardBehaviour(Pane card, Player a, Player b) {
         // Pre-condition card is a character card
         card.setOnMouseClicked(e -> {
@@ -179,6 +239,13 @@ public class FieldController {
             }
         });
     }
+
+    /**
+     * Set the skill card behaviour's
+     * @param card Card
+     * @param a Player
+     * @param type Location
+     */
     public void setSkillCardBehaviour(Pane card, Player a, Loc type) {
         card.setOnMouseClicked(e -> {
             a.cardsOnField.forEach((K, V) -> V.setEffect(null));
@@ -209,6 +276,12 @@ public class FieldController {
         });
     }
 
+    /**
+     * Action when setBottomCardBehaviour is called
+     * @param card Selected card
+     * @param a Player in action
+     * @param b Targeted player
+     */
     private void bottomCardBehaviourCall(Pane card, Player a, Player b) {
         for (Integer K : a.cardsOnField.keySet()) {
             Pane V = a.cardsOnField.get(K);
@@ -228,6 +301,11 @@ public class FieldController {
         }
     }
 
+    /**
+     * Action when setBottomCardBehaviour is called
+     * @param card Selected card
+     * @param a Player in action
+     */
     private void bottomCardSkillBehaviourCall(Pane card, Player a) {
         for(Integer K : a.cardsOnField.keySet()) {
             Pane V = a.cardsOnField.get(K);
@@ -279,6 +357,12 @@ public class FieldController {
         }
     }
 
+    /**
+     * Set Top card on bottom field when clicked
+     * @param card Selected card
+     * @param a Targeted player
+     * @param b Player in action
+     */
     public void setTopCardBehaviour(Pane card, Player a, Player b) {
         card.setOnMouseClicked(e -> {
             if (phaseController.getGamePhase().getCanAttack()) {
@@ -289,6 +373,12 @@ public class FieldController {
         });
     }
 
+    /**
+     * Set the skill card behaviour's
+     * @param card Card
+     * @param a Player
+     * @param type Location
+     */
     private void topCardBehaviourCall(Pane card, Player a, Player b) {
         for (Integer K: a.cardsOnField.keySet()) {
             Pane V = a.cardsOnField.get(K);
@@ -306,6 +396,12 @@ public class FieldController {
         }
     }
 
+    /**
+     * Action when setTopCardBehaviour is called
+     * @param card Selected card
+     * @param a Targeted player
+     * @param b Player in action
+     */
     private void topCardSkillBehaviourCall(Pane card, Player a, Player invoker) {
         for(Integer K : a.cardsOnField.keySet()) {
             Pane V = a.cardsOnField.get(K);
@@ -355,7 +451,11 @@ public class FieldController {
         }
     }
 
-
+    /**
+     * Delete card with id
+     * @param a From player
+     * @param idx id
+     */
     public void deleteCard(Player a, int idx) {
         if (phaseController.getTurn().checkTurn(a))
             clearBox(idx+fieldBoxCounts);
@@ -377,7 +477,11 @@ public class FieldController {
         }
     }
 
-
+    /**
+     * Control behaviour on click event (for caller)
+     * @param idx Card's id on field
+     * @param p1 Player
+     */
     public void setFieldBoxOnClickEvent(int idx, Player p1) {
         int j = idx - fieldBoxCounts;
         getBox(idx).setOnMouseClicked(e -> {
@@ -409,6 +513,11 @@ public class FieldController {
         });
     }
 
+    /**
+     * Add skill controller for view 
+     * @param card Card
+     * @param loc Location paired skillcard
+     */
     public void addSkillLocToChar(Pane card, int loc){
         List<Integer> x = fieldModel.getCharacterSkillList().get(card);
         if (x == null) x = new ArrayList<>();
@@ -416,12 +525,25 @@ public class FieldController {
         fieldModel.getCharacterSkillList().put(card, x);
     }
 
+    /**
+     * Add skill info
+     * @param card Card
+     * @param loc Location paired skillcard
+     * @param id id
+     */
     public void addSkillInfo(Pane card, int loc, int id){
         Pair<Integer,Integer> x = fieldModel.getSkillInfo().get(card);
         if (x == null) x = new Pair<>(loc,id);
         fieldModel.getSkillInfo().put(card, x);
     }
 
+    /**
+     * Remove Skill from controller
+     * @param loc Location paired skillcard
+     * @param card Card
+     * @param invoker Player invoker
+     * @param target Player on target
+     */
     public void removeSkill(int loc, Pane card, Player invoker, Player target) {
         Pair<Integer,Integer> info = fieldModel.getSkillInfo().get(card);
         if (info.getValue() == invoker.getId()) {
@@ -439,6 +561,14 @@ public class FieldController {
         }
     }
 
+    /**
+     * Battle mechanism 
+     * @param attacker Player attacker
+     * @param enemy Player on target
+     * @param idx Card's id on target
+     * @param damage Damage point
+     * @param isHitOnEnemy is hit on card's enemy
+     */
     public void updateAttack(Player attacker, Player enemy, int idx, int damage, boolean isHitOnEnemy) {
         if (damage > 0) {
             int hp = enemy.getHealth();

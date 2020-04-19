@@ -12,6 +12,7 @@ public interface CardCreation {
     /**
      * Create GameCard based on csv file's row.
      * @param args row data from csv file.
+     * @return Gamecard with proper type
      */
     public GameCard getCard(String[] args);
 }

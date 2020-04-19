@@ -17,12 +17,18 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represent the Card Controller for MVC pattern in AvatarDuel
+ */
 public class CardController {
     private static double cardWidth = 250;
     private List<Pane> cardsBottom;
     private OpenedCard cardInfo;
     private DescCardView cardDesc;
 
+    /**
+     * Creates a new card controller
+     */
     public CardController() {
         Player.getPlayers();
         cardInfo = new OpenedCard(cardWidth, Element.AIR);
@@ -30,10 +36,16 @@ public class CardController {
         cardDesc = new DescCardView();
     }
 
+    /**
+     * Clear card's info
+     */
     public void clearInfo() {
         cardInfo.update(cardWidth,cardWidth/5*8, Element.AIR);
     }
 
+    /**
+     * Reset all cards in CardsBottom
+     */
     public void resetCardsBottom() {
         for (Pane pane : cardsBottom) {
             pane.setEffect(null);
@@ -41,17 +53,33 @@ public class CardController {
         cardsBottom.clear();
     }
 
+    /**
+     * Get a card's info
+     * @return card's info
+     */
     public OpenedCard getCardInfo() {
         return cardInfo;
     }
 
+    /**
+     * Get a card's description
+     * @return card's description
+     */
     public BorderPane getCardDesc() { return cardDesc; }
 
+    /**
+     * Get all cards in CardsBottom
+     * @return List of Pane from CardsBottom
+     */
     public List<Pane> getCardsBottom() {
         return cardsBottom;
     }
 
 
+    /**
+     * Update Card Description from parameter
+     * @param x new GameCard info
+     */
     public void updateCardDesc(GameCard x) {
         cardDesc.getChildren().clear();
         cardDesc.setBackground(Basic.getBackground(Element.AIR.getCardTemplateURL()));
@@ -115,6 +143,12 @@ public class CardController {
         }
     }
 
+    /**
+     * Showing card info on details when pointer is hovering above the card
+     * @param card Card's pane
+     * @param p Player 
+     * @param handIndex Index of card in hand
+     */
     public void showInfoOnHover(Pane card, Player p, int handIndex) {
         card.setOnMouseEntered(e2 -> {
             cardInfo.update(250, p.getHand(handIndex));
@@ -122,6 +156,11 @@ public class CardController {
         });
     }
 
+    /**
+     * Showing card info on details when pointer is hovering above the card
+     * @param card Card's pane
+     * @param x GameCard on field
+     */
     public void showInfoOnHover(Pane card, GameCard x) {
         card.setOnMouseEntered(e2 -> {
             cardInfo.update(250, x);

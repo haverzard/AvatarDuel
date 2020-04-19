@@ -267,7 +267,7 @@ public class Player {
     }
 
     /**
-     * Remove all cards from hand
+     * Remove all null cards from hand for update
      */
     public void refreshHand() {
         while (hand.contains(null)) hand.remove(null);

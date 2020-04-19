@@ -12,6 +12,9 @@ import com.avatarduel.view.HandView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+/**
+ * Represent the Hand Controller for MVC pattern in AvatarDuel
+ */
 public class HandController {
     private HandView topHandV;
     private HandView bottomHandV;
@@ -21,10 +24,21 @@ public class HandController {
     private ButtonController buttonController;
     private SideController sideController;
 
+    /**
+     * Create new Hand Controller
+     */
     public HandController() {
         this(new PhaseController(), new SelectionController(), new CardController(), new ButtonController(), new SideController());
     }
 
+    /** 
+     * Create new Hand Controller with user defined
+     * @param phaseController user defined phase controller
+     * @param selectionController user defined selection controller
+     * @param cardController user defined card controller
+     * @param buttonController user defined button controller
+     * @param sideController user defined side controller
+     */
     public HandController(PhaseController phaseController, SelectionController selectionController,
                           CardController cardController, ButtonController buttonController,
                           SideController sideController) {
@@ -38,6 +52,11 @@ public class HandController {
         this.sideController = sideController;
     }
 
+    /**
+     * get handview from location
+     * @param type location
+     * @return handview from location
+     */
     public HandView getHandV(Loc type) {
         if (type == Loc.TOP) {
             return topHandV;
@@ -45,12 +64,22 @@ public class HandController {
             return bottomHandV;
         }
     }
-
+    
+    /**
+     * Clear all hand card
+     */
     public void clearHands() {
         topHandV.getChildren().clear();
         bottomHandV.getChildren().clear();
     }
 
+    /**
+     * Add card to hand player
+     * @param a player 
+     * @param type player's location
+     * @param x card's element
+     * @param idx id on hand
+     */
     public void addCardToHand(Player a, Loc type, Element x, int idx) {
         HandView hand = getHandV(type);
         Pane card;
@@ -66,6 +95,11 @@ public class HandController {
         hand.getChildren().add(new Space(10));
     }
 
+    /**
+     * Update all player's hand card
+     * @param p1 Player 1
+     * @param p2 Player 2
+     */
     public void updateHand(Player p1, Player p2) {
         for (int i=0; i<p2.countCardsInHand(); i++) {
             addCardToHand(p2,Loc.BOTTOM,p2.getHand(i).getElement(),i);
@@ -75,6 +109,9 @@ public class HandController {
         }
     }
 
+    /**
+     * Remove all card's and change hand card to next player
+     */
     public void removeFromHand() {
         Player.player1.refreshHand();
         Player.player2.refreshHand();
@@ -83,7 +120,11 @@ public class HandController {
         updateHand(phaseController.getTurn().getPlayerNotInTurn(),phaseController.getTurn().getPlayerInTurn());
     }
 
-
+    /**
+     * Event controller for hand card
+     * @param card Selected card
+     * @param a Player
+     */
     public void setCardEventOnHand(Pane card, Player a) {
         card.setOnMouseClicked(e2 -> {
             for (Pane pane : cardController.getCardsBottom()) {

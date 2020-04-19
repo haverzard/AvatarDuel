@@ -10,6 +10,9 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+/**
+ * Represent the Game Controller for MVC pattern in AvatarDuel
+ */
 public class GameController {
     private static int fieldBoxCounts = 12;
     private PhaseController phaseController;
@@ -21,6 +24,9 @@ public class GameController {
     private PlayerController playerController;
     private SideController sideController;
 
+    /**
+     * Create new Game Controller
+     */
     public GameController() {
         Player.getPlayers();
         phaseController = new PhaseController();
@@ -41,38 +47,73 @@ public class GameController {
         setDeleteEvent();
     }
 
+    /**
+     * Get phase controller
+     * @return phase controller
+     */
     public PhaseController getPhaseController() {
         return phaseController;
     }
 
+    /**
+     * Get selection controller
+     * @return selection controller
+     */
     public SelectionController getSelectionController() {
         return selectionController;
     }
 
+    /**
+     * Get button controller
+     * @return button controller
+     */
     public ButtonController getButtonController() {
         return buttonController;
     }
 
+    /**
+     * Get card controller
+     * @return card controller
+     */
     public CardController getCardController() {
         return cardController;
     }
 
+    /**
+     * Get field controller
+     * @return field controller
+     */
     public FieldController getFieldController() {
         return fieldController;
     }
 
+    /**
+     * Get hand controller
+     * @return hand controller
+     */
     public HandController getHandController() {
         return handController;
     }
 
+    /**
+     * Get player controller
+     * @return player controller
+     */
     public PlayerController getPlayerController() {
         return playerController;
     }
 
+    /**
+     * Get side controller
+     * @return side controller
+     */
     public SideController getSideController() {
         return sideController;
     }
 
+    /**
+     * Controller the deck event
+     */
     private void setDeckButtonEvent() {
         buttonController.getDeckBtnView().setOnMouseClicked(e-> {
             if (phaseController.getGamePhase().getCanDraw()) {
@@ -95,6 +136,9 @@ public class GameController {
         });
     }
 
+    /**
+     * Reset all state from current event to normal
+     */
     private void setDeleteEvent() {
         buttonController.getPhaseBtnView().getDelete().setOnAction(e-> {
             if (selectionController.getSkill().isSelected()) {
@@ -115,6 +159,9 @@ public class GameController {
         });
     }
 
+    /**
+     * Control end turn
+     */
     private void endTurn() {
         phaseController.getTurn().nextTurn();
         Player.player1.refreshHand();
@@ -147,7 +194,11 @@ public class GameController {
         buttonController.getPhaseBtnView().getMain().setDisable(false);
     }
 
-
+    /**
+     * Switching player controller and animation
+     * @param p1 current player
+     * @param p2 next player
+     */
     public void switchPlayer(Player p1, Player p2) {
         fieldController.initFieldBoxes();
         playerController.animateHP(Loc.BOTTOM, p1.getHealth(), p2.getHealth());
