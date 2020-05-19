@@ -2,6 +2,12 @@
 ## Description
 Avatar Card Duel using gradle with JavaFX for GUI.
 
+## Game View
+### Home Page
+![Home](git_assets/home.png)
+### In Battle
+![InBattle](git_assets/battle.png)
+
 ## How to compile
 - In Linux: 
 ```script
@@ -35,7 +41,6 @@ gradlew.bat run
 ```script
 gradlew.bat test
 ```
-
 
 ## How to play
 1. Enter the players' name
